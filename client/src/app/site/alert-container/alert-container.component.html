@@ -1,0 +1,5 @@
+<div class="container">
+	<div *ngFor="let alert of alerts">
+		<ngb-alert [type]="alert.type" [dismissible]="true" (closed)="onClose(alert)"><span [innerHtml]="alert.content"></span></ngb-alert>
+	</div>
+</div>

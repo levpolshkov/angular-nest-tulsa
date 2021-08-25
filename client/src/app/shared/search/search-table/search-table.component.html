@@ -1,0 +1,44 @@
+<table class="table table-striped table-hover" *ngIf="columns">
+	<thead>
+		<tr>
+			<th [class.ion-hide-sm-down]="column.hide==='sm'" *ngFor="let column of columns" (click)="sortBy(column)">
+				<div
+					[class.ion-hide-sm-down]="column.hide==='sm'"
+					[class.ion-hide-md-down]="column.hide==='md'"
+					[class.ion-hide-lg-down]="column.hide==='lg'"
+					[class.ion-hide-xl-down]="column.hide==='xl'">
+					<span class="hover">
+						<div [class]="column.headerClass">
+							{{column.header}} <div [class]="sortIcon(column)" *ngIf="sortIcon(column)"></div>
+						</div>
+					</span>
+				</div>
+			</th>
+			<th>
+				<i [routerLink]="addNewUrl" class="fas fa-plus float-end text-primary cursor-pointer" *ngIf="addNewUrl"></i>
+			</th>
+		</tr>
+	</thead>
+	
+	<tbody *ngIf="result">
+		<tr *ngFor="let item of result.records, let index=index">
+			<td
+				[class.ion-hide-sm-down]="column.hide==='sm'"
+				[class.ion-hide-md-down]="column.hide==='md'"
+				[class.ion-hide-lg-down]="column.hide==='lg'"
+				[class.ion-hide-xl-down]="column.hide==='xl'"
+				*ngFor="let column of columns"
+				(mouseover)="column.onMouseOver && column.onMouseOver(item,$event)"
+				(click)="onRowClick(item,column,$event)">
+					<div [innerHTML]="columnRenderer(item,column)" [class]="column.rowClass || (column.classRenderer && column.classRenderer(item,column))"></div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+	<tr *ngIf="result && (!result.records || !result.records.length)">
+		<td class="no-results" colspan="99">
+			No results
+		</td>
+	</tr>
+</table>
+

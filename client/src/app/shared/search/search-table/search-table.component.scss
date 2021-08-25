@@ -1,0 +1,18 @@
+@import '~bootstrap/scss/functions';
+@import "~bootstrap/scss/variables";
+
+:host {
+	display: block;
+}
+
+table tbody tr td, table thead tr th {
+	cursor: pointer;
+}
+
+.no-results {
+	text-align: center;
+	color: $secondary;
+	padding: 25px;
+}
+
+

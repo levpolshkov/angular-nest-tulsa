@@ -1,0 +1,10 @@
+<main>
+	<alert-container></alert-container>
+	<app-sidenav #sidenav></app-sidenav>
+	<div class="content" [class.sidenav-visible]="sidenav?.isVisible" [class.sidenav-open]="sidenav?.isOpen">
+		<div class="container-fluid">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+	<div class="shadow" [class.sidenav-open]="sidenav?.isOpen"></div>
+</main>

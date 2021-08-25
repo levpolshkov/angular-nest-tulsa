@@ -1,0 +1,21 @@
+:host {
+	display: block;
+	padding: 10px 10px;
+	// border: 1px solid red;
+}
+
+
+.page {
+	padding: 0px 5px;
+}
+
+.page-link {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.active {
+	// padding-bottom: 3px;
+	// border-bottom: 1px solid gray;
+	font-weight: bold;
+}

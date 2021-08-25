@@ -1,0 +1,31 @@
+<form>
+	<div class="card bg-light mt-3 mb-3">
+		<div class="card-body">
+			<h2 class="card-title mb-3">User Search</h2>
+			<div class="row my-4">
+				<div class="col-sm-12 col-md-3">
+					<label class="form-label">Name</label>
+					<input class="form-control" name="fullName" [(ngModel)]="searchTable.params.filter.fullName" (ngModelChange)="searchTable.onFilterChange()">
+				</div>
+				<div class="col-sm-12 col-md-3">
+					<label class="form-label">Email</label>
+					<input class="form-control" name="email" [(ngModel)]="searchTable.params.filter.email" (ngModelChange)="searchTable.onFilterChange()">
+				</div>
+				<div class="col-sm-12 col-md-3">
+					<label class="form-label">Phone</label>
+					<input class="form-control" name="phone" [(ngModel)]="searchTable.params.filter.phone" (ngModelChange)="searchTable.onFilterChange()">
+				</div>
+				<div class="col-sm-12 col-md-3">
+					<label class="form-label">Type</label>
+					<select class="form-select" name="type" [(ngModel)]="searchTable.params.filter.type" (ngModelChange)="searchTable.onFilterChange(true)">
+						<option [value]="null">ALL</option>
+						<option [value]="type.id" *ngFor="let type of userTypes">{{type.name}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<search-table #searchTable></search-table>
+<search-footer [searchTable]="searchTable"></search-footer>

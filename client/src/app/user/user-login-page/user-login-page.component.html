@@ -1,0 +1,21 @@
+<form #form="ngForm">
+	<h1>Login</h1>
+	<div class="row mt-5">
+		<div class="col-4 offset-4">
+			<div>
+				<label>Email</label>
+				<input class="form-control" name="username" autocomplete="email" [(ngModel)]="creds.username">
+			</div>
+			<div>
+				<label>Password</label>
+				<input class="form-control" type="password" name="password" autocomplete="current-password" [(ngModel)]="creds.password">
+			</div>
+			<div class="mt-5">
+				<button class="btn btn-primary float-end" tabindex="1" (click)="onLoginBtn()">Login</button>
+				<button class="btn btn-warning float-start" tabindex="2" (click)="onForgotPasswordBtn()" *ngIf="ForgotPasswordEnabled" [disabled]="forgotPasswordBusy || forgotPasswordDone">
+					{{forgotPasswordBusy ? 'Resetting...' : 'Reset Password'}}
+				</button>
+			</div>
+		</div>
+	</div>
+</form>

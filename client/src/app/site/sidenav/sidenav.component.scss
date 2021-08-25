@@ -1,0 +1,40 @@
+$sidenav-width: 300px;
+
+.sidenav {
+	display: block;
+	// border: 1px solid red;
+	position: fixed;
+	top: 0px;
+	left: -$sidenav-width;
+	min-width: $sidenav-width;
+	background-color: #fafafa;
+	border-right: 1px solid #ddd;
+	z-index: 1000;
+	transition: left 0.3s;
+
+	&.visible {
+		left: 0px;
+	}
+
+	hr {
+		margin: 0.75rem 0rem;
+	}
+
+	.version {
+		font-size: 0.8rem;
+		margin-top: 10px;
+		right: 5px;
+		position: absolute;
+	}
+}
+
+
+.toggle-container {
+	background-color: white;
+	border-radius: 5px;
+	position: fixed;
+	display: block;
+	top: 10px;
+	right: 10px;
+	z-index: 1000;
+}

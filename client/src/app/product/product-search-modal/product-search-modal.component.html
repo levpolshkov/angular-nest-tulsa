@@ -1,0 +1,33 @@
+<div class="modal-header">
+	<h4 class="modal-title pull-left">Product Search</h4>
+	<button type="button" class="btn btn-sm pull-right" aria-label="Close" (click)="onCancelBtn()">
+		<i class="fa fa-times"></i>
+	</button>
+</div>
+
+<div class="modal-body">
+	<form>
+		<div class="row mb-3">
+			<div class="col-md-3">
+				<label class="form-label">Product SKU</label>
+				<input type="text" class="form-control" name="sku" [(ngModel)]="searchTable.params.filter.sku" (ngModelChange)="searchTable.onFilterChange()">
+			</div>
+			<div class="col-md-3">
+				<label class="form-label">Product Name</label>
+				<input type="text" class="form-control" name="name" [(ngModel)]="searchTable.params.filter.name" (ngModelChange)="searchTable.onFilterChange()">
+			</div>
+			<div class="col-md-3">
+				<label class="form-label">Product Type</label>
+				<select class="form-select" name="type" [(ngModel)]="searchTable.params.filter.type" (ngModelChange)="searchTable.onFilterChange(true)">
+					<option [ngValue]="null">ALL</option>
+					<option [value]="productType.id" *ngFor="let productType of productService.productTypes">{{productType.name}}</option>
+				</select>
+			</div>
+		</div>
+	</form>
+	<search-table #searchTable></search-table>
+	<search-footer [searchTable]="searchTable"></search-footer>
+</div>
+<div class="modal-footer justify-content-between">
+	<button class="btn btn-primary" (click)="onCancelBtn()">Cancel</button>
+</div>
