@@ -1,9 +1,10 @@
 import { User } from '../user/user.interface';
 
+export type SurveyQuestionType = 'text' | 'currency' | 'date' | 'number';
 
 export interface SurveyQuestion {
 	order: number,
-	type: string,
+	type: SurveyQuestionType,
 	label: string
 };
 

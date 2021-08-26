@@ -13,7 +13,9 @@ export class SurveyService {
 		@InjectModel('Survey') public surveyModel:mongoose.Model<SurveyDocument>,
 		private documentService:DocumentService,
 		private searchService:SearchService
-	) {}
+	) {
+		this.createTestSurvey();
+	}
 
 	searchSurveys(queryParams:object):Promise<SearchResult<SurveyDocument>> {
 		return this.searchService.searchModelFromQueryParams<SurveyDocument>(this.surveyModel, queryParams, {
@@ -52,5 +54,58 @@ export class SurveyService {
 		survey.deleteUser = deletingUser;
 		survey.deleteDate = new Date();
 		return survey.save();
+	}
+
+	async createTestSurvey() {
+		const survey:Survey = {
+			name: 'Test Survey',
+			sections: [{
+				title: 'Part 1: You',
+				order: 1,
+				pages: [{
+					title: 'Demographics',
+					order: 1,
+					questions: [{
+						order: 1,
+						type: 'text',
+						label: 'First Name'
+					},{
+						order: 2,
+						type: 'text',
+						label: 'Last Name'
+					}]
+				},{
+					title: 'Income',
+					order: 2,
+					questions: [{
+						order: 1,
+						type: 'currency',
+						label: 'Annual Income'
+					},{
+						order: 2,
+						type: 'currency',
+						label: 'Liquid Assets'
+					}]
+				},{
+					title: 'Banking Info',
+					order: 2,
+					questions: [{
+						order: 1,
+						type: 'text',
+						label: 'Name of Bank'
+					},{
+						order: 2,
+						type: 'text',
+						label: 'Last 4 of SSN'
+					},{
+						order: 3,
+						type: 'text',
+						label: 'Mother\'s Maiden Name'
+					}]
+				}]
+			}]
+		};
+		await this.surveyModel.remove({});
+		return this.saveSurvey(survey, null);
 	}
 }

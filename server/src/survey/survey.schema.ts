@@ -5,6 +5,20 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 export const surveySchema = new mongoose.Schema({
 	name: String,
 
+	sections: [{
+		order: Number,
+		title: String,
+		pages: [{
+			order: Number,
+			title: String,
+			questions: [{
+				order: Number,
+				type: {type:String},
+				label: String
+			}]
+		}]
+	}],
+
 	__v: {type:Number, select:false},
 
 	createDate: Date,
