@@ -1,6 +1,6 @@
 import { User } from '../user/user.interface';
 
-export interface SurveyPage {
+export interface ApplicationPage {
 	_id?: any,
 
 	name: string,

@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
-import { Survey } from './survey.interface';
+import { Application } from './application.interface';
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-export const surveySchema = new mongoose.Schema({
+export const applicationSchema = new mongoose.Schema({
 	name: String,
 
 	sections: [{
@@ -32,6 +32,6 @@ export const surveySchema = new mongoose.Schema({
 });
 
 
-export interface SurveyDocument extends mongoose.Document, Survey {};
+export interface ApplicationDocument extends mongoose.Document, Application {};
 
-export { Survey };
+export { Application };

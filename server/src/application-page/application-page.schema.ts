@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
-import { SurveyPage } from './survey-page.interface';
+import { ApplicationPage } from './application-page.interface';
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-export const surveyPageSchema = new mongoose.Schema({
+export const applicationPageSchema = new mongoose.Schema({
 	name: String,
 
 	__v: {type:Number, select:false},
@@ -18,6 +18,6 @@ export const surveyPageSchema = new mongoose.Schema({
 });
 
 
-export interface SurveyPageDocument extends mongoose.Document, SurveyPage {};
+export interface ApplicationPageDocument extends mongoose.Document, ApplicationPage {};
 
-export { SurveyPage };
+export { ApplicationPage };
