@@ -18,6 +18,20 @@
     ],
 	"resolveJsonModule": true,
 	"allowSyntheticDefaultImports": true,
+	"paths": {
+		"@server": [
+			"../server/src"
+		],
+		"@server/*": [
+			"../server/src/*"
+		],
+		"@server/search": [
+			"../server/libs/search/src"
+		],
+		"@server/search/*": [
+			"../server/libs/search/src/*"
+		]
+	}
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

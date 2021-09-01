@@ -1,9 +1,11 @@
-import { User }											from '../../../server/src/user/user.interface';
-import { SearchParams, SearchResult, SearchSort }		from '../../../server/libs/search/src/search.interface';
-import { Product }										from '../../../server/src/product/product.interface';
+import { User }											from '@server/user/user.interface';
+import { SearchParams, SearchResult, SearchSort }		from '@server/search/search.interface';
+import { Product }										from '@server/product/product.interface';
+import { Application, ApplicationSection, ApplicationPage, ApplicationQuestion }	from '@server/application/application.interface';
 
 export {
 	User,
 	SearchParams, SearchResult, SearchSort,
-	Product
+	Product,
+	Application, ApplicationSection, ApplicationPage, ApplicationQuestion
 };

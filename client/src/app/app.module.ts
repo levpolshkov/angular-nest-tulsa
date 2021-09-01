@@ -15,10 +15,12 @@ import { AppComponent }					from './app.component';
 import { SiteModule }					from './site/site.module';
 import { UserGuard } from './user.guard';
 import { UserAdminGuard } from './user-admin.guard';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
+  AdminComponent
 	],
 	imports: [
 		BrowserModule,

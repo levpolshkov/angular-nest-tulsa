@@ -4,7 +4,7 @@ import { UserGuard } from './user.guard';
 import { BlankPageComponent } from './site/blank-page/blank-page.component';
 
 const routes:Routes = [
-	{path:'',					canActivate:[UserGuard],	component:BlankPageComponent},
+	{path:'',					redirectTo:'/applicant/application', pathMatch:'full'},
 	{path:'user',				loadChildren: () => import('./user/user.module').then(m => m.UserModule)},
 	{path:'applicant',			loadChildren: () => import('./applicant/applicant.module').then(m => m.ApplicantModule)},
 	{path:'product',			loadChildren: () => import('./product/product.module').then(m => m.ProductModule)},

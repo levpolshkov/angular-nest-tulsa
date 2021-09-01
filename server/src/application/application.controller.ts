@@ -7,13 +7,13 @@ import { ApplicationService } from './application.service';
 export class ApplicationController {
 	constructor(private readonly applicationService:ApplicationService) {}
 
-	@UseGuards(JwtAuthGuard)
+	// @UseGuards(JwtAuthGuard)
 	@Get('/')
 	searchApplications(@Request() req) {
 		return this.applicationService.searchApplications(req.query);
 	}
 
-	@Get('/:id')
+	// @Get('/:id')
 	getApplicationById(@Param('id') applicationId:string) {
 		return this.applicationService.getApplicationById(applicationId);
 	}
