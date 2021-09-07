@@ -14,7 +14,7 @@ export class ApplicationService {
 		private documentService:DocumentService,
 		private searchService:SearchService
 	) {
-		this.createTestApplication();
+		// this.createTestApplication();
 	}
 
 	searchApplications(queryParams:object):Promise<SearchResult<ApplicationDocument>> {

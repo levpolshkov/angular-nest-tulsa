@@ -13,19 +13,39 @@
 
 	</div>
 	<div class="col-6 side2">
-		<h3>{{pageIndex+1}}: {{page.title}}</h3>
-		<hr>
-		<div *ngFor="let question of page.questions">
-			<div class="form-group">
-				<label class="form-label">{{question.label}}</label>
-				<input class="form-control" [type]="question.type">
+
+		<div class="wayfinder">
+			<div class="line"></div>
+			<div class="section" [class.active]="isActiveSection(section)" *ngFor="let section of sections">
+				<div>{{section.title}}</div>
+				<div class="circle-line">
+					<div class="line"></div>
+					<div class="circle"></div>
+				</div>
 			</div>
 		</div>
 
+		<div class="mt-5" *ngIf="page">
+			<h3 class="my-4">{{page.title}}</h3>
+			<div class="questions row mt-5">
+				<div class="offset-3 col-6">
+					<div class="question mb-3" *ngFor="let question of page.questions">
+						<div class="form-group">
+							<label class="form-label">{{question.label}}</label>
+							<input class="form-control" [type]="question.type">
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
 
 		<div class="buttons">
-			<button class="btn btn-primary float-start" (click)="onPrevBtn()">Back</button>
-			<button class="btn btn-primary float-end" (click)="onNextBtn()">Next</button>
+			<div class="px-2">
+				<button class="btn btn-primary float-start" (click)="onPrevBtn()">Back</button>
+				<button class="btn btn-primary float-end" (click)="onNextBtn()">Next</button>
+			</div>
 		</div>
 	</div>
 

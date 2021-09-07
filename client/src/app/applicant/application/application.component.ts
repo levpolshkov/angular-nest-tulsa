@@ -20,7 +20,7 @@ export class ApplicationComponent implements OnInit {
 
 	async ngOnInit() {
 		
-		this.application = await this.applicationService.searchApplications({filter:{}}).then(r => r.records[0]);
+		this.application = await this.applicationService.searchApplications({filter:{}}).then(r => r.records[1]);
 
 		const sectionIndex = +this.route.snapshot.queryParams['section'] || 0;
 		const pageIndex = +this.route.snapshot.queryParams['page'] || 0;
@@ -40,7 +40,6 @@ export class ApplicationComponent implements OnInit {
 		if(!this.section || !this.section.pages?.length) return 0;
 		return this.section.pages.length-1;
 	}
-
 	get lastSectionIndex() {
 		if(!this.application || !this.application.sections?.length) return 0;
 		return this.application.sections.length-1;
@@ -53,13 +52,19 @@ export class ApplicationComponent implements OnInit {
 			this.loadPage(this.sectionIndex,this.pageIndex+1);
 		}
 	}
-
 	onPrevBtn() {
 		if(this.pageIndex<=0) {
 			if(this.sectionIndex>0) this.loadPage(this.sectionIndex-1, 0);
 		} else {
 			this.loadPage(this.sectionIndex,this.pageIndex-1);
 		}
+	}
+
+	get sections() {
+		return this.application?.sections || [];
+	}
+	isActiveSection(section) {
+		return section===this.section;
 	}
 
 

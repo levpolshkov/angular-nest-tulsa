@@ -15,17 +15,16 @@ export class BullhornService {
 			password: this.configService.get('BULLHORN_PASSWORD')
 		});
 
-		this.bullhorn.login()
-			// .then(console.log, console.error);
-			.then(data => {
-				const query = encodeURIComponent('dateAvailable:[20210901 TO 20211001]');
-				this.bullhorn.fetch(`search/Candidate?query=${query}&fields=name`)
-				.then(req => {
-					return req.json();
-				}).then((req) => {
-					console.log('candidates: %o', req);
-				});
-		});
+		// this.bullhorn.login()
+		// 	.then(data => {
+		// 		const query = encodeURIComponent('dateAvailable:[20210901 TO 20211001]');
+		// 		this.bullhorn.fetch(`search/Candidate?query=${query}&fields=name`)
+		// 			.then(req => {
+		// 				return req.json();
+		// 			}).then((req) => {
+		// 				console.log('candidates: %o', req);
+		// 			});
+		// });
 	}
 
 }
