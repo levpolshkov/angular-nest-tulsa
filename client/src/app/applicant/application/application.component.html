@@ -1,12 +1,18 @@
-<div class="row" *ngIf="application">
+<div class="row vh-100" *ngIf="application">
 	<div class="col-6 side1">
-		<h2>{{application.name}}</h2>
-		<hr>
-	
-		<h3>{{section.title}}</h3>
-		<hr>
+		<h3>
+			<b>tulsa</b><br>
+			remote
+		</h3>
+
+		<!-- <h2>{{application.name}}</h2><hr> -->
+
+		<div class="section-title">
+			<h3>{{section.title}}</h3>
+		</div>
+
 	</div>
-	<div class="col-6">
+	<div class="col-6 side2">
 		<h3>{{pageIndex+1}}: {{page.title}}</h3>
 		<hr>
 		<div *ngFor="let question of page.questions">
@@ -17,9 +23,9 @@
 		</div>
 
 
-		<div>
-			<button class="btn btn-primary" (click)="onPrevBtn()">Back</button>
-			<button class="btn btn-primary" (click)="onNextBtn()">Next</button>
+		<div class="buttons">
+			<button class="btn btn-primary float-start" (click)="onPrevBtn()">Back</button>
+			<button class="btn btn-primary float-end" (click)="onNextBtn()">Next</button>
 		</div>
 	</div>
 
