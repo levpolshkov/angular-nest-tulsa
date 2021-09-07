@@ -1,5 +1,6 @@
 
 import { ApplicationModule } from './application/application.module';
+import { BullhornModule } from './bullhorn/bullhorn.module';
 import { Module }				from '@nestjs/common';
 import { ConfigModule }			from '@nestjs/config';
 import { DatabaseModule }		from '@app/database';
@@ -20,7 +21,8 @@ import { ProductModule }		from './product';
 		AuthModule,
 		UserModule,
 		ProductModule,
-		ApplicationModule
+		ApplicationModule,
+		BullhornModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
