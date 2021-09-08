@@ -1,0 +1,25 @@
+:host {
+	display: inline-block;
+	// border: 1px solid red;
+
+	.section {
+		display: inline-block;
+		text-align: center;
+		font-size: 0.8em;
+		padding: 10px;
+		width: 100px;
+		&.active {
+			font-weight: bold;
+		}
+	}
+
+	svg {
+		// border: 1px solid gray;
+		text.title {
+			text-align: center;
+		}
+	}
+
+
+
+}

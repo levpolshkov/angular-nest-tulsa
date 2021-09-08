@@ -1,1 +1,5 @@
-<app-canvas #canvas [width]="500" [height]="50"></app-canvas>
+<svg [attr.width]="width" [attr.height]="height">
+	<text *ngFor="let title of titles" text-anchor="middle" [attr.x]="title.x" [attr.y]="title.y" [attr.fill]="title.color">{{title.text}}</text>
+	<line *ngFor="let line of lines" [attr.x1]="line.x1" [attr.y1]="line.y" [attr.x2]="line.x2" [attr.y2]="line.y" [attr.stroke]="line.color" stroke-width="3" ></line>
+	<circle *ngFor="let circle of circles" [attr.cx]="circle.x" [attr.cy]="circle.y" r="5" [attr.stroke]="circle.color" stroke-width="3" fill="white"></circle>
+</svg>

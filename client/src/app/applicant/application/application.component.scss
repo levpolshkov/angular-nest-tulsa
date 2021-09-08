@@ -39,36 +39,18 @@
 			&.active {
 				font-weight: bold;
 			}
-			.circle-line {
-				// border: 1px solid red;
-				height: 10px;
-				position: relative;
-				text-align: center;
-				.circle {
-					position: absolute;
-					top: 0px;
-					left: 50%;
-					transform: translateX(-50%);
+			
 
-					display: inline-block;
-					width: 10px;
-					height: 10px;
-					border: 2px solid #4e40f3;
-					border-radius: 100%;
-					background-color: white;
-					z-index: 1000;
-				}
-
-				.line {
-					position: absolute;
-					top: 4px;
-					left: 0px;
-					height: 1px;
-					width: 100%;
-					border-top: 2px solid #ccc;
-					z-index: 10;
-				}
+			.line {
+				position: absolute;
+				top: 4px;
+				left: 0px;
+				height: 1px;
+				width: 100%;
+				border-top: 2px solid #ccc;
+				z-index: 10;
 			}
+		
 			
 		}
 	}
