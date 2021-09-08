@@ -14,7 +14,7 @@
 	</div>
 	<div class="col-6 side2">
 
-		<div class="wayfinder">
+		<!-- <div class="wayfinder">
 			<div class="line"></div>
 			<div class="section" [class.active]="isActiveSection(section)" *ngFor="let section of sections">
 				<div>{{section.title}}</div>
@@ -23,7 +23,9 @@
 					<div class="circle"></div>
 				</div>
 			</div>
-		</div>
+		</div> -->
+
+		<wayfinder [sections]="sections"></wayfinder>
 
 		<div class="mt-5" *ngIf="page">
 			<h3 class="my-4">{{page.title}}</h3>
