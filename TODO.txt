@@ -3,6 +3,7 @@
 - SurveySection
 - SurveyQuestion
 
+- SurveyResponse
 
 
 Survey

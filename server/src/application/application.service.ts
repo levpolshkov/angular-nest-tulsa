@@ -56,56 +56,57 @@ export class ApplicationService {
 		return application.save();
 	}
 
-	async createTestApplication() {
-		const application:Application = {
-			name: 'Test Application',
-			sections: [{
-				title: 'Part 1: You',
-				order: 1,
-				pages: [{
-					title: 'Demographics',
-					order: 1,
-					questions: [{
-						order: 1,
-						type: 'text',
-						label: 'First Name'
-					},{
-						order: 2,
-						type: 'text',
-						label: 'Last Name'
-					}]
-				},{
-					title: 'Income',
-					order: 2,
-					questions: [{
-						order: 1,
-						type: 'currency',
-						label: 'Annual Income'
-					},{
-						order: 2,
-						type: 'currency',
-						label: 'Liquid Assets'
-					}]
-				},{
-					title: 'Banking Info',
-					order: 2,
-					questions: [{
-						order: 1,
-						type: 'text',
-						label: 'Name of Bank'
-					},{
-						order: 2,
-						type: 'text',
-						label: 'Last 4 of SSN'
-					},{
-						order: 3,
-						type: 'text',
-						label: 'Mother\'s Maiden Name'
-					}]
-				}]
-			}]
-		};
-		await this.applicationModel.remove({});
-		return this.saveApplication(application, null);
-	}
+	// async createTestApplication() {
+	// 	const application:Application = {
+	// 		name: 'Test Application',
+	// 		sections: [{
+	// 			title: 'Part 1: You',
+	// 			order: 1,
+	// 			pages: [{
+	// 				title: 'Demographics',
+	// 				order: 1,
+	// 				questions: [{
+	// 					order: 1,
+	// 					type: 'text',
+	// 					label: 'First Name',
+	// 					firstName: 'firstName'
+	// 				},{
+	// 					order: 2,
+	// 					type: 'text',
+	// 					label: 'Last Name'
+	// 				}]
+	// 			},{
+	// 				title: 'Income',
+	// 				order: 2,
+	// 				questions: [{
+	// 					order: 1,
+	// 					type: 'currency',
+	// 					label: 'Annual Income'
+	// 				},{
+	// 					order: 2,
+	// 					type: 'currency',
+	// 					label: 'Liquid Assets'
+	// 				}]
+	// 			},{
+	// 				title: 'Banking Info',
+	// 				order: 2,
+	// 				questions: [{
+	// 					order: 1,
+	// 					type: 'text',
+	// 					label: 'Name of Bank'
+	// 				},{
+	// 					order: 2,
+	// 					type: 'text',
+	// 					label: 'Last 4 of SSN'
+	// 				},{
+	// 					order: 3,
+	// 					type: 'text',
+	// 					label: 'Mother\'s Maiden Name'
+	// 				}]
+	// 			}]
+	// 		}]
+	// 	};
+	// 	await this.applicationModel.remove({});
+	// 	return this.saveApplication(application, null);
+	// }
 }

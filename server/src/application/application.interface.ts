@@ -5,6 +5,7 @@ export type ApplicationQuestionType = 'text' | 'currency' | 'date' | 'number';
 export interface ApplicationQuestion {
 	order: number,
 	type: ApplicationQuestionType,
+	key: string,
 	label: string
 };
 
