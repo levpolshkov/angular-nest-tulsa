@@ -53,6 +53,7 @@ export class ApplicationComponent implements OnInit {
 		}
 	}
 	onPrevBtn() {
+		console.log('onPrevBtn: sectionIndex=%o, pageIndex=%o', this.sectionIndex, this.pageIndex);
 		if(this.pageIndex<=0) {
 			if(this.sectionIndex>0) this.loadPage(this.sectionIndex-1, 0);
 		} else {

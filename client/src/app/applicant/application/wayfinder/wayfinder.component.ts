@@ -34,6 +34,7 @@ interface Section extends ApplicationSection {
 export class WayfinderComponent implements OnInit {
 	@Input() sections:Section[] = [];
 	@Input() sectionIndex:number;		// Currently active sectionIndex
+	@Input() pageIndex:number;		// Currently active pageIndex
 
 	width = 700;
 	height = 100;
@@ -49,10 +50,10 @@ export class WayfinderComponent implements OnInit {
 
 
 	ngOnChanges(changes:SimpleChanges) {
-		if(changes.sectionIndex && changes.sectionIndex.currentValue) {
+		if(changes.sectionIndex || changes.pageIndex) {
 			console.log('ngOnChanges: changes=%o', changes);
-			this.sections.forEach(s => s.current=false);
-			this.sections[changes.sectionIndex.currentValue].current = true;
+			// this.sections.forEach(s => s.current=false);
+			// this.sections[changes.sectionIndex.currentValue].current = true;
 			this.draw();
 		}
 	}
@@ -62,10 +63,19 @@ export class WayfinderComponent implements OnInit {
 	}
 
 	draw() {
+
+		console.log('Wayfinder: sectionIndex=%o, pageIndex=%o', this.sectionIndex, this.pageIndex);
 		const sectionWidth = (this.width)/this.sections.length;
 
-		this.sections[0].completed = 1;
-		this.sections[1].completed = 0.3;
+
+		this.sections.map((section,i) => {
+			section.completed = i>=this.sectionIndex ? 0 : 1;
+		});
+		const progress = (this.pageIndex/this.sections[this.sectionIndex].pages.length) || 0;
+		console.log('Wayfinder: progress=%o', progress);
+		
+		this.sections[this.sectionIndex].completed = progress;
+		this.sections.forEach(s => s.current=false);
 		this.sections[this.sectionIndex].current = true;
 
 		this.circles = [];
