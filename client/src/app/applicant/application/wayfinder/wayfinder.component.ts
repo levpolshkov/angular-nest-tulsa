@@ -36,7 +36,7 @@ export class WayfinderComponent implements OnInit {
 	@Input() sectionIndex:number;		// Currently active sectionIndex
 	@Input() pageIndex:number;		// Currently active pageIndex
 
-	width = 700;
+	width = 500;
 	height = 100;
 
 	titles:Title[] = [];
