@@ -14,7 +14,12 @@ export const applicationSchema = new mongoose.Schema({
 			questions: [{
 				order: Number,
 				type: {type:String},
-				label: String
+				label: String,
+				options: [{
+					value: mongoose.Schema.Types.Mixed,
+					label: String,
+					helperText: String
+				}]
 			}]
 		}]
 	}],

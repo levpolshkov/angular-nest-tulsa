@@ -7,8 +7,8 @@
 
 		<!-- <h2>{{application.name}}</h2><hr> -->
 
-		<div class="section-title">
-			<h3>{{section.title}}</h3>
+		<div class="page-title">
+			<h3>{{page.title}}</h3>
 		</div>
 
 	</div>
@@ -19,13 +19,25 @@
 		</div>
 
 		<div class="mt-5" *ngIf="page">
-			<h3 class="my-4">{{page.title}}</h3>
 			<div class="questions row mt-5">
 				<div class="offset-3 col-6">
 					<div class="question mb-3" *ngFor="let question of page.questions">
-						<div class="form-group">
+						<div *ngIf="question.type==='label'">
+							<p>{{question.label}}</p>
+						</div>
+						<div class="form-group" *ngIf="question.type==='text'">
 							<label class="form-label">{{question.label}}</label>
 							<input class="form-control" [type]="question.type">
+						</div>
+
+						<div class="form-group" *ngIf="question.type==='radio'">
+							<label class="form-label">{{question.label}}</label>
+							<div class="d-grid gap-2">
+								<button class="btn btn-outline-primary" [value]="option.value" *ngFor="let option of question.options">
+									{{option.label}}<br>
+									{{option.helperText}}
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>

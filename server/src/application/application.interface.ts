@@ -1,12 +1,17 @@
 import { User } from '../user/user.interface';
 
-export type ApplicationQuestionType = 'text' | 'currency' | 'date' | 'number';
+export type ApplicationQuestionType = 'label' | 'text' | 'currency' | 'date' | 'number' | 'radio';
 
 export interface ApplicationQuestion {
 	order: number,
 	type: ApplicationQuestionType,
 	key: string,
-	label: string
+	label: string,
+	options?: {
+		value: string | number | boolean,
+		label: string,
+		helperText?: string
+	}[]
 };
 
 export interface ApplicationPage {
