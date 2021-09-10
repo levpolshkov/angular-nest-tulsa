@@ -19,7 +19,10 @@ export interface ApplicationQuestion {
 export interface ApplicationPage {
 	order: number,
 	title: string,
-	questions: ApplicationQuestion[]
+	questions: ApplicationQuestion[],
+
+	heroImage?: string,
+	heroHtml?: string
 };
 
 export interface ApplicationSection {
