@@ -4,6 +4,7 @@ import { ApplicationComponent }			from './application.component';
 import { ApplicationRoutingModule }		from './application-routing.module';
 import { WayfinderComponent }			from './wayfinder/wayfinder.component';
 import { CanvasComponent }				from './canvas/canvas.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { CanvasComponent }				from './canvas/canvas.component';
 	],
 	imports: [
 		CommonModule,
-		ApplicationRoutingModule
+		ApplicationRoutingModule,
+		FormsModule
 	]
 })
 export class ApplicationModule { }

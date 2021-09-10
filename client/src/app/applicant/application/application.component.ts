@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApplicationPage, ApplicationSection } from '@server/application/application.interface';
+import { ApplicationPage, ApplicationQuestion, ApplicationQuestionOption, ApplicationSection } from '@server/application/application.interface';
 import { Application, ApplicationService } from './application.service';
 
 @Component({
@@ -15,6 +15,8 @@ export class ApplicationComponent implements OnInit {
 
 	pageIndex:number = 0;
 	sectionIndex:number = 0;
+
+	answers:any = {};
 
 	constructor(private applicationService:ApplicationService, private route:ActivatedRoute, private router:Router) { }
 
@@ -46,6 +48,7 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	onNextBtn() {
+		console.log('onNextBtn: answers=%o', this.answers);
 		if(this.pageIndex>=this.lastPageIndex) {
 			if(this.sectionIndex<this.lastSectionIndex) this.loadPage(this.sectionIndex+1, 0);
 		} else {
@@ -69,5 +72,10 @@ export class ApplicationComponent implements OnInit {
 	}
 
 
-
+	selectQuestionOption(question:ApplicationQuestion, option:ApplicationQuestionOption) {
+		this.answers[question.key] = option.value;
+	}
+	isQuestionOptionSelected(question:ApplicationQuestion, option:ApplicationQuestionOption) {
+		return this.answers[question.key]===option.value;
+	}
 }

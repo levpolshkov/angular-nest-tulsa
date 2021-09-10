@@ -17,45 +17,6 @@
 }
 
 .side2 {
-	.wayfinder {
-		// border: 1px solid red;
-		text-align: center;
-		position: relative;
-		.line {
-			position: absolute;
-			bottom: 14px;
-			left: 0px;
-			height: 1px;
-			width: 100%;
-			border-top: 2px solid #ccc;
-			z-index: 10;
-		}
-		.section {
-			display: inline-block;
-			text-align: center;
-			font-size: 0.8em;
-			padding: 10px;
-			width: 100px;
-			&.active {
-				font-weight: bold;
-			}
-			
-
-			.line {
-				position: absolute;
-				top: 4px;
-				left: 0px;
-				height: 1px;
-				width: 100%;
-				border-top: 2px solid #ccc;
-				z-index: 10;
-			}
-		
-			
-		}
-	}
-
-
 	.buttons {
 		position: absolute;
 		display: block;
@@ -63,6 +24,33 @@
 		left: 0px;
 		width: 100%;
 		padding-left: 50%;
+	}
+
+	.question {
+		.radio {
+			.option {
+				border: 1px solid #ddd;
+				border-radius: 5px;
+				padding: 10px;
+				.label {
+					// font-weight: bold;
+				}
+				.helperText {
+					color: #aaa;
+					font-size: 0.8em;
+				}
+
+				&:hover {
+					border-color: #aaa;
+					cursor: pointer;
+					background-color: #fafafa;
+				}
+				&.selected {
+					border: 1px solid #888;
+					background-color: #f4f4f4;
+				}
+			}
+		}
 	}
 }
 

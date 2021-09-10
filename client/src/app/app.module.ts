@@ -13,14 +13,14 @@ import { SearchModule }					from './shared/search/search.module';
 
 import { AppComponent }					from './app.component';
 import { SiteModule }					from './site/site.module';
-import { UserGuard } from './user.guard';
-import { UserAdminGuard } from './user-admin.guard';
-import { AdminComponent } from './admin/admin.component';
+import { UserGuard }					from './user.guard';
+import { UserAdminGuard }				from './user-admin.guard';
+import { AdminComponent }				from './admin/admin.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-  AdminComponent
+		AdminComponent
 	],
 	imports: [
 		BrowserModule,
