@@ -1,5 +1,5 @@
 <div class="row vh-100" *ngIf="application">
-	<div class="col-6 side1">
+	<div class="col side1">
 		<h3>
 			<b>tulsa</b><br>
 			remote
@@ -12,15 +12,15 @@
 		</div>
 
 	</div>
-	<div class="col-6 side2">
+	<div class="col side2">
 
-		<div class="text-center">
+		<div class="text-center overflow-hidden">
 			<wayfinder [sections]="sections" [sectionIndex]="sectionIndex" [pageIndex]="pageIndex"></wayfinder>
 		</div>
 
-		<div class="mt-5" *ngIf="page">
-			<div class="questions row mt-5">
-				<div class="offset-3 col-6">
+		<div *ngIf="page">
+			<div class="questions row">
+				<div class="col-6">
 					<div class="question mb-3" *ngFor="let question of page.questions">
 						<div *ngIf="question.type==='label'">
 							<p>{{question.label}}</p>
