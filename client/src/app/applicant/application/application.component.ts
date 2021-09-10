@@ -22,7 +22,7 @@ export class ApplicationComponent implements OnInit {
 
 	async ngOnInit() {
 		
-		this.application = await this.applicationService.searchApplications({filter:{}}).then(r => r.records[1]);
+		this.application = await this.applicationService.searchApplications({filter:{}}).then(r => r.records[0]);
 
 		const sectionIndex = +this.route.snapshot.queryParams['section'] || 0;
 		const pageIndex = +this.route.snapshot.queryParams['page'] || 0;
