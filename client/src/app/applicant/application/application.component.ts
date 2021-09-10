@@ -35,7 +35,7 @@ export class ApplicationComponent implements OnInit {
 		this.pageIndex = pageIndex;
 		this.section = this.application.sections[sectionIndex];
 		this.page = this.section.pages[pageIndex];
-		this.router.navigate(['.'], {queryParams:{section:this.section,page:this.page}});
+		this.router.navigate([], {queryParams:{section:this.sectionIndex,page:this.pageIndex}, replaceUrl:true});
 	}
 
 	get lastPageIndex() {
