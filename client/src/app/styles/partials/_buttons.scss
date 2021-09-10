@@ -1,0 +1,45 @@
+//bootstrap overrides
+
+.btn {
+  background: $color-brand-purple;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 2px;
+  font-family: $font-family-main;
+  letter-spacing: .1em;
+  // TODO: fix this font weight/size when we get proxima
+  font-weight: 600;
+  font-size: .9em;
+
+  &:hover {
+    background: darken($color-brand-purple, 20);
+    color: white;
+  }
+
+  &.--next {
+    position: relative;
+    padding-right: 1.75em;
+
+    &:after {
+      content: '>';
+      position: absolute;
+      right: 7px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &.--plain-link {
+    background: transparent;
+    padding: 0;
+    color: $color-brand-purple;
+    text-decoration: underline;
+    letter-spacing: 0;
+
+    &:hover {
+      color: darken($color-brand-purple, 20);
+    }
+  }
+
+  
+}

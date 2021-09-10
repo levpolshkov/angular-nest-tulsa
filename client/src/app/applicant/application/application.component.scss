@@ -1,12 +1,16 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 @import '../../styles/partials/variables';
+@import '../../styles/partials/typography';
+@import '../../styles/partials/forms';
+@import '../../styles/partials/buttons';
 
 .vh-100 {
 	height: 100vh;
 }
 
 .row {
+  // TODO: this is gross and should be fixed - figure out why col classes aren't working as expected
   .side1, 
   .side2 {
     position: relative;
@@ -20,12 +24,12 @@
 }
 
 .side1 {
-	background-color: #4e40f3;
+	background-color: $color-brand-purple;
 	color: white;
 	padding: 10px;
 
 	.page-title {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-down(md) {
       margin-top: 3em;
     }
     @include media-breakpoint-up(md) {
@@ -40,7 +44,27 @@
 .side2 {
   @include media-breakpoint-up(sm) {
     display: flex;
+    padding: 100px 0;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.wayfinder {
+  max-width: 100%;
+  overflow: hidden;
+  
+  img, svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @include media-breakpoint-up(sm) {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
@@ -49,6 +73,9 @@
   background: $color-white;
   padding: 20px;
   border-top: 1px solid $color-lt-gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   @include media-breakpoint-down(md) {
     position: fixed;
@@ -59,7 +86,6 @@
 
   @include media-breakpoint-up(md) {
     position: absolute;
-    display: block;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -67,6 +93,12 @@
 }
 
 .questions {
+  @include media-breakpoint-up(lg) {
+    // TODO: this is gross and should be fixed
+    flex: 0 0 60%;
+    width: 60%;
+  }
+
 	.question {
 		.radio {
 			.option {
