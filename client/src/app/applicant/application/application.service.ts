@@ -9,6 +9,7 @@ export { Application, ApplicationSection, ApplicationPage, ApplicationQuestion }
 	providedIn: 'root'
 })
 export class ApplicationService {
+	debugMode = true;
 
 	constructor(private http:HttpService, private searchService:SearchService, private modalService:NgbModal) { }
 

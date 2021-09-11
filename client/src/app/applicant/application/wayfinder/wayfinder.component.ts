@@ -51,7 +51,7 @@ export class WayfinderComponent implements OnInit {
 
 	ngOnChanges(changes:SimpleChanges) {
 		if(changes.sectionIndex || changes.pageIndex) {
-			console.log('ngOnChanges: changes=%o', changes);
+			// console.log('ngOnChanges: changes=%o', changes);
 			// this.sections.forEach(s => s.current=false);
 			// this.sections[changes.sectionIndex.currentValue].current = true;
 			this.draw();
@@ -63,16 +63,14 @@ export class WayfinderComponent implements OnInit {
 	}
 
 	draw() {
-
-		console.log('Wayfinder: sectionIndex=%o, pageIndex=%o', this.sectionIndex, this.pageIndex);
+		// console.log('Wayfinder: sectionIndex=%o, pageIndex=%o', this.sectionIndex, this.pageIndex);
 		const sectionWidth = (this.width)/this.sections.length;
-
 
 		this.sections.map((section,i) => {
 			section.completed = i>=this.sectionIndex ? 0 : 1;
 		});
 		const progress = (this.pageIndex/this.sections[this.sectionIndex].pages.length) || 0;
-		console.log('Wayfinder: progress=%o', progress);
+		// console.log('Wayfinder: progress=%o', progress);
 		
 		this.sections[this.sectionIndex].completed = progress;
 		this.sections.forEach(s => s.current=false);

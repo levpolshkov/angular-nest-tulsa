@@ -18,7 +18,9 @@ export class ApplicationComponent implements OnInit {
 
 	answers:any = {};
 
-	constructor(private applicationService:ApplicationService, private route:ActivatedRoute, private router:Router) { }
+	// prevPageName:string = null;		// For back button
+
+	constructor(public applicationService:ApplicationService, private route:ActivatedRoute, private router:Router) { }
 
 	async ngOnInit() {
 		
@@ -35,6 +37,11 @@ export class ApplicationComponent implements OnInit {
 		this.pageIndex = pageIndex;
 		this.section = this.application.sections[sectionIndex];
 		this.page = this.section.pages[pageIndex];
+
+		this.page.questions.forEach((question,i) => {
+			if(!question.key) question.key = `question_${this.sectionIndex}_${this.pageIndex}_${i}`;
+		});
+
 		this.router.navigate([], {queryParams:{section:this.sectionIndex,page:this.pageIndex}, replaceUrl:true});
 	}
 
@@ -49,31 +56,45 @@ export class ApplicationComponent implements OnInit {
 
 	onNextBtn() {
 		console.log('onNextBtn: answers=%o', this.answers);
-		if(this.pageIndex>=this.lastPageIndex) {
+
+		let nextPageIndex = this.pageIndex+1;
+		if(this.page.nextPageName) {
+			nextPageIndex = this.findPageIndexByName(this.page.nextPageName);
+			if(nextPageIndex===-1) nextPageIndex = this.pageIndex+1;
+		}
+
+		console.log('onNextBtn: nextPageIndex=%o', nextPageIndex);
+
+		if(nextPageIndex>this.lastPageIndex) {
 			if(this.sectionIndex<this.lastSectionIndex) this.loadPage(this.sectionIndex+1, 0);
 		} else {
-			this.loadPage(this.sectionIndex,this.pageIndex+1);
+			this.loadPage(this.sectionIndex,nextPageIndex);
 		}
 	}
 	onPrevBtn() {
 		console.log('onPrevBtn: sectionIndex=%o, pageIndex=%o', this.sectionIndex, this.pageIndex);
-		if(this.pageIndex<=0) {
-			if(this.sectionIndex>0) this.loadPage(this.sectionIndex-1, 0);
+		if(this.pageIndex===0) {
+			if(this.sectionIndex===0) return;		// Already at the start
+			const lastPage = this.application.sections[this.sectionIndex-1].pages.length-1;
+			this.loadPage(this.sectionIndex-1, lastPage);
 		} else {
 			this.loadPage(this.sectionIndex,this.pageIndex-1);
 		}
 	}
 
-	get sections() {
-		return this.application?.sections || [];
+	findPageIndexByName(pageName:string) {
+		return this.section.pages.findIndex(p => p.name===pageName);
 	}
+
 	isActiveSection(section) {
 		return section===this.section;
 	}
 
 
+
 	selectQuestionOption(question:ApplicationQuestion, option:ApplicationQuestionOption) {
 		this.answers[question.key] = option.value;
+		if(option.nextPageName) this.page.nextPageName = option.nextPageName;
 	}
 	isQuestionOptionSelected(question:ApplicationQuestion, option:ApplicationQuestionOption) {
 		return this.answers[question.key]===option.value;

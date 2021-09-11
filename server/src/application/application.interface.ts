@@ -5,7 +5,8 @@ export type ApplicationQuestionType = 'label' | 'text' | 'currency' | 'date' | '
 export interface ApplicationQuestionOption {
 	value: string | number | boolean,
 	label: string,
-	helperText?: string
+	helperText?: string,
+	nextPageName?: string			// Go to this page if option is selected
 };
 
 export interface ApplicationQuestion {
@@ -18,11 +19,14 @@ export interface ApplicationQuestion {
 
 export interface ApplicationPage {
 	order: number,
+	name: string,			// Internal name for easy reference / branching logic
 	title: string,
 	questions: ApplicationQuestion[],
 
 	heroImage?: string,
-	heroHtml?: string
+	heroHtml?: string,
+
+	nextPageName?: string
 };
 
 export interface ApplicationSection {

@@ -1,14 +1,7 @@
-- Survey
-- SurveyPage
-- SurveySection
-- SurveyQuestion
-
-- SurveyResponse
-
-
-Survey
-	- SurveySection
-		- SurveyPage
-			- SurveyQuestion
-
+- Save ApplicationResponses
+- Branch logic
+- Enter all questions
+- AWS deployment
+- Bullhorn integration
+- Session statefulness
 
