@@ -3,6 +3,7 @@ import { ActivatedRoute, Router }				from '@angular/router';
 import { ApplicationPage, ApplicationQuestion, ApplicationQuestionOption, ApplicationSection } from '@server/application/application.interface';
 import { Application, ApplicationService }		from './application.service';
 import { DateTime }								from 'luxon';
+import { GoogleMapsService } from 'src/app/shared/google-maps.service';
 
 @Component({
 	selector: 'app-application',
@@ -21,7 +22,7 @@ export class ApplicationComponent implements OnInit {
 
 	// prevPageName:string = null;		// For back button
 
-	constructor(public applicationService:ApplicationService, private route:ActivatedRoute, private router:Router) { }
+	constructor(public applicationService:ApplicationService, private route:ActivatedRoute, private router:Router, private googleMapsService:GoogleMapsService) { }
 
 	async ngOnInit() {
 		
@@ -100,13 +101,28 @@ export class ApplicationComponent implements OnInit {
 		return this.answers[question.key]===option.value;
 	}
 
-	onQuestionAnswer(question:ApplicationQuestion) {
+	async onQuestionAnswer(question:ApplicationQuestion) {
 		const value = this.answers[question.key];
-		if(question.key==='dateOfBirth') {		// Check and reject if they are under 18
+		if(question.key==='birthDate') {		// Check and reject if they are under 18
 			const duration = DateTime.fromISO(value).diffNow('years');
 			const age = -duration.years;
 			// console.log('dateOfBirth=%o, age=%o', value, age);
 			if(age<18) this.page.nextPageName = '6a.1';
+		}
+
+		if(question.key==='zipcode') {		// Check and reject if they are inside of Oklahoma
+			const info = await this.googleMapsService.lookupZipcode(value);
+			if(!info) {
+				//  TODO: Handle if they enter something invalid
+			} else {
+				console.log('lookupZipcode: %o', info);
+				if(info.state==='OK') {
+					this.page.nextPageName = '8a.1';
+				} else {
+					this.page.nextPageName = '9a';
+				}
+			}
+
 		}
 	}
 }

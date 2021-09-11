@@ -4,4 +4,4 @@ X Branch logic
 - AWS deployment
 - Bullhorn integration
 - Session statefulness
-
+- Reject based on zipcode

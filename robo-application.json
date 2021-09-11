@@ -1,0 +1,286 @@
+{
+    "_id" : ObjectId("61378720fd1dfab283f53857"),
+    "name" : "Tulsa Remote Application",
+    "sections" : [ 
+        {
+            "title" : "Eligibility",
+            "pages" : [ 
+                {
+                    "order" : 1,
+                    "name" : "1a",
+                    "title" : "First Things First",
+                    "questions" : [ 
+                        {
+                            "order" : 0,
+                            "type" : "label",
+                            "label" : "Contact details"
+                        }, 
+                        {
+                            "_id" : ObjectId("61367ef35f5547cae7e190ab"),
+                            "order" : 1,
+                            "type" : "text",
+                            "label" : "First Name",
+                            "key" : "firstName"
+                        }, 
+                        {
+                            "_id" : ObjectId("61367ef35f5547cae7e190ac"),
+                            "order" : 2,
+                            "type" : "text",
+                            "label" : "Last Name",
+                            "key" : "lastName"
+                        }, 
+                        {
+                            "_id" : ObjectId("61367ef35f5547cae7e190ab"),
+                            "order" : 3,
+                            "type" : "email",
+                            "label" : "Email Address",
+                            "key" : "email"
+                        }, 
+                        {
+                            "_id" : ObjectId("61367ef35f5547cae7e190ac"),
+                            "order" : 4,
+                            "type" : "phone",
+                            "label" : "Phone Number",
+                            "key" : "phone"
+                        }
+                    ],
+                    "nextPageName" : "3a"
+                }, 
+                {
+                    "order" : 2,
+                    "title" : "Work",
+                    "name" : "3a",
+                    "questions" : [ 
+                        {
+                            "label" : "Which best describes you?",
+                            "type" : "radio",
+                            "key" : "employmentType",
+                            "options" : [ 
+                                {
+                                    "value" : "Full Time Employee",
+                                    "label" : "Full Time Employee",
+                                    "helperText" : "I work for one company at least 30 hours a week and may receive benefits. I probably receive a W2 at tax time.",
+                                    "nextPageName" : "4a"
+                                }, 
+                                {
+                                    "value" : "Business Owner",
+                                    "label" : "Business Owner",
+                                    "helperText" : "I own a business and may have one or more employees.",
+                                    "nextPageName" : "6a"
+                                }, 
+                                {
+                                    "value" : "Independent Contractor",
+                                    "label" : "Independent Contractor",
+                                    "helperText" : "I work for myself, receive a 1099 tax document, and don’t pay taxes from my paycheck.",
+                                    "nextPageName" : "5a"
+                                }, 
+                                {
+                                    "value" : "None of these",
+                                    "label" : "None of these",
+                                    "helperText" : "None of the options describe my employment situation.",
+                                    "nextPageName" : "6a"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "order" : 1,
+                    "title" : "Full-Time Employee",
+                    "name" : "4a",
+                    "questions" : [ 
+                        {
+                            "type" : "radio",
+                            "label" : "Do you currently work remotely?",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes",
+                                    "nextPageName" : "4a.1"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No",
+                                    "nextPageName" : "6a"
+                                }
+                            ],
+                            "key" : "doesWorkRemotely"
+                        }
+                    ]
+                }, 
+                {
+                    "order" : 2,
+                    "title" : "Full-Time Employee",
+                    "name" : "4a.1",
+                    "questions" : [ 
+                        {
+                            "type" : "radio",
+                            "label" : "Can you work 100% remotely with your current job?",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes",
+                                    "nextPageName" : "6a"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No",
+                                    "nextPageName" : "3a.1"
+                                }
+                            ],
+                            "key" : "canWorkRemotely"
+                        }
+                    ]
+                }, 
+                {
+                    "order" : 1,
+                    "title" : "Independent Contractor",
+                    "name" : "5a",
+                    "questions" : [ 
+                        {
+                            "type" : "radio",
+                            "label" : "Is your primary source of income any of these rideshare or delivery apps:<ul><li>Lyft</li><li>Uber</li><li>Grubhub</li><li>DoorDash</li><li>Shipt</li><li>Instacart</li></ul>",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes",
+                                    "nextPageName" : "5a.2"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No",
+                                    "nextPageName" : "5a.1"
+                                }
+                            ],
+                            "key" : "gigJob"
+                        }
+                    ]
+                }, 
+                {
+                    "order" : 2,
+                    "title" : "Independent Contractor",
+                    "name" : "5a.1",
+                    "questions" : [ 
+                        {
+                            "type" : "radio",
+                            "label" : "Is your primary source of income from working full time for a company?",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No"
+                                }
+                            ],
+                            "key" : "primaryIncomeSourceFromCompany"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "3a.1",
+                    "type" : "rejection",
+                    "heroImage" : "assets/heros/bummer.jpg",
+                    "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>Based on your answers, it looks like you’re not eligible for Tulsa Remote.</h3><p>We appreciate your time, but you have to be able to work remotely to participate in this program. However, we have other opportunities in Tulsa that we think you might be interested in. Enter your email, and we’ll connect you.</p>"
+                }, 
+                {
+                    "name" : "5a.2",
+                    "type" : "rejection",
+                    "heroImage" : "assets/heros/bummer.jpg",
+                    "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>Rideshare services such as Lyft and Uber, and delivery services such as Grubhub, Instacart, and DoorDash, are not considered full-time remote employment. However, we have other opportunities in Tulsa that we think you might be interested in. Enter your email, and we’ll connect you. </p>"
+                }, 
+                {
+                    "name" : "6a.1",
+                    "type" : "rejection",
+                    "heroImage" : "assets/heros/bummer.jpg",
+                    "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>Individuals must be at least 18 years of age to apply. However, we have other opportunities in Tulsa that we think you might be interested in. Enter your email, and we’ll connect you.</p>"
+                }, 
+                {
+                    "name" : "7a.1",
+                    "type" : "rejection",
+                    "heroImage" : "assets/heros/bummer.jpg",
+                    "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>Individuals outside the U.S. are eligible only if they are legal permanent residents with a green card. However, we have other opportunities in Tulsa that we think you might be interested in. Enter your email, and we’ll connect you.</p>"
+                }, 
+                {
+                    "order" : 3,
+                    "title" : "Age",
+                    "name" : "6a",
+                    "questions" : [ 
+                        {
+                            "type" : "date",
+                            "label" : "What’s your date of birth?",
+                            "key" : "birthDate"
+                        }
+                    ]
+                }, 
+                {
+                    "order" : 4,
+                    "title" : "Citizenship",
+                    "name" : "7a",
+                    "questions" : [ 
+                        {
+                            "type" : "date",
+                            "label" : "What’s your citizenship status?",
+                            "key" : "citizenship",
+                            "options" : [ 
+                                {
+                                    "value" : "Citizen",
+                                    "label" : "U.S. Citizen"
+                                }, 
+                                {
+                                    "value" : "Legal Resident",
+                                    "label" : "Legal Permanent Resident"
+                                }, 
+                                {
+                                    "value" : "Other",
+                                    "label" : "None of these",
+                                    "nextPageName" : "7a.1"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }, 
+        {
+            "title" : "Basic Info",
+            "pages" : [ 
+                {
+                    "order" : 0,
+                    "heroImage" : "assets/heros/JennaBoyd.png",
+                    "heroHtml" : "test",
+                    "questions" : []
+                }, 
+                {
+                    "order" : 1,
+                    "title" : "More Questions"
+                }, 
+                {
+                    "order" : 2,
+                    "title" : "More Questions"
+                }, 
+                {
+                    "order" : 3,
+                    "title" : "More Questions"
+                }
+            ]
+        }, 
+        {
+            "title" : "Work Life",
+            "pages" : []
+        }, 
+        {
+            "title" : "Community",
+            "pages" : []
+        }, 
+        {
+            "title" : "Social",
+            "pages" : []
+        }, 
+        {
+            "title" : "Done",
+            "pages" : []
+        }
+    ]
+}
