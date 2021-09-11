@@ -1,43 +1,46 @@
 <div class="row vh-100" *ngIf="application">
 	<div class="col side1">
-		<h3>
-			<b>tulsa</b><br>
-			remote
-		</h3>
+    <ng-container *ngIf="page.questions.length; else pageHeroImage">
+      <h3>
+        <b>tulsa</b><br>
+        remote
+      </h3>
 
-		<div class="page-title" *ngIf="page">
-			<h3>{{page.title}}</h3>
-		</div>
-
+      <div class="page-title" *ngIf="page">
+        <h3>{{page.title}}</h3>
+      </div>
+    </ng-container>
 	</div>
 	<div class="col side2">
 		<div class="wayfinder text-center">
 			<wayfinder [sections]="sections" [sectionIndex]="sectionIndex" [pageIndex]="pageIndex"></wayfinder>
 		</div>
 
-		<div class="questions row" *ngIf="page">
-			<div class="col-6">
-				<div class="question mb-3" *ngFor="let question of page.questions">
-					<div *ngIf="question.type==='label'">
-						<p [innerHtml]="question.label"></p>
-					</div>
-					<div class="form-group" *ngIf="question.type==='text'">
-						<label class="form-label"><div [innerHtml]="question.label"></div></label>
-						<input class="form-control" [type]="question.type" [(ngModel)]="answers[question.key]">
-					</div>
+    <ng-container *ngIf="page">
+      <ng-container *ngIf="page.questions.length; else pageHtml">
+        <div class="questions row">        
+          <div class="question mb-3" *ngFor="let question of page.questions">
+            <div *ngIf="question.type==='label'">
+				<p [innerHtml]="question.label"></p>
+            </div>
+            <div class="form-group" *ngIf="question.type==='text'">
+				<label class="form-label"><div [innerHtml]="question.label"></div></label>
+              <input class="form-control" [type]="question.type" [(ngModel)]="answers[question.key]">
+            </div>
 
-					<div class="radio form-group" *ngIf="question.type==='radio'">
-						<label class="form-label"><div [innerHtml]="question.label"></div></label>
-						<div class="d-grid gap-2">
-							<div class="option" *ngFor="let option of question.options" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
-								<div class="label">{{option.label}}</div>
-								<div class="helperText">{{option.helperText}}</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+            <div class="radio form-group" *ngIf="question.type==='radio'">
+              <h3 class="label"><div [innerHtml]="question.label"></div></h3>
+              <div class="d-grid gap-2">
+                <div class="option" *ngFor="let option of question.options" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
+                  <div class="label">{{option.label}}</div>
+                  <div class="helperText">{{option.helperText}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
 
 		<div class="buttons px-4">
 			<button class="btn --plain-link" (click)="onPrevBtn()">Back</button>
@@ -47,3 +50,13 @@
 
 </div>
 
+
+<ng-template #pageHeroImage>
+  <div class="hero-image" style="background-image: url({{ page.heroImage }})">
+  		<h3>
+			<b>tulsa</b><br>
+			remote
+		</h3>
+  </div>
+</ng-template>
+<ng-template #pageHtml><div class="row" [innerHtml]="page.heroHtml"></div></ng-template>
