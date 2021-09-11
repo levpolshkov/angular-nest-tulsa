@@ -38,6 +38,7 @@ export class ApplicationComponent implements OnInit {
 		this.section = this.application.sections[sectionIndex];
 		this.page = this.section.pages[pageIndex];
 
+		if(!this.page.questions) this.page.questions = [];
 		this.page.questions.forEach((question,i) => {
 			if(!question.key) question.key = `question_${this.sectionIndex}_${this.pageIndex}_${i}`;
 		});

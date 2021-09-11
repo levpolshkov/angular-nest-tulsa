@@ -9,12 +9,13 @@ export const applicationSchema = new mongoose.Schema({
 		order: Number,
 		title: String,
 		pages: [{
+			type: {type:String},
 			order: Number,
 			name: String,
 			title: String,
 			questions: [{
 				order: Number,
-				type: { type: String },
+				type: {type: String},
 				label: String,
 				options: [{
 					value: mongoose.Schema.Types.Mixed,
@@ -29,16 +30,18 @@ export const applicationSchema = new mongoose.Schema({
 		}]
 	}],
 
-	__v: { type: Number, select: false },
+	__v: {type: Number, select: false},
 
 	createDate: Date,
 	updateDate: Date,
-	createUser: { type: ObjectId, ref: 'User' },
-	updateUser: { type: ObjectId, ref: 'User' },
+	createUser: {type: ObjectId, ref: 'User'},
+	updateUser: {type: ObjectId, ref: 'User'},
 
 	deleted: Boolean,
 	deleteDate: Date,
-	deleteUser: { type: ObjectId, ref: 'User' }
+	deleteUser: {type: ObjectId, ref: 'User'}
+}, {
+	minimize: false
 });
 
 

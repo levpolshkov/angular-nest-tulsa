@@ -1,7 +1,7 @@
 import { User } from '../user/user.interface';
 
-export type ApplicationQuestionType = 'label' | 'text' | 'currency' | 'date' | 'number' | 'radio';
-
+export type ApplicationQuestionType = 'label' | 'text' | 'phone' | 'email' | 'currency' | 'date' | 'number' | 'radio';
+export type ApplicationPageType = 'question' | 'hero' | 'rejection';
 export interface ApplicationQuestionOption {
 	value: string | number | boolean,
 	label: string,
@@ -17,9 +17,13 @@ export interface ApplicationQuestion {
 	options?: ApplicationQuestionOption[]
 };
 
+
+
 export interface ApplicationPage {
 	order: number,
+	type: ApplicationPageType,
 	name: string,			// Internal name for easy reference / branching logic
+
 	title: string,
 	questions: ApplicationQuestion[],
 

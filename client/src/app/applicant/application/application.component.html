@@ -1,56 +1,62 @@
-<div class="row vh-100" *ngIf="application">
-	<div class="col side1" *ngIf="page">
-		<h3>
-			<b>tulsa</b><br>
-			remote
-		</h3>
+<div class="row row-kaitlyn vh-100" *ngIf="application && page">
+	<div class="col side1">
+		<h3><b>tulsa</b><br>remote</h3>
 		<div class="hero-image" style="background-image: url({{page.heroImage}})" *ngIf="page.heroImage">
-			<h3>
-				<b>tulsa</b><br>
-				remote
-			</h3>
+			<h3><b>tulsa</b><br>remote</h3>
 		</div>
-		<div class="page-title" *ngIf="!page.heroImage">
+		<div class="page-title">
 			<h3>{{page.title}}</h3>
 			<div *ngIf="applicationService.debugMode && page.name">[{{page.name}}]</div>
 		</div>
 	</div>
-	<div class="col side2">
-		<div class="wayfinder text-center">
+	<div class="col side2" [class.hero-image]="page.heroImage">
+		<div class="wayfinder text-center" *ngIf="!page.heroImage">
 			<wayfinder [sections]="application.sections" [sectionIndex]="sectionIndex" [pageIndex]="pageIndex"></wayfinder>
 		</div>
 
-		<ng-container *ngIf="page">
-			<ng-container *ngIf="!page.heroImage">
-				<div class="questions row">
-					<div class="question mb-3" *ngFor="let question of page.questions">
-						<div *ngIf="question.type==='label'">
-							<p [innerHtml]="question.label"></p>
-						</div>
-						<div class="form-group" *ngIf="question.type==='text'">
-							<label class="form-label"><div [innerHtml]="question.label"></div></label>
-							<input class="form-control" [type]="question.type" [(ngModel)]="answers[question.key]">
-						</div>
+		<ng-container *ngIf="page.questions.length">
+			<div class="questions row">
+				<div class="question mb-3" *ngFor="let question of page.questions">
+					<p class="form-label" [innerHtml]="question.label"></p>
 
-						<div class="radio form-group" *ngIf="question.type==='radio'">
-							<h3 class="label"><div [innerHtml]="question.label"></div></h3>
-							<div class="d-grid gap-2">
-								<div class="option" *ngFor="let option of question.options" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
-									<div class="label">{{option.label}}</div>
-									<div class="helperText">{{option.helperText}}</div>
-									<div *ngIf="applicationService.debugMode && option.nextPageName">[{{option.nextPageName}}]</div>
-								</div>
+					<div class="form-group" *ngIf="question.type==='text' || question.type==='email' || question.type==='phone'">
+						<input class="form-control" [type]="question.type" [(ngModel)]="answers[question.key]">
+					</div>
+
+					<div class="form-group" *ngIf="question.type==='date'">
+						<input class="form-control" type="date" [(ngModel)]="answers[question.key]">
+					</div>
+
+					<div class="radio form-group" *ngIf="question.type==='radio'">
+						<div class="d-grid gap-2">
+							<div class="option" *ngFor="let option of question.options" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
+								<div class="label">{{option.label}}</div>
+								<div class="helperText">{{option.helperText}}</div>
+								<div *ngIf="applicationService.debugMode && option.nextPageName">[{{option.nextPageName}}]</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</ng-container>
-			<ng-container *ngIf="page.heroImage">
-				<div [innerHtml]="page.heroHtml"></div>
-			</ng-container>
+			</div>
 		</ng-container>
 
-		<div class="buttons px-4">
+		<div *ngIf="page.heroHtml" [innerHtml]="page.heroHtml"></div>
+
+		<div *ngIf="page.type==='rejection'">
+			<label class="form-label text-light">Verify your email address</label>
+			<div>
+				<div class="float-start">
+					<input class="form-control" type="email" name="rejectionEmail" [(ngModel)]="answers.email">
+				</div>
+				<div class="float-end">
+					<button class="btn btn-light">Submit</button>
+				</div>
+			</div>
+			<div class="clearfix mb-3"></div>
+			<small class="helperText">If you feel we’ve made an error, please contact us at <a class="text-light" href="mailto:info@tulsaremote.com" target="_blank">info@tulsaremote.com</a></small>
+		</div>
+
+		<div class="buttons px-4" *ngIf="page.type!=='rejection'">
 			<button class="btn --plain-link" (click)="onPrevBtn()">Back</button>
 			<button class="btn --next" (click)="onNextBtn()">
 				Next
