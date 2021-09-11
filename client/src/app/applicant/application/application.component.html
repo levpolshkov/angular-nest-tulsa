@@ -20,11 +20,11 @@
 					<p class="form-label" [innerHtml]="question.label"></p>
 
 					<div class="form-group" *ngIf="question.type==='text' || question.type==='email' || question.type==='phone'">
-						<input class="form-control" [type]="question.type" [(ngModel)]="answers[question.key]">
+						<input class="form-control" [type]="question.type" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
 					</div>
 
 					<div class="form-group" *ngIf="question.type==='date'">
-						<input class="form-control" type="date" [(ngModel)]="answers[question.key]">
+						<input class="form-control" type="date" [(ngModel)]="answers[question.key]"  (blur)="onQuestionAnswer(question)">
 					</div>
 
 					<div class="radio form-group" *ngIf="question.type==='radio'">

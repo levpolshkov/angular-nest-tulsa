@@ -1,27 +1,26 @@
 label {
-  color: $color-brand-dark-gray;
-  font-size: 1em;
-  // TODO: fix this font weight when we get proxima
-  font-weight: 600;
-  font-size: .9em;
+	color: $color-brand-dark-gray;
+	font-size: 1em;
+	// TODO: fix this font weight when we get proxima
+	font-weight: 600;
+	font-size: .9em;
 }
 
 h3.label {
-  font-size: 1.5rem;
-  color: $color-brand-dark-gray;
-  font-weight: 300;
-  margin-bottom: 2em;
+	font-size: 1.5rem;
+	color: $color-brand-dark-gray;
+	font-weight: 300;
+	margin-bottom: 2em;
 }
 
-input[type="text"],
-input[type="email"] {
-  border: 1px solid $color-brand-dark-gray;
-  box-sizing: border-box;
-  border-radius: 2px;
+input[type="text"], input[type="email"], input[type="phone"] {
+	border: 1px solid $color-brand-dark-gray;
+	box-sizing: border-box;
+	border-radius: 2px;
 
-  &:focus {
-    border-color: $color-brand-purple;
-    outline: 0;
-    box-shadow: none;
-  }
+	&:focus {
+		border-color: $color-brand-purple;
+		outline: 0;
+		box-shadow: none;
+	}
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit }					from '@angular/core';
+import { ActivatedRoute, Router }				from '@angular/router';
 import { ApplicationPage, ApplicationQuestion, ApplicationQuestionOption, ApplicationSection } from '@server/application/application.interface';
-import { Application, ApplicationService } from './application.service';
+import { Application, ApplicationService }		from './application.service';
+import { DateTime }								from 'luxon';
 
 @Component({
 	selector: 'app-application',
@@ -91,13 +92,21 @@ export class ApplicationComponent implements OnInit {
 		return section===this.section;
 	}
 
-
-
 	selectQuestionOption(question:ApplicationQuestion, option:ApplicationQuestionOption) {
 		this.answers[question.key] = option.value;
 		if(option.nextPageName) this.page.nextPageName = option.nextPageName;
 	}
 	isQuestionOptionSelected(question:ApplicationQuestion, option:ApplicationQuestionOption) {
 		return this.answers[question.key]===option.value;
+	}
+
+	onQuestionAnswer(question:ApplicationQuestion) {
+		const value = this.answers[question.key];
+		if(question.key==='dateOfBirth') {		// Check and reject if they are under 18
+			const duration = DateTime.fromISO(value).diffNow('years');
+			const age = -duration.years;
+			// console.log('dateOfBirth=%o, age=%o', value, age);
+			if(age<18) this.page.nextPageName = '6a.1';
+		}
 	}
 }
