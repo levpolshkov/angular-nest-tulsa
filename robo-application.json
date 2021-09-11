@@ -203,6 +203,18 @@
                     "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>Individuals outside the U.S. are eligible only if they are legal permanent residents with a green card. However, we have other opportunities in Tulsa that we think you might be interested in. Enter your email, and we’ll connect you.</p>"
                 }, 
                 {
+                    "name" : "8a.1",
+                    "type" : "rejection",
+                    "heroImage" : "assets/heros/bummer.jpg",
+                    "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>Applicants must live outside of Oklahoma. However, we have other opportunities in Tulsa that we think you might be interested in. Enter your email, and we’ll connect you.</p>"
+                }, 
+                {
+                    "name" : "9a.1",
+                    "type" : "rejection",
+                    "heroImage" : "assets/heros/bummer.jpg",
+                    "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>This program requires income verification to apply. However, we have other opportunities in Tulsa that may be a better fit. Enter your email to learn more.</p>"
+                }, 
+                {
                     "order" : 3,
                     "title" : "Age",
                     "name" : "6a",
@@ -212,7 +224,8 @@
                             "label" : "What’s your date of birth?",
                             "key" : "birthDate"
                         }
-                    ]
+                    ],
+                    "nextPageName" : "7a"
                 }, 
                 {
                     "order" : 4,
@@ -220,17 +233,19 @@
                     "name" : "7a",
                     "questions" : [ 
                         {
-                            "type" : "date",
+                            "type" : "radio",
                             "label" : "What’s your citizenship status?",
                             "key" : "citizenship",
                             "options" : [ 
                                 {
                                     "value" : "Citizen",
-                                    "label" : "U.S. Citizen"
+                                    "label" : "U.S. Citizen",
+                                    "nextPageName" : "8a"
                                 }, 
                                 {
                                     "value" : "Legal Resident",
-                                    "label" : "Legal Permanent Resident"
+                                    "label" : "Legal Permanent Resident",
+                                    "nextPageName" : "8a"
                                 }, 
                                 {
                                     "value" : "Other",
@@ -238,6 +253,74 @@
                                     "nextPageName" : "7a.1"
                                 }
                             ]
+                        }
+                    ],
+                    "nextPageName" : "8a"
+                }, 
+                {
+                    "order" : 5,
+                    "title" : "Location",
+                    "name" : "8a",
+                    "questions" : [ 
+                        {
+                            "type" : "label",
+                            "label" : "Please list the zip code of your current residence."
+                        }, 
+                        {
+                            "type" : "text",
+                            "label" : "ZIP code",
+                            "key" : "zipcode"
+                        }
+                    ]
+                }, 
+                {
+                    "order" : 6,
+                    "title" : "Verification",
+                    "name" : "9a",
+                    "questions" : [ 
+                        {
+                            "type" : "radio",
+                            "label" : "Later on in the application process, you’ll need to provide proof of income.  Will you you be able to provide one of the following documents?<ul><li>Pay stub</li><li>Recent tax statement</li><li>Profit and loss statement</li><li>Bank statement</li></ul>",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes",
+                                    "nextPageName" : "10a"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No",
+                                    "nextPageName" : "9a.1"
+                                }
+                            ],
+                            "key" : "canProvideProofOfIncome"
+                        }
+                    ]
+                }, 
+                {
+                    "order" : 7,
+                    "title" : "Is this love?",
+                    "name" : "10a",
+                    "questions" : [ 
+                        {
+                            "type" : "label",
+                            "label" : "<b>This might sound forward, but we can get pretty serious quickly.</b>"
+                        }, 
+                        {
+                            "type" : "radio",
+                            "label" : "If your application is approved, could you commit to relocating to Tulsa for at least one year and having Tulsa as your primary residence during that time?",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No",
+                                    "nextPageName" : "10a.1"
+                                }
+                            ],
+                            "key" : "willingToLiveInTulsa"
                         }
                     ]
                 }
@@ -248,22 +331,66 @@
             "pages" : [ 
                 {
                     "order" : 0,
-                    "heroImage" : "assets/heros/JennaBoyd.png",
-                    "heroHtml" : "test",
-                    "questions" : []
+                    "heroImage" : "assets/heros/section2.jpg",
+                    "heroHtml" : "<h2 class='mb-5'>Nice!</h2><h4>You meet the eligibility requirements, and we’d love to have you apply!</h4><p>You meet the eligibility requirements, and we’d love to have you apply!</p><small>It takes most folks around 10 - 15 minutes to complete this section.</small>"
                 }, 
                 {
                     "order" : 1,
-                    "title" : "More Questions"
+                    "title" : "Location",
+                    "pageName" : "11a",
+                    "nextPageName" : "12a",
+                    "questions" : [ 
+                        {
+                            "type" : "text",
+                            "label" : "What's your current address?",
+                            "key" : "address"
+                        }, 
+                        {
+                            "type" : "date",
+                            "label" : "When did you start living there?",
+                            "key" : "addressDate"
+                        }
+                    ]
                 }, 
                 {
                     "order" : 2,
-                    "title" : "More Questions"
-                }, 
-                {
-                    "order" : 3,
-                    "title" : "More Questions"
+                    "title" : "Book Smarts",
+                    pageName: "12a",
+                    "questions" : [ 
+                        {
+                            "type" : "radio",
+                            "label" : "What is the highest level of traditional education that you’ve completed?",
+                            "key" : "education",
+                            "options" : [ 
+                                {
+                                    "value" : "None",
+                                    "label" : "Less than high school"
+                                }, 
+                                {
+                                    "value" : "High School",
+                                    "label" : "High school"
+                                }, 
+                                {
+                                      "value" : "Associate's Degree",
+                                    "label" : "Associate's Degree"
+                                },
+                                {
+                                      "value" : "Bachelor's Degree",
+                                    "label" : "Bachelor's Degree"
+                                },
+                                {
+                                      "value" : "Master's Degree",
+                                    "label" : "Master's Degree"
+                                },
+                                {
+                                      "value" : "Doctorate",
+                                    "label" : "Doctorate"
+                                }
+                            ]
+                        }
+                    ]
                 }
+             
             ]
         }, 
         {
