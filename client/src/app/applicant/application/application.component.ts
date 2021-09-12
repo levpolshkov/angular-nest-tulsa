@@ -4,6 +4,8 @@ import { ApplicationPage, ApplicationQuestion, ApplicationQuestionOption, Applic
 import { Application, ApplicationService }		from './application.service';
 import { DateTime }								from 'luxon';
 import { GoogleMapsService } from 'src/app/shared/google-maps.service';
+import { ApplicationResponse } from '@server/application-response/application-response.interface';
+import { ApplicationResponseService } from './application-response.service';
 
 @Component({
 	selector: 'app-application',
@@ -19,20 +21,46 @@ export class ApplicationComponent implements OnInit {
 	sectionIndex:number = 0;
 
 	answers:any = {};
+	response:ApplicationResponse;
 
 	// prevPageName:string = null;		// For back button
 
-	constructor(public applicationService:ApplicationService, private route:ActivatedRoute, private router:Router, private googleMapsService:GoogleMapsService) { }
+	constructor(public applicationService:ApplicationService, private responseService:ApplicationResponseService, private route:ActivatedRoute, private router:Router, private googleMapsService:GoogleMapsService) { }
 
 	async ngOnInit() {
-		
 		this.application = await this.applicationService.searchApplications({filter:{}}).then(r => r.records[0]);
+		await this.loadResponse();
 
 		const sectionIndex = +this.route.snapshot.queryParams['section'] || 0;
 		const pageIndex = +this.route.snapshot.queryParams['page'] || 0;
 
 		this.loadPage(sectionIndex,pageIndex);
 	}
+
+	async loadResponse() {
+		this.response = await this.responseService.loadResponseLocal();
+		if(!this.response) {
+			this.response = {
+				application: this.application,
+				questionAnswers: []
+			};
+		}
+		this.response.questionAnswers.forEach(qa => {
+			this.answers[qa.questionKey] = qa.answer;
+		});
+		console.log('ApplicationComponent.loadResponse: response=%o', this.response);
+	}
+	async saveResponse() {
+		this.response.questionAnswers = Object.keys(this.answers).map(questionKey => {
+			return {
+				questionKey,
+				answer: this.answers[questionKey]
+			};
+		});
+		console.log('ApplicationComponent.saveResponse: response=%o', this.response);
+		await this.responseService.saveResponseLocal(this.response);
+	}
+
 
 	loadPage(sectionIndex:number, pageIndex:number) {
 		this.sectionIndex = sectionIndex;
@@ -58,12 +86,13 @@ export class ApplicationComponent implements OnInit {
 		return this.application.sections.length-1;
 	}
 
-	onNextBtn() {
+	async onNextBtn() {
 		console.log('onNextBtn: answers=%o', this.answers);
 
 		let nextPageIndex = this.pageIndex+1;
 		if(this.page.nextPageName) {
 			nextPageIndex = this.findPageIndexByName(this.page.nextPageName);
+			console.log('onNextBtn: nextPageName=%o, nextPageIndex=%o', this.page.nextPageName, nextPageIndex);
 			if(nextPageIndex===-1) nextPageIndex = this.pageIndex+1;
 		}
 
@@ -80,6 +109,7 @@ export class ApplicationComponent implements OnInit {
 			}
 		}
 
+		await this.saveResponse();
 
 		console.log('onNextBtn: nextPageIndex=%o', nextPageIndex);
 
@@ -101,7 +131,7 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	findPageIndexByName(pageName:string) {
-		return this.application.sections.find(s => s.pages.findIndex(p => p.name===pageName))?.pages.findIndex(p => p.name===pageName);
+		return this.application.sections.find(s => s.pages.find(p => p.name===pageName))?.pages.findIndex(p => p.name===pageName);
 	}
 
 	isActiveSection(section) {

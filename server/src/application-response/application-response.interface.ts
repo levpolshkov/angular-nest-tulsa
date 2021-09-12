@@ -1,4 +1,4 @@
-import { Application } from 'src/application';
+import { Application } from '../application/application.interface';
 import { User } from '../user/user.interface';
 
 export interface ApplicationResponseQuestionAnswer {

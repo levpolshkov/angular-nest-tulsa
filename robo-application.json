@@ -555,7 +555,7 @@
                     "title" : "Work",
                     "questions" : [ 
                         {
-                            "title" : "Give us a brief overview of your role and responsibilities.",
+                            "label" : "Give us a brief overview of your role and responsibilities.",
                             "type" : "textarea",
                             "key" : "jobRole"
                         }
@@ -1086,14 +1086,15 @@
                     "title" : "Demographic",
                     "questions" : [ 
                         {
-                            "title" : "What is your veteran status?",
+                            "label" : "What is your veteran status?",
                             "key" : "veteranStatus",
+                            "type" : "radio",
                             "options" : [ 
                                 {
-                                    "value" : "Active duty military"
+                                    "label" : "Active duty military"
                                 }, 
                                 {
-                                    "value" : "Veteran"
+                                    "label" : "Veteran"
                                 }, 
                                 {
                                     "label" : "None of the above"
@@ -1110,14 +1111,15 @@
                     "title" : "Demographic",
                     "questions" : [ 
                         {
-                            "title" : "Please select which option applies to you",
+                            "label" : "Please select which option applies to you",
                             "key" : "disability",
+                            "type" : "radio",
                             "options" : [ 
                                 {
-                                    "value" : "Yes, I have a disability, or have a history/record of having a disability"
+                                    "label" : "Yes, I have a disability, or have a history/record of having a disability"
                                 }, 
                                 {
-                                    "value" : "No, I don't have a disability or a history/record of having a disability"
+                                    "label" : "No, I don't have a disability or a history/record of having a disability"
                                 }, 
                                 {
                                     "label" : "I prefer not to say"
@@ -1243,7 +1245,7 @@
                             "key" : "youtubeUrl"
                         }, 
                         {
-                            "label" : "other",
+                            "label" : "Other",
                             "type" : "text",
                             "key" : "otherSocialMediaUrl"
                         }
@@ -1267,7 +1269,7 @@
             "pages" : [ 
                 {
                     "name" : "section6",
-                    "type" : "save",
+                    "type" : "submit",
                     "heroImage" : "assets/heros/section6.jpg",
                     "heroHtml" : "<h3 class='mb-4'>Thank you for applying to Tulsa Remote.</h3><p>You should get a status update from our team via email within approximately 4 weeks.</p>"
                 }

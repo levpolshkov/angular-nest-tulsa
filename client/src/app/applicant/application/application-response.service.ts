@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Application, ApplicationSection, ApplicationPage, ApplicationQuestion, SearchParams, SearchResult } from 'src/app/models';
+import { Application, ApplicationSection, ApplicationPage, ApplicationQuestion, ApplicationResponse } from 'src/app/models';
 import { HttpService } from 'src/app/shared/http.service';
 import { SearchService } from 'src/app/shared/search/search.service';
 import { StorageService } from 'src/app/shared/storage.service';
@@ -9,18 +8,26 @@ export { Application, ApplicationSection, ApplicationPage, ApplicationQuestion }
 @Injectable({
 	providedIn: 'root'
 })
-export class ApplicationService {
+export class ApplicationResponseService {
 	debugMode = true;
 
 	constructor(private http:HttpService, private searchService:SearchService, private storageService:StorageService) { }
 
-	searchApplications(params:SearchParams):Promise<SearchResult<Application>> {
-		return this.searchService.search<Application>('/application', params);
+
+	saveResponseLocal(response:ApplicationResponse) {
+		return this.storageService.set('tuslaRemoteApplicationResponse', response);
+	}
+	loadResponseLocal():Promise<ApplicationResponse> {
+		return this.storageService.get('tuslaRemoteApplicationResponse');
 	}
 
-	getApplicationById(applicationId:string):Promise<Application> {
-		return this.http.get(`/application/${applicationId}`);
-	}
+	// searchApplications(params:SearchParams):Promise<SearchResult<Application>> {
+	// 	return this.searchService.search<Application>('/application', params);
+	// }
+
+	// getApplicationById(applicationId:string):Promise<Application> {
+	// 	return this.http.get(`/application/${applicationId}`);
+	// }
 
 	// saveApplication(application:Application) {
 	// 	return this.http.post('/application', application);
