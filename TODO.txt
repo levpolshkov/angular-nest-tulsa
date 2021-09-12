@@ -1,6 +1,6 @@
 - Save ApplicationResponses
 X Branch logic
-- Enter all questions
+X Enter all questions
 - AWS deployment
 - Bullhorn integration
 - Session statefulness

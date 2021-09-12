@@ -355,7 +355,8 @@
                 {
                     "order" : 2,
                     "title" : "Book Smarts",
-                    pageName: "12a",
+                    "pageName" : "12a",
+                    "nextPageName" : "13a",
                     "questions" : [ 
                         {
                             "type" : "radio",
@@ -371,43 +372,906 @@
                                     "label" : "High school"
                                 }, 
                                 {
-                                      "value" : "Associate's Degree",
+                                    "value" : "Associate's Degree",
                                     "label" : "Associate's Degree"
-                                },
+                                }, 
                                 {
-                                      "value" : "Bachelor's Degree",
+                                    "value" : "Bachelor's Degree",
                                     "label" : "Bachelor's Degree"
-                                },
+                                }, 
                                 {
-                                      "value" : "Master's Degree",
+                                    "value" : "Master's Degree",
                                     "label" : "Master's Degree"
-                                },
+                                }, 
                                 {
-                                      "value" : "Doctorate",
+                                    "value" : "Doctorate",
                                     "label" : "Doctorate"
                                 }
                             ]
                         }
                     ]
+                }, 
+                {
+                    "order" : 3,
+                    "title" : "Street Smarts",
+                    "name" : "13a",
+                    "questions" : [ 
+                        {
+                            "type" : "label",
+                            "label" : "<p>Have you taken coursework outside of traditional institutions?</p><small>E.g. coding boot camp, online courses, or a vocational program</small>"
+                        }, 
+                        {
+                            "type" : "radio",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes",
+                                    "nextPageName" : "13a.1"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No",
+                                    "nextPageName" : "14a"
+                                }
+                            ],
+                            "key" : "streetSmarts"
+                        }
+                    ]
+                }, 
+                {
+                    "order" : 3,
+                    "title" : "Street Smarts",
+                    "name" : "13a.1",
+                    "questions" : [ 
+                        {
+                            "type" : "textarea",
+                            "label" : "Nice! Can you tell us the name and give a bit of a description of this coursework?",
+                            "key" : "streetSmartsDesc"
+                        }
+                    ]
                 }
-             
             ]
         }, 
         {
             "title" : "Work Life",
-            "pages" : []
+            "pages" : [ 
+                {
+                    "order" : 0,
+                    "type" : "hero",
+                    "heroImage" : "assets/heros/section3.jpg",
+                    "heroHtml" : "<h3 class='mb-5'>Tulsa Remoters do it all.</h3><p><b>Our community spans industries, organization types, roles, and experience levels.</b></p><p>In the next section, we’ll ask about what you do.</p>"
+                }, 
+                {
+                    "order" : 1,
+                    "title" : "Work",
+                    "name" : "14a",
+                    "questions" : [ 
+                        {
+                            "type" : "radio",
+                            "label" : "What industry do you work in?",
+                            "options" : [ 
+                                {
+                                    "value" : "Accomodation, Food Services, & Drinking Places",
+                                    "label" : "Accomodation, Food Services, & Drinking Places"
+                                }, 
+                                {
+                                    "value" : "Administrative & Support & Waste Management & Remediation",
+                                    "label" : "Administrative & Support & Waste Management & Remediation"
+                                }, 
+                                {
+                                    "value" : "Agriculture, Forestry, Hunting & Fishing",
+                                    "label" : "Agriculture, Forestry, Hunting & Fishing"
+                                }, 
+                                {
+                                    "value" : "Arts, Entertainment, & Recreation",
+                                    "label" : "Arts, Entertainment, & Recreation"
+                                }, 
+                                {
+                                    "value" : "Construction of Buildings",
+                                    "label" : "Construction of Buildings"
+                                }, 
+                                {
+                                    "value" : "Educational Services",
+                                    "label" : "Educational Services"
+                                }, 
+                                {
+                                    "value" : "Finance & Insurance",
+                                    "label" : "Finance & Insurance"
+                                }, 
+                                {
+                                    "value" : "Health Care & Social Assistance",
+                                    "label" : "Health Care & Social Assistance"
+                                }, 
+                                {
+                                    "value" : "Information",
+                                    "label" : "Information"
+                                }, 
+                                {
+                                    "value" : "Manufacturing",
+                                    "label" : "Manufacturing"
+                                }, 
+                                {
+                                    "value" : "Mining",
+                                    "label" : "Mining"
+                                }, 
+                                {
+                                    "value" : "Professional, Scientific, & Technical Services",
+                                    "label" : "Professional, Scientific, & Technical Services"
+                                }, 
+                                {
+                                    "value" : "Real Estate & Rental & Leasing",
+                                    "label" : "Real Estate & Rental & Leasing"
+                                }, 
+                                {
+                                    "value" : "Mining",
+                                    "label" : "Mining"
+                                }, 
+                                {
+                                    "value" : "Religious, Grantmaking, Civic, Professional & Similar",
+                                    "label" : "Religious, Grantmaking, Civic, Professional & Similar"
+                                }, 
+                                {
+                                    "value" : "Transportation & Warehousing",
+                                    "label" : "Transportation & Warehousing"
+                                }, 
+                                {
+                                    "value" : "Utilities",
+                                    "label" : "Utilities"
+                                }, 
+                                {
+                                    "value" : "Wholesale Trade",
+                                    "label" : "Wholesale Trade"
+                                }, 
+                                {
+                                    "value" : "Other Services",
+                                    "label" : "Other Services"
+                                }
+                            ],
+                            "key" : "industry"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "14.5a",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "label" : "Can you provide your title and company name?"
+                        }, 
+                        {
+                            "label" : "Title",
+                            "type" : "text",
+                            "key" : "jobTitle"
+                        }, 
+                        {
+                            "label" : "Company Name",
+                            "type" : "text",
+                            "key" : "companyName"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "15FE.1",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "title" : "Give us a brief overview of your role and responsibilities.",
+                            "type" : "textarea",
+                            "key" : "jobRole"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "15FE.2",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "label" : "Which range best fits your estimated total annual income?",
+                            "type" : "radio",
+                            "key" : "jobIncome",
+                            "options" : [ 
+                                {
+                                    "value" : "Less than $40,000",
+                                    "label" : "Less than $40,000"
+                                }, 
+                                {
+                                    "value" : "$40,000 - $59,999",
+                                    "label" : "$40,000 - $59,999"
+                                }, 
+                                {
+                                    "value" : "$60,000 - $79,999",
+                                    "label" : "$40,000 - $59,999"
+                                }, 
+                                {
+                                    "value" : "$80,000 - $99,999",
+                                    "label" : "$40,000 - $59,999"
+                                }, 
+                                {
+                                    "value" : "$100,000 - $120,000",
+                                    "label" : "$100,000 - $120,000"
+                                }, 
+                                {
+                                    "value" : "Greater than $120,000",
+                                    "label" : "Greater than $120,000"
+                                }
+                            ]
+                        }
+                    ],
+                    "nextPageName" : "16a"
+                }, 
+                {
+                    "name" : "15BO.1",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "label" : "Give us a brief overview of your company and what it does.",
+                            "type" : "textarea",
+                            "key" : "jobRole"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "15BO.2",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "label" : "Is your company a start up?"
+                        }, 
+                        {
+                            "label" : "Start up funding usually come from family, friends, venture capitalists, crowdfunding or loans.",
+                            "type" : "radio",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No"
+                                }
+                            ],
+                            "key" : "isJobStartup"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "15BO.3",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "label" : "When was your start up founded?",
+                            "type" : "date",
+                            "key" : "startupDate"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "15BO.4",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "label" : "Which range best fits your estimated total annual revenue?",
+                            "type" : "radio",
+                            "key" : "startupIncome",
+                            "options" : [ 
+                                {
+                                    "value" : "Less than $40,000",
+                                    "label" : "Less than $40,000"
+                                }, 
+                                {
+                                    "value" : "$40,000 - $99,999",
+                                    "label" : "$40,000 - $99,999"
+                                }, 
+                                {
+                                    "value" : "$100,000 - $499,499",
+                                    "label" : "$100,000 - $499,499"
+                                }, 
+                                {
+                                    "value" : "$1 Million - $10 Million",
+                                    "label" : "$1 Million - $10 Million"
+                                }, 
+                                {
+                                    "value" : "Greater than $10 Million",
+                                    "label" : "Greater than $10 Million"
+                                }
+                            ]
+                        }
+                    ],
+                    "nextPageName" : "16a"
+                }, 
+                {
+                    "name" : "15IC.1",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "label" : "Give us a brief overview of your job and your typical day at work.",
+                            "type" : "textarea",
+                            "key" : "jobRole"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "15IC.2",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "label" : "What year did you become self-employed?",
+                            "type" : "date",
+                            "key" : "startupDate"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "15IC.3",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "label" : "Which range best fits your estimated total annual income?",
+                            "type" : "radio",
+                            "key" : "startupIncome",
+                            "options" : [ 
+                                {
+                                    "value" : "Less than $40,000",
+                                    "label" : "Less than $40,000"
+                                }, 
+                                {
+                                    "value" : "$40,000 - $59,999",
+                                    "label" : "$40,000 - $59,999"
+                                }, 
+                                {
+                                    "value" : "$60,000 - $79,999",
+                                    "label" : "$40,000 - $59,999"
+                                }, 
+                                {
+                                    "value" : "$80,000 - $99,999",
+                                    "label" : "$40,000 - $59,999"
+                                }, 
+                                {
+                                    "value" : "$100,000 - $120,000",
+                                    "label" : "$100,000 - $120,000"
+                                }, 
+                                {
+                                    "value" : "Greater than $120,000",
+                                    "label" : "Greater than $120,000"
+                                }
+                            ]
+                        }
+                    ],
+                    "nextPageName" : "16a"
+                }, 
+                {
+                    "name" : "16a",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "label" : "Do you manage other employees?",
+                            "type" : "radio",
+                            "key" : "manageEmployees",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes",
+                                    "nextPageName" : "16a.1"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No",
+                                    "nextPageName" : "17"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "16a.1",
+                    "title" : "Work",
+                    "questions" : [ 
+                        {
+                            "label" : "How many employees do you manage?",
+                            "type" : "radio",
+                            "key" : "startupIncome",
+                            "options" : [ 
+                                {
+                                    "value" : "Less than 5",
+                                    "label" : "Less than 5"
+                                }, 
+                                {
+                                    "value" : "5 - 10",
+                                    "label" : "5 - 10"
+                                }, 
+                                {
+                                    "value" : "11 - 50",
+                                    "label" : "11 - 50"
+                                }, 
+                                {
+                                    "value" : "51 - 100",
+                                    "label" : "51 - 100"
+                                }, 
+                                {
+                                    "value" : "Greater than 100",
+                                    "label" : "Greater than 100"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }, 
         {
             "title" : "Community",
-            "pages" : []
+            "pages" : [ 
+                {
+                    "name" : "17",
+                    "heroImage" : "assets/heros/section4.jpg",
+                    "heroHtml" : "<h3 class='mb-4'>Thanks for that.</h3><p class='mb-2'><b>Now, enough about work! What are you like outside of your job?</b></p><p>In this section, we’ll get a sense of your relationship with Tulsa (if any) and how you engage with the community.</p>"
+                }, 
+                {
+                    "name" : "18a.new",
+                    "title" : "History",
+                    "questions" : [ 
+                        {
+                            "type" : "radio",
+                            "label" : "Describe your moving plans before hearing about Tulsa Remote.",
+                            "options" : [ 
+                                {
+                                    "label" : "wasn’t planning on moving anywhere",
+                                    "value" : "wasn’t planning on moving anywhere"
+                                }, 
+                                {
+                                    "label" : "was planning on moving but not to Tulsa",
+                                    "value" : "was planning on moving but not to Tulsa"
+                                }, 
+                                {
+                                    "label" : "was planning on moving to Tulsa",
+                                    "value" : "was planning on moving to Tulsa"
+                                }, 
+                                {
+                                    "label" : "am actively moving to Tulsa",
+                                    "value" : "am actively moving to Tulsa"
+                                }, 
+                                {
+                                    "label" : "already bought a house or signed a lease in Tulsa",
+                                    "value" : "already bought a house or signed a lease in Tulsa"
+                                }
+                            ],
+                            "key" : "relocationPlan"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "18a",
+                    "title" : "History",
+                    "questions" : [ 
+                        {
+                            "label" : "Do you ever lived in Tulsa?",
+                            "type" : "radio",
+                            "key" : "everLivedInTulsa",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes",
+                                    "nextPageName" : "18a.1"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No",
+                                    "nextPageName" : "19a"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "18a.1",
+                    "title" : "History",
+                    "questions" : [ 
+                        {
+                            "label" : "We thought you looked familiar! When did you move away?",
+                            "type" : "date",
+                            "key" : "movedAwayFromTulsaDate"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "19a",
+                    "title" : "History",
+                    "questions" : [ 
+                        {
+                            "label" : "Hmm, maybe we know the same people. Do you have friends or family in Tulsa?",
+                            "type" : "radio",
+                            "key" : "knowPeopleInTulsa",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "20a",
+                    "title" : "Community",
+                    "questions" : [ 
+                        {
+                            "label" : "In your current community, do you regularly volunteer, or are you a member of any community groups?",
+                            "type" : "radio",
+                            "key" : "knowPeopleInTulsa",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes",
+                                    "label" : "Yes",
+                                    "nextPageName" : "20a.1"
+                                }, 
+                                {
+                                    "value" : "No",
+                                    "label" : "No",
+                                    "nextPageName" : "21a"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "20a.1",
+                    "title" : "Community",
+                    "questions" : [ 
+                        {
+                            "label" : "Nice! Tell us a little about your volunteering and community activities?",
+                            "type" : "textarea",
+                            "key" : "volunteerInfo"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "21a",
+                    "title" : "Why you?",
+                    "questions" : [ 
+                        {
+                            "label" : "We’d love to know — what do you think makes you a great fit for Tulsa Remote?",
+                            "type" : "textarea",
+                            "key" : "whyYou"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "22a",
+                    "title" : "Who we are",
+                    "questions" : [ 
+                        {
+                            "label" : "<p>We believe that by celebrating remote work, we can attract people from all over the country and dramatically increase Tulsa’s diversity of industries. This diversity of industry and representation ensures that every child born in Tulsa has the opportunity to have a fantastic career, even if they don’t have the means to leave the state to achieve it.</p><p>How does that align to your values, passions, or beliefs?</p>",
+                            "type" : "textarea",
+                            "key" : "whoWeAre"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "23a",
+                    "title" : "Demographic",
+                    "questions" : [ 
+                        {
+                            "label" : "Which category best describes your race/ethnicity?",
+                            "type" : "radio",
+                            "key" : "race",
+                            "options" : [ 
+                                {
+                                    "value" : "Black or African American",
+                                    "label" : "Black or African American"
+                                }, 
+                                {
+                                    "value" : "Native Hawaiian or other Pacific Islander",
+                                    "label" : "Native Hawaiian or other Pacific Islander",
+                                    "helperText" : "Samoan, Chamorro, Other Pacific Islander - Tongan, Fijian, Marshallese, Other"
+                                }, 
+                                {
+                                    "value" : "White or Caucasian",
+                                    "label" : "White or Caucasian"
+                                }, 
+                                {
+                                    "value" : "Native American or Alaska Native",
+                                    "label" : "Native American or Alaska Native"
+                                }, 
+                                {
+                                    "value" : "Hispanic or Latina/Latino or LatinX",
+                                    "label" : "Hispanic or Latina/Latino or LatinX"
+                                }, 
+                                {
+                                    "value" : "Asian",
+                                    "label" : "Asian",
+                                    "helperText" : "Chinese, Filipino, South Asian, Vietnamese, Korean, Japanese, Other Asian"
+                                }, 
+                                {
+                                    "value" : "Multi-racial",
+                                    "label" : "Multi-racial"
+                                }, 
+                                {
+                                    "value" : "Other",
+                                    "label" : "Other"
+                                }, 
+                                {
+                                    "value" : "Prefer not to say",
+                                    "label" : "Prefer not to say"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "24a",
+                    "title" : "Demographic",
+                    "questions" : [ 
+                        {
+                            "label" : "What gender do you identify with?",
+                            "type" : "radio",
+                            "key" : "gender",
+                            "options" : [ 
+                                {
+                                    "label" : "Female"
+                                }, 
+                                {
+                                    "label" : "Male"
+                                }, 
+                                {
+                                    "label" : "Non-Binary"
+                                }, 
+                                {
+                                    "label" : "Other"
+                                }, 
+                                {
+                                    "label" : "Prefer not to say"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "26a",
+                    "title" : "Demographic",
+                    "questions" : [ 
+                        {
+                            "label" : "What is your relationship status?",
+                            "type" : "radio",
+                            "key" : "relationship",
+                            "options" : [ 
+                                {
+                                    "label" : "Single"
+                                }, 
+                                {
+                                    "label" : "Married"
+                                }, 
+                                {
+                                    "label" : "Domestic partnership"
+                                }, 
+                                {
+                                    "label" : "Widowed"
+                                }, 
+                                {
+                                    "label" : "Divorced"
+                                }, 
+                                {
+                                    "label" : "Separated"
+                                }, 
+                                {
+                                    "label" : "Prefer not to say"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "26a.1",
+                    "title" : "Significant other",
+                    "questions" : [ 
+                        {
+                            "label" : "Is your significant other currently a member or alumni?",
+                            "type" : "radio",
+                            "key" : "significantOtherMember",
+                            "options" : [ 
+                                {
+                                    "label" : "Yes"
+                                }, 
+                                {
+                                    "label" : "No"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "27a",
+                    "title" : "Demographic",
+                    "questions" : [ 
+                        {
+                            "title" : "What is your veteran status?",
+                            "key" : "veteranStatus",
+                            "options" : [ 
+                                {
+                                    "value" : "Active duty military"
+                                }, 
+                                {
+                                    "value" : "Veteran"
+                                }, 
+                                {
+                                    "label" : "None of the above"
+                                }, 
+                                {
+                                    "label" : "Prefer not to say"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "28a",
+                    "title" : "Demographic",
+                    "questions" : [ 
+                        {
+                            "title" : "Please select which option applies to you",
+                            "key" : "disability",
+                            "options" : [ 
+                                {
+                                    "value" : "Yes, I have a disability, or have a history/record of having a disability"
+                                }, 
+                                {
+                                    "value" : "No, I don't have a disability or a history/record of having a disability"
+                                }, 
+                                {
+                                    "label" : "I prefer not to say"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }, 
         {
             "title" : "Social",
-            "pages" : []
+            "pages" : [ 
+                {
+                    "name" : "section5",
+                    "heroImage" : "assets/heros/section5.jpg",
+                    "heroHtml" : "<h3 class='mb-4'>We feel like we’ve gotten to know you better... but what are you like online?</h3><p>We’re interested to know how you use digital spaces.</p>"
+                }, 
+                {
+                    "name" : "29a",
+                    "title" : "Online",
+                    "questions" : [ 
+                        {
+                            "label" : "Are you on LinkedIn?",
+                            "type" : "radio",
+                            "options" : [ 
+                                {
+                                    "label" : "Yes",
+                                    "nextPageName" : "29a.1"
+                                }, 
+                                {
+                                    "label" : "No",
+                                    "nextPageName" : "30a"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "29a.1",
+                    "title" : "Online",
+                    "questions" : [ 
+                        {
+                            "label" : "What's your profile URL?",
+                            "type" : "text",
+                            "key" : "linkedInUrl"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "30a",
+                    "title" : "Online",
+                    "questions" : [ 
+                        {
+                            "label" : "Do you have a website or portfolio?",
+                            "type" : "radio",
+                            "options" : [ 
+                                {
+                                    "label" : "Yes",
+                                    "nextPageName" : "30a.1"
+                                }, 
+                                {
+                                    "label" : "No",
+                                    "nextPageName" : "31a"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "30a.1",
+                    "title" : "Online",
+                    "questions" : [ 
+                        {
+                            "label" : "Do you have a website or portfolio?",
+                            "type" : "text",
+                            "key" : "websiteUrl"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "31a",
+                    "title" : "Online",
+                    "questions" : [ 
+                        {
+                            "label" : "Do you have any social media you’d like to share?",
+                            "type" : "radio",
+                            "options" : [ 
+                                {
+                                    "label" : "Yes",
+                                    "nextPageName" : "31a.1"
+                                }, 
+                                {
+                                    "label" : "No",
+                                    "nextPageName" : "32a"
+                                }, 
+                                {
+                                    "label" : "N/A",
+                                    "nextPageName" : "32a"
+                                }
+                            ],
+                            "key" : "haveSocialMedia"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "31a.1",
+                    "title" : "Online",
+                    "questions" : [ 
+                        {
+                            "label" : "Instagram",
+                            "type" : "text",
+                            "key" : "instagramUrl"
+                        }, 
+                        {
+                            "label" : "Twitter",
+                            "type" : "text",
+                            "key" : "twitterUrl"
+                        }, 
+                        {
+                            "label" : "YouTube",
+                            "type" : "text",
+                            "key" : "youtubeUrl"
+                        }, 
+                        {
+                            "label" : "other",
+                            "type" : "text",
+                            "key" : "otherSocialMediaUrl"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "32a",
+                    "title" : "Tell us more",
+                    "questions" : [ 
+                        {
+                            "label" : "Are you an artist? Do you have a family? Pets? Are you starting an entirely new chapter? Anything you want to share is fair game.",
+                            "type" : "textarea",
+                            "key" : "otherInfo"
+                        }
+                    ]
+                }
+            ]
         }, 
         {
             "title" : "Done",
-            "pages" : []
+            "pages" : [ 
+                {
+                    "name" : "section6",
+                    "type" : "save",
+                    "heroImage" : "assets/heros/section6.jpg",
+                    "heroHtml" : "<h3 class='mb-4'>Thank you for applying to Tulsa Remote.</h3><p>You should get a status update from our team via email within approximately 4 weeks.</p>"
+                }
+            ]
         }
     ]
 }

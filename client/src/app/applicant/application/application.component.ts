@@ -38,6 +38,7 @@ export class ApplicationComponent implements OnInit {
 		this.sectionIndex = sectionIndex;
 		this.pageIndex = pageIndex;
 		this.section = this.application.sections[sectionIndex];
+
 		this.page = this.section.pages[pageIndex];
 
 		if(!this.page.questions) this.page.questions = [];
@@ -66,6 +67,20 @@ export class ApplicationComponent implements OnInit {
 			if(nextPageIndex===-1) nextPageIndex = this.pageIndex+1;
 		}
 
+		if(this.page.name==='14.5a') {
+			switch(this.answers['employmentType']) {
+				case 'Full Time Employee':
+					this.page.nextPageName='15FE.1';	break;
+				case 'Business Owner':
+					this.page.nextPageName='15BO.1';	break;
+				case 'Independent Contractor':
+					this.page.nextPageName='15IC.1';	break;
+				default:
+					this.page.nextPageName='16a';	break;
+			}
+		}
+
+
 		console.log('onNextBtn: nextPageIndex=%o', nextPageIndex);
 
 		if(nextPageIndex>this.lastPageIndex) {
@@ -86,7 +101,7 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	findPageIndexByName(pageName:string) {
-		return this.section.pages.findIndex(p => p.name===pageName);
+		return this.application.sections.find(s => s.pages.findIndex(p => p.name===pageName))?.pages.findIndex(p => p.name===pageName);
 	}
 
 	isActiveSection(section) {
@@ -94,11 +109,11 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	selectQuestionOption(question:ApplicationQuestion, option:ApplicationQuestionOption) {
-		this.answers[question.key] = option.value;
+		this.answers[question.key] = option.value || option.label;
 		if(option.nextPageName) this.page.nextPageName = option.nextPageName;
 	}
 	isQuestionOptionSelected(question:ApplicationQuestion, option:ApplicationQuestionOption) {
-		return this.answers[question.key]===option.value;
+		return this.answers[question.key]===(option.value || option.label);
 	}
 
 	async onQuestionAnswer(question:ApplicationQuestion) {
