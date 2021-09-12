@@ -62,7 +62,7 @@ export class ApplicationComponent implements OnInit {
 	}
 
 
-	loadPage(sectionIndex:number, pageIndex:number) {
+	async loadPage(sectionIndex:number, pageIndex:number) {
 		this.sectionIndex = sectionIndex;
 		this.pageIndex = pageIndex;
 		this.section = this.application.sections[sectionIndex];
@@ -73,6 +73,8 @@ export class ApplicationComponent implements OnInit {
 		this.page.questions.forEach((question,i) => {
 			if(!question.key) question.key = `question_${this.sectionIndex}_${this.pageIndex}_${i}`;
 		});
+
+		if(this.page.type==='submit') await this.submitResponse();
 
 		this.router.navigate([], {queryParams:{section:this.sectionIndex,page:this.pageIndex}, replaceUrl:true});
 	}
@@ -167,7 +169,12 @@ export class ApplicationComponent implements OnInit {
 					this.page.nextPageName = '9a';
 				}
 			}
-
 		}
+	}
+
+	async submitResponse() {
+		this.response = await this.responseService.submitResponse(this.response);
+		console.log('submitResponse: response=%o', this.response);
+		this.saveResponse();
 	}
 }

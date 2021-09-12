@@ -10,7 +10,7 @@ import { applicationResponseSchema } from './application-response.schema';
 	imports: [
 		DatabaseModule,
 		MongooseModule.forFeature([
-			{name:'Application', schema:applicationResponseSchema}
+			{name:'ApplicationResponse', schema:applicationResponseSchema}
 		]),
 		SearchModule
 	],

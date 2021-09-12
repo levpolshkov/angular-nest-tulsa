@@ -20,6 +20,8 @@ export const applicationResponseSchema = new mongoose.Schema({
 	deleted: Boolean,
 	deleteDate: Date,
 	deleteUser: {type:ObjectId, ref:'User'}
+}, {
+	collection: 'applicationResponses'
 });
 
 

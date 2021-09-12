@@ -1,7 +1,7 @@
 import { User } from '../user/user.interface';
 
 export type ApplicationQuestionType = 'label' | 'text' | 'phone' | 'email' | 'currency' | 'date' | 'number' | 'radio' | 'textarea';
-export type ApplicationPageType = 'question' | 'hero' | 'rejection';
+export type ApplicationPageType = 'question' | 'hero' | 'rejection' | 'submit';
 export interface ApplicationQuestionOption {
 	value: string | number | boolean,
 	label: string,

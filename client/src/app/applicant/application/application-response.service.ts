@@ -29,9 +29,9 @@ export class ApplicationResponseService {
 	// 	return this.http.get(`/application/${applicationId}`);
 	// }
 
-	// saveApplication(application:Application) {
-	// 	return this.http.post('/application', application);
-	// }
+	submitResponse(response:ApplicationResponse):Promise<ApplicationResponse> {
+		return this.http.post('/response', response);
+	}
 
 	// deleteApplicationById(applicationId:string) {
 	// 	return this.http.delete(`/application/${applicationId}`);

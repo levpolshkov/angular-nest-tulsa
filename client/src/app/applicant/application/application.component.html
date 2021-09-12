@@ -60,7 +60,7 @@
 			<small class="helperText">If you feel we’ve made an error, please contact us at <a class="text-light" href="mailto:info@tulsaremote.com" target="_blank">info@tulsaremote.com</a></small>
 		</div>
 
-		<div class="buttons px-4" *ngIf="page.type!=='rejection'">
+		<div class="buttons px-4" *ngIf="page.type!=='rejection' && page.type!=='submit'">
 			<button class="btn --plain-link" (click)="onPrevBtn()">Back</button>
 			<button class="btn --next" (click)="onNextBtn()">
 				Next
