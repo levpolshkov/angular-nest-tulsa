@@ -119,6 +119,7 @@ export class ApplicationComponent implements OnInit {
 		console.log('onNextBtn: nextPageIndex=%o', nextPageIndex);
 
 		if(nextPageIndex>this.lastPageIndex) {
+			nextSectionIndex++;
 			if(this.sectionIndex<this.lastSectionIndex) this.loadPage(nextSectionIndex, 0);
 		} else {
 			this.loadPage(nextSectionIndex,nextPageIndex);
