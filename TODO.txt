@@ -1,7 +1,10 @@
 X Save ApplicationResponses
 X Branch logic
 X Enter all questions
-- AWS deployment
+X AWS deployment
+X Session statefulness
+X Reject based on zipcode
 - Bullhorn integration
-- Session statefulness
-- Reject based on zipcode
+- Add section0
+- Fix next section logic
+- Back button logic
