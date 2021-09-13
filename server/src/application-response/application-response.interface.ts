@@ -6,9 +6,12 @@ export interface ApplicationResponseQuestionAnswer {
 	answer: any
 };
 
+export type ApplicationResponseStatus = 'rejected' | 'submitted' | 'pending';
 
 export interface ApplicationResponse {
 	_id?: any,
+
+	status: ApplicationResponseStatus,
 
 	application: Application,
 	questionAnswers: ApplicationResponseQuestionAnswer[],

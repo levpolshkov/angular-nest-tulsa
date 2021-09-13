@@ -41,6 +41,7 @@ export class ApplicationComponent implements OnInit {
 		this.response = await this.responseService.loadResponseLocal();
 		if(!this.response) {
 			this.response = {
+				status: 'pending',
 				application: this.application,
 				questionAnswers: []
 			};
@@ -75,6 +76,7 @@ export class ApplicationComponent implements OnInit {
 		});
 
 		if(this.page.type==='submit') await this.submitResponse();
+		if(this.page.type==='reject') await this.rejectReponse();
 
 		this.router.navigate([], {queryParams:{section:this.sectionIndex,page:this.pageIndex}, replaceUrl:true});
 	}
@@ -184,7 +186,15 @@ export class ApplicationComponent implements OnInit {
 		}
 	}
 
+	async rejectReponse() {
+		this.response.status = 'rejected';
+		this.response = await this.responseService.submitResponse(this.response);
+		console.log('rejectReponse: response=%o', this.response);
+		this.saveResponse();
+	}
+
 	async submitResponse() {
+		this.response.status = 'submitted';
 		this.response = await this.responseService.submitResponse(this.response);
 		console.log('submitResponse: response=%o', this.response);
 		this.saveResponse();
