@@ -133,7 +133,11 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	findPageIndexByName(pageName:string) {
-		return this.application.sections.find(s => s.pages.find(p => p.name===pageName))?.pages.findIndex(p => p.name===pageName);
+		const section = this.application.sections.find(s => s.pages.find(p => p.name===pageName));
+		if(!section) return -1;
+		const pageIndex = section.pages.findIndex(p => p.name===pageName);
+		// console.log('findPageIndexByName: pageName=%o, section=%o, pageIndex=%o', pageName, section, pageIndex);
+		return pageIndex;
 	}
 
 	isActiveSection(section) {
