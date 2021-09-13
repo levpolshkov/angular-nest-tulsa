@@ -92,9 +92,12 @@ export class ApplicationComponent implements OnInit {
 		console.log('onNextBtn: answers=%o', this.answers);
 
 		let nextPageIndex = this.pageIndex+1;
+		let nextSectionIndex = this.sectionIndex;
 		if(this.page.nextPageName) {
-			nextPageIndex = this.findPageIndexByName(this.page.nextPageName);
-			console.log('onNextBtn: nextPageName=%o, nextPageIndex=%o', this.page.nextPageName, nextPageIndex);
+			nextSectionIndex = this.findSectionIndexByPageName(this.page.nextPageName);
+			if(nextSectionIndex===-1) nextSectionIndex = this.sectionIndex;
+			nextPageIndex = this.findPageIndexByPageName(this.page.nextPageName);
+			console.log('onNextBtn: nextPageName=%o, nextSectionIndex=%o, nextPageIndex=%o', this.page.nextPageName, nextSectionIndex, nextPageIndex);
 			if(nextPageIndex===-1) nextPageIndex = this.pageIndex+1;
 		}
 
@@ -116,9 +119,9 @@ export class ApplicationComponent implements OnInit {
 		console.log('onNextBtn: nextPageIndex=%o', nextPageIndex);
 
 		if(nextPageIndex>this.lastPageIndex) {
-			if(this.sectionIndex<this.lastSectionIndex) this.loadPage(this.sectionIndex+1, 0);
+			if(this.sectionIndex<this.lastSectionIndex) this.loadPage(nextSectionIndex, 0);
 		} else {
-			this.loadPage(this.sectionIndex,nextPageIndex);
+			this.loadPage(nextSectionIndex,nextPageIndex);
 		}
 	}
 	onPrevBtn() {
@@ -132,10 +135,14 @@ export class ApplicationComponent implements OnInit {
 		}
 	}
 
-	findPageIndexByName(pageName:string) {
-		const section = this.application.sections.find(s => s.pages.find(p => p.name===pageName));
-		if(!section) return -1;
-		const pageIndex = section.pages.findIndex(p => p.name===pageName);
+	findSectionIndexByPageName(pageName:string) {
+		return this.application.sections.findIndex(s => s.pages.find(p => p.name===pageName));
+	}
+
+	findPageIndexByPageName(pageName:string) {
+		const sectionIndex = this.findSectionIndexByPageName(pageName);
+		if(sectionIndex===-1) return -1;
+		const pageIndex = this.application.sections[sectionIndex].pages.findIndex(p => p.name===pageName);
 		// console.log('findPageIndexByName: pageName=%o, section=%o, pageIndex=%o', pageName, section, pageIndex);
 		return pageIndex;
 	}
