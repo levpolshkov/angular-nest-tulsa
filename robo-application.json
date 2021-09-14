@@ -96,12 +96,12 @@
                                 {
                                     "value" : "Yes",
                                     "label" : "Yes",
-                                    "nextPageName" : "4a.1"
+                                    "nextPageName" : "6a"
                                 }, 
                                 {
                                     "value" : "No",
                                     "label" : "No",
-                                    "nextPageName" : "6a"
+                                    "nextPageName" : "4a.1"
                                 }
                             ],
                             "key" : "doesWorkRemotely"
@@ -180,37 +180,37 @@
                 }, 
                 {
                     "name" : "3a.1",
-                    "type" : "rejection",
+                    "type" : "reject",
                     "heroImage" : "assets/heros/bummer.jpg",
                     "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>Based on your answers, it looks like you’re not eligible for Tulsa Remote.</h3><p>We appreciate your time, but you have to be able to work remotely to participate in this program. However, we have other opportunities in Tulsa that we think you might be interested in. Enter your email, and we’ll connect you.</p>"
                 }, 
                 {
                     "name" : "5a.2",
-                    "type" : "rejection",
+                    "type" : "reject",
                     "heroImage" : "assets/heros/bummer.jpg",
                     "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>Rideshare services such as Lyft and Uber, and delivery services such as Grubhub, Instacart, and DoorDash, are not considered full-time remote employment. However, we have other opportunities in Tulsa that we think you might be interested in. Enter your email, and we’ll connect you. </p>"
                 }, 
                 {
                     "name" : "6a.1",
-                    "type" : "rejection",
+                    "type" : "reject",
                     "heroImage" : "assets/heros/bummer.jpg",
                     "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>Individuals must be at least 18 years of age to apply. However, we have other opportunities in Tulsa that we think you might be interested in. Enter your email, and we’ll connect you.</p>"
                 }, 
                 {
                     "name" : "7a.1",
-                    "type" : "rejection",
+                    "type" : "reject",
                     "heroImage" : "assets/heros/bummer.jpg",
                     "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>Individuals outside the U.S. are eligible only if they are legal permanent residents with a green card. However, we have other opportunities in Tulsa that we think you might be interested in. Enter your email, and we’ll connect you.</p>"
                 }, 
                 {
                     "name" : "8a.1",
-                    "type" : "rejection",
+                    "type" : "reject",
                     "heroImage" : "assets/heros/bummer.jpg",
                     "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>Applicants must live outside of Oklahoma. However, we have other opportunities in Tulsa that we think you might be interested in. Enter your email, and we’ll connect you.</p>"
                 }, 
                 {
                     "name" : "9a.1",
-                    "type" : "rejection",
+                    "type" : "reject",
                     "heroImage" : "assets/heros/bummer.jpg",
                     "heroHtml" : "<h2 class='mb-5'>Bummer.</h2><h3 class='mb-4'>This program requires income verification to apply. However, we have other opportunities in Tulsa that may be a better fit. Enter your email to learn more.</p>"
                 }, 
@@ -337,7 +337,7 @@
                 {
                     "order" : 1,
                     "title" : "Location",
-                    "pageName" : "11a",
+                    "name" : "11a",
                     "nextPageName" : "12a",
                     "questions" : [ 
                         {
@@ -355,7 +355,7 @@
                 {
                     "order" : 2,
                     "title" : "Book Smarts",
-                    "pageName" : "12a",
+                    "name" : "12a",
                     "nextPageName" : "13a",
                     "questions" : [ 
                         {
@@ -411,7 +411,7 @@
                                 {
                                     "value" : "No",
                                     "label" : "No",
-                                    "nextPageName" : "14a"
+                                    "nextPageName" : "section3"
                                 }
                             ],
                             "key" : "streetSmarts"
@@ -436,6 +436,7 @@
             "title" : "Work Life",
             "pages" : [ 
                 {
+                    "name" : "section3",
                     "order" : 0,
                     "type" : "hero",
                     "heroImage" : "assets/heros/section3.jpg",

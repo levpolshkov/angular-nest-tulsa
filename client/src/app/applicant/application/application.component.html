@@ -1,4 +1,4 @@
-<div class="row row-kaitlyn vh-100" *ngIf="application && page">
+<div class="row vh-100" *ngIf="application && page">
 	<div class="col side1">
 		<h3><b>tulsa</b><br>remote</h3>
 		<div class="hero-image" style="background-image: url({{page.heroImage}})" *ngIf="page.heroImage">
@@ -9,7 +9,7 @@
 			<div *ngIf="applicationService.debugMode && page.name">[{{page.name}}]</div>
 		</div>
 	</div>
-	<div class="col side2" [class.hero-image]="page.heroImage">
+	<div class="col side2" [class.hero-page-content]="page.heroImage">
 		<div class="wayfinder text-center" *ngIf="!page.heroImage">
 			<wayfinder [sections]="application.sections" [sectionIndex]="sectionIndex" [pageIndex]="pageIndex"></wayfinder>
 		</div>
@@ -17,7 +17,7 @@
 		<ng-container *ngIf="page.questions.length">
 			<div class="questions row">
 				<div class="question mb-3" *ngFor="let question of page.questions">
-					<p class="form-label" [innerHtml]="question.label"></p>
+					<label class="form-label" [class.heading-label]="question.type == 'label' || question.type == 'radio'" [innerHtml]="question.label"></label>
 
 					<div class="form-group" *ngIf="question.type==='text' || question.type==='email' || question.type==='phone'">
 						<input class="form-control" [type]="question.type" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
@@ -30,8 +30,8 @@
 					<div class="radio form-group" *ngIf="question.type==='radio'">
 						<div class="d-grid gap-2">
 							<div class="option" *ngFor="let option of question.options" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
-								<div class="label">{{option.label}}</div>
-								<div class="helperText">{{option.helperText}}</div>
+								<p class="label">{{option.label}}</p>
+								<p class="helper-text" *ngIf="option.helperText">{{option.helperText}}</p>
 								<div *ngIf="applicationService.debugMode && option.nextPageName">[{{option.nextPageName}}]</div>
 							</div>
 						</div>
@@ -46,7 +46,7 @@
 
 		<div *ngIf="page.heroHtml" [innerHtml]="page.heroHtml"></div>
 
-		<div *ngIf="page.type==='rejection'">
+		<div *ngIf="page.type==='reject'">
 			<label class="form-label text-light">Verify your email address</label>
 			<div>
 				<div class="float-start">
@@ -60,7 +60,7 @@
 			<small class="helperText">If you feel we’ve made an error, please contact us at <a class="text-light" href="mailto:info@tulsaremote.com" target="_blank">info@tulsaremote.com</a></small>
 		</div>
 
-		<div class="buttons px-4" *ngIf="page.type!=='rejection' && page.type!=='submit'">
+		<div class="buttons px-4" *ngIf="page.type!=='reject' && page.type!=='submit'">
 			<button class="btn --plain-link" (click)="onPrevBtn()">Back</button>
 			<button class="btn --next" (click)="onNextBtn()">
 				Next

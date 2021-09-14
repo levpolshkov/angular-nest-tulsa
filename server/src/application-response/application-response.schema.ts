@@ -6,6 +6,8 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 export const applicationResponseSchema = new mongoose.Schema({
 	name: String,
 
+	status: String,
+
 	application: applicationSchema,
 	questionAnswers: [{
 		questionKey: String,

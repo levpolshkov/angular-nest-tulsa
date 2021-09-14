@@ -9,17 +9,11 @@
 	height: 100vh;
 }
 
-.row-kaitlyn {
-	// TODO: this is gross and should be fixed - figure out why col classes aren't working as expected
-	.side1, .side2 {
-		position: relative;
-		flex: 0 0 100%;
-
-		@include media-breakpoint-up(md) {
-			flex: 1 0 50%;
-			width: 50%;
-		}
-	}
+.row {
+  .side1,
+  .side2 {
+    position: relative;
+  }
 }
 
 .hero-image {
@@ -60,9 +54,13 @@
 		align-items: center;
 	}
 
-	&.hero-image {
+	&.hero-page-content {
 		background-color: $color-brand-purple;
 		color: white;
+
+    @include media-breakpoint-down(md) {
+      flex: 1 0 100%;
+    }
 	}
 }
 
@@ -110,8 +108,8 @@
 .questions {
 	@include media-breakpoint-up(lg) {
 		// TODO: this is gross and should be fixed
-		flex: 0 0 60%;
-		width: 60%;
+		flex: 0 0 80%;
+		width: 80%;
 	}
 
 	.question {
@@ -119,12 +117,21 @@
 			.option {
 				border: 1px solid #ddd;
 				border-radius: 5px;
-				padding: 10px;
+				padding: 16px 24px 20px 24px;
 
-				.helperText {
-					color: #aaa;
-					font-size: 0.8em;
-				}
+        > p {
+          margin: 0;
+        }
+
+        p.label {
+          font-size: 1.5rem;
+          font-weight: 300;
+        }
+
+        .helper-text {
+          font-size: 1rem;
+          margin-top: 10px;
+        }
 
 				&:hover {
 					border-color: #aaa;
