@@ -1251,6 +1251,7 @@ Object.defineProperty(exports, "ApplicationResponse", ({ enumerable: true, get: 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 exports.applicationResponseSchema = new mongoose.Schema({
     name: String,
+    status: String,
     application: application_1.applicationSchema,
     questionAnswers: [{
             questionKey: String,
