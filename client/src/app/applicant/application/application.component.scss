@@ -95,6 +95,7 @@
     }
     &-metadata {
       display: flex;
+      margin-top: .7em;
     }
     &-image {
       border-radius: 100%;
@@ -110,7 +111,6 @@
 
 
 
-
 // TODO: this still needs some love
 .buttons {
 	background: $color-white;
@@ -120,11 +120,23 @@
 	justify-content: space-between;
 	align-items: center;
 
+  &.--dark {
+    background: transparent;
+    justify-content: flex-end;
+    border-top: 0;
+  }
+
 	@include media-breakpoint-down(md) {
 		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
+
+    &.--dark {
+      padding: 40px;
+      position: static;
+      justify-content: center;
+    }
 	}
 
 	@include media-breakpoint-up(md) {

@@ -45,11 +45,7 @@
 			</div>
 		</ng-container>
 
-		<div *ngIf="page.heroHtml" class="questions row" [innerHtml]="page.heroHtml"></div>
-
-    <div class="px-4 text-right" *ngIf="page.name==='welcome'">
-      <button class="btn --next --reverse" (click)="onNextBtn()">Let's Get Started</button>
-    </div>
+		<div *ngIf="page.heroHtml" class="questions" [innerHtml]="page.heroHtml"></div>
 
 		<div *ngIf="page.type==='reject'">
 			<label class="form-label text-light">Verify your email address</label>
@@ -72,5 +68,10 @@
 				<span *ngIf="applicationService.debugMode && page.nextPageName">[{{page.nextPageName}}]</span>
 			</button>
 		</div>
+
+    <div class="buttons --dark px-4 text-right" *ngIf="page.name==='welcome'">
+      <button class="btn --next --reverse" (click)="onNextBtn()">Let's Get Started</button>
+    </div>
 	</div>
+  
 </div>
