@@ -932,6 +932,8 @@ exports.applicationSchema = new mongoose.Schema({
                             order: Number,
                             type: { type: String },
                             label: String,
+                            key: String,
+                            bullhornKey: String,
                             options: [{
                                     value: mongoose.Schema.Types.Mixed,
                                     label: String,
@@ -1103,7 +1105,8 @@ let BullhornModule = class BullhornModule {
 };
 BullhornModule = __decorate([
     common_1.Module({
-        providers: [bullhorn_service_1.BullhornService]
+        providers: [bullhorn_service_1.BullhornService],
+        exports: [bullhorn_service_1.BullhornService]
     })
 ], BullhornModule);
 exports.BullhornModule = BullhornModule;
@@ -1129,6 +1132,7 @@ exports.BullhornService = void 0;
 const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(10);
 const bullhorn_api_1 = __webpack_require__(37);
+;
 let BullhornService = class BullhornService {
     constructor(configService) {
         this.configService = configService;
@@ -1138,6 +1142,51 @@ let BullhornService = class BullhornService {
             username: this.configService.get('BULLHORN_USERNAME'),
             password: this.configService.get('BULLHORN_PASSWORD')
         });
+        this.bullhorn.login();
+    }
+    async testBullhorn() {
+        const loginResult = await this.bullhorn.login();
+        console.log('testBullhorn: Login successful');
+        const candidateId = 48165;
+        console.log('candidateId=%o', candidateId);
+    }
+    async addCandidate(candidate) {
+        candidate.name = [candidate.firstName, candidate.lastName].map(p => String(p).trim()).filter(p => p).join(' ');
+        const result = await this.bullhorn.fetch(`entity/Candidate`, {
+            method: 'PUT',
+            body: JSON.stringify(candidate)
+        });
+        const data = await result.json();
+        console.log('addCandidate: candidate=%o, result=%o', candidate, data);
+        return data === null || data === void 0 ? void 0 : data.changedEntityId;
+    }
+    async addCandidateNote(candidateId, noteType, noteBody) {
+        const payload = {
+            personReference: { id: candidateId },
+            comments: noteBody,
+            action: noteType,
+            commentingPerson: { id: 9009 }
+        };
+        const result = await this.bullhorn.fetch(`entity/Note`, {
+            method: 'PUT',
+            body: JSON.stringify(payload)
+        });
+        const data = await result.json();
+        console.log('addCandidateNote: payload=%o, result=%o', payload, data);
+        return data === null || data === void 0 ? void 0 : data.changedEntityId;
+    }
+    async addJobSubmission(candidateId, jobId) {
+        const result = await this.bullhorn.fetch(`entity/JobSubmission`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                candidate: { id: candidateId },
+                jobOrder: { id: jobId },
+                status: 'New Lead'
+            })
+        });
+        const data = await result.json();
+        console.log('addJobSubmission: candidateId=%o, jobId=%o, result=%o', data);
+        return data === null || data === void 0 ? void 0 : data.changedEntityId;
     }
 };
 BullhornService = __decorate([
@@ -1173,6 +1222,7 @@ const database_1 = __webpack_require__(7);
 const search_1 = __webpack_require__(25);
 const mongoose_1 = __webpack_require__(6);
 const application_response_schema_1 = __webpack_require__(40);
+const bullhorn_module_1 = __webpack_require__(35);
 let ApplicationResponseModule = class ApplicationResponseModule {
 };
 ApplicationResponseModule = __decorate([
@@ -1182,7 +1232,8 @@ ApplicationResponseModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: 'ApplicationResponse', schema: application_response_schema_1.applicationResponseSchema }
             ]),
-            search_1.SearchModule
+            search_1.SearchModule,
+            bullhorn_module_1.BullhornModule
         ],
         controllers: [application_response_controller_1.ApplicationResponseController],
         providers: [application_response_service_1.ApplicationResponseService],
@@ -1209,7 +1260,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApplicationResponseService = exports.ApplicationResponseDocument = exports.ApplicationResponse = void 0;
 const common_1 = __webpack_require__(5);
@@ -1219,20 +1270,91 @@ const search_1 = __webpack_require__(25);
 const application_response_schema_1 = __webpack_require__(40);
 Object.defineProperty(exports, "ApplicationResponse", ({ enumerable: true, get: function () { return application_response_schema_1.ApplicationResponse; } }));
 Object.defineProperty(exports, "ApplicationResponseDocument", ({ enumerable: true, get: function () { return application_response_schema_1.ApplicationResponseDocument; } }));
+const bullhorn_service_1 = __webpack_require__(36);
 let ApplicationResponseService = class ApplicationResponseService {
-    constructor(responseModel, documentService, searchService) {
+    constructor(responseModel, documentService, searchService, bullhornService) {
         this.responseModel = responseModel;
         this.documentService = documentService;
         this.searchService = searchService;
+        this.bullhornService = bullhornService;
     }
     saveResponse(response) {
-        return this.documentService.saveDocument(this.responseModel, response);
+        return this.documentService.saveDocument(this.responseModel, response, {
+            afterSave: (newDoc, oldDoc) => this.afterSave(newDoc, oldDoc)
+        });
+    }
+    async afterSave(newDoc, oldDoc) {
+        if (newDoc.status === 'submitted')
+            this.submitResponseToBullhorn(newDoc);
+    }
+    async submitResponseToBullhorn(response) {
+        const candidate = {};
+        const appNoteLines = [];
+        const partnerNoteLines = [];
+        const responseNoteLines = [];
+        response.questionAnswers.map(qa => {
+            const question = this.findQuestionByQuestionKey(response.application, qa.questionKey);
+            const bullhornKey = question === null || question === void 0 ? void 0 : question.bullhornKey;
+            console.log('submitResponseToBullhorn: qa=%o, bullhornKey=%o', qa, bullhornKey);
+            if (!bullhornKey)
+                return;
+            const noteLine = `${question.label || question.key}\n${qa.answer}`;
+            responseNoteLines.push(noteLine);
+            switch (bullhornKey) {
+                case 'note.application':
+                    appNoteLines.push(noteLine);
+                    break;
+                case 'note.partner':
+                    partnerNoteLines.push(noteLine);
+                    break;
+                case 'zip':
+                    qa.answer = candidate['address'] = { zip: qa.answer };
+                    break;
+                case 'fullSecondaryAddress':
+                    qa.answer = candidate['secondaryAddress1'] = qa.answer;
+                    break;
+                default:
+                    candidate[bullhornKey] = qa.answer;
+            }
+        });
+        const appNote = appNoteLines.join('\n\n');
+        const partnerNote = partnerNoteLines.join('\n\n');
+        const responseNote = responseNoteLines.join('\n\n');
+        console.log('submitResponseToBullhorn: candidate=%o', candidate);
+        console.log('submitResponseToBullhorn: appNote=%o', appNote);
+        console.log('submitResponseToBullhorn: partnerNote=%o', partnerNote);
+        console.log('submitResponseToBullhorn: responseNote=%o', responseNote);
+        if (true) {
+            const candidateId = await this.bullhornService.addCandidate(candidate);
+            console.log('submitResponseToBullhorn: candidateId=%o', candidateId);
+            if (candidateId) {
+                const appNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Application Note', appNote);
+                console.log('submitResponseToBullhorn: appNoteId=%o', appNoteId);
+                const partnerNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Partner Note', partnerNote);
+                console.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
+                const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Application Note', responseNote);
+                console.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
+                const jobSubId = await this.bullhornService.addJobSubmission(candidateId, 65);
+                console.log('submitResponseToBullhorn: jobSubId=%o', jobSubId);
+                response.bullhornCandidateId = candidateId;
+                await response.save();
+            }
+        }
+    }
+    findQuestionByQuestionKey(application, questionKey) {
+        const section = application.sections.find(s => s.pages.find(p => p.questions.find(q => q.key === questionKey)));
+        if (!section)
+            return null;
+        const page = section.pages.find(p => p.questions.find(q => q.key === questionKey));
+        if (!page)
+            return null;
+        return page.questions.find(q => q.key === questionKey);
     }
 };
 ApplicationResponseService = __decorate([
     common_1.Injectable(),
     __param(0, mongoose_1.InjectModel('ApplicationResponse')),
-    __metadata("design:paramtypes", [typeof (_a = typeof database_1.mongoose !== "undefined" && database_1.mongoose.Model) === "function" ? _a : Object, typeof (_b = typeof database_1.DocumentService !== "undefined" && database_1.DocumentService) === "function" ? _b : Object, typeof (_c = typeof search_1.SearchService !== "undefined" && search_1.SearchService) === "function" ? _c : Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof database_1.mongoose !== "undefined" && database_1.mongoose.Model) === "function" ? _a : Object, typeof (_b = typeof database_1.DocumentService !== "undefined" && database_1.DocumentService) === "function" ? _b : Object, typeof (_c = typeof search_1.SearchService !== "undefined" && search_1.SearchService) === "function" ? _c : Object, typeof (_d = typeof bullhorn_service_1.BullhornService !== "undefined" && bullhorn_service_1.BullhornService) === "function" ? _d : Object])
 ], ApplicationResponseService);
 exports.ApplicationResponseService = ApplicationResponseService;
 
@@ -1257,6 +1379,7 @@ exports.applicationResponseSchema = new mongoose.Schema({
             questionKey: String,
             answer: mongoose.Schema.Types.Mixed
         }],
+    bullhornCandidateId: Number,
     __v: { type: Number, select: false },
     createDate: Date,
     updateDate: Date,
