@@ -18,7 +18,7 @@
       <!-- do we need this row class here? -->
 			<div class="questions">
 				<div class="question mb-3" *ngFor="let question of page.questions">
-					<label class="form-label" [class.heading-label]="question.type == 'label' || question.type == 'radio'" [innerHtml]="question.label"></label>
+					<label class="form-label" [class.heading-label]="page.type == 'single-question' || question.type == 'label' || question.type == 'radio'" [innerHtml]="question.label"></label>
 
 					<div class="form-group" *ngIf="question.type==='text' || question.type==='email' || question.type==='phone'">
 						<input class="form-control" [type]="question.type" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
@@ -29,7 +29,7 @@
 					</div>
 
 					<div class="radio form-group" *ngIf="question.type==='radio'">
-						<div class="d-grid gap-2">
+						<div class="d-grid gap-2" [class.d-flex]="question.options.length <= 2">
 							<ng-container *ngFor="let option of question.options; let i = index">
                 <label for="control_{{i}}">
                   <input type="radio" id="control_{{i}}" name="selectQuestion" value="{{i}}" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
