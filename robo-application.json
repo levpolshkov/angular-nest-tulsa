@@ -6,6 +6,13 @@
             "title" : "Eligibility",
             "pages" : [ 
                 {
+                    "order" : 0,
+                    "name" : "welcome",
+                    "type" : "welcome",
+                    "heroImage" : "assets/heros/welcome.jpg",
+                    "heroHtml" : "<h2 class='mb-5'>Hi, we’re Tulsa Remote. 👋</h2><h3 class='mb-4'>We’re thrilled that you’re interested in our city!</h3><h4>Before we dive in, hear what some real Remoters have to say:</h4><div class='quote'><div class='quote-content'>“Quote about warmth of community. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ”</div><div class='quote-metadata'><div class='quote-image'><img src='assets/members/JennaBoyd.jpg' alt='Jenna Boyd' /></div><div class='quote-name'><strong>Jenna Boyd</strong><br/>Los Angeles, CA<br/>Actress</div></div><div class='quote'><div class='quote-content'>“Quote about affordability + buying a house. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</div><div class='quote-metadata'><div class='quote-image'><img src='assets/members/ObumUkabam.jpg' alt='Obum Ukabam' /></div><div class='quote-name'><strong>Obum Ukabam</strong><br/>Moreno Valley, CA<br/>Media, Education</div></div></div>"
+                }, 
+                {
                     "order" : 1,
                     "name" : "1a",
                     "title" : "First Things First",
@@ -20,28 +27,32 @@
                             "order" : 1,
                             "type" : "text",
                             "label" : "First Name",
-                            "key" : "firstName"
+                            "key" : "firstName",
+                            "bullhornKey" : "firstName"
                         }, 
                         {
                             "_id" : ObjectId("61367ef35f5547cae7e190ac"),
                             "order" : 2,
                             "type" : "text",
                             "label" : "Last Name",
-                            "key" : "lastName"
+                            "key" : "lastName",
+                            "bullhornKey" : "lastName"
                         }, 
                         {
                             "_id" : ObjectId("61367ef35f5547cae7e190ab"),
                             "order" : 3,
                             "type" : "email",
                             "label" : "Email Address",
-                            "key" : "email"
+                            "key" : "email",
+                            "bullhornKey" : "email"
                         }, 
                         {
                             "_id" : ObjectId("61367ef35f5547cae7e190ac"),
                             "order" : 4,
                             "type" : "phone",
                             "label" : "Phone Number",
-                            "key" : "phone"
+                            "key" : "phone",
+                            "bullhornKey" : "phone"
                         }
                     ],
                     "nextPageName" : "3a"
@@ -55,6 +66,7 @@
                             "label" : "Which best describes you?",
                             "type" : "radio",
                             "key" : "employmentType",
+                            "bullhornKey" : "note.application",
                             "options" : [ 
                                 {
                                     "value" : "Full Time Employee",
@@ -104,7 +116,8 @@
                                     "nextPageName" : "4a.1"
                                 }
                             ],
-                            "key" : "doesWorkRemotely"
+                            "key" : "doesWorkRemotely",
+                            "bullhornKey" : "note.application"
                         }
                     ]
                 }, 
@@ -128,7 +141,8 @@
                                     "nextPageName" : "3a.1"
                                 }
                             ],
-                            "key" : "canWorkRemotely"
+                            "key" : "canWorkRemotely",
+                            "bullhornKey" : "note.application"
                         }
                     ]
                 }, 
@@ -152,7 +166,8 @@
                                     "nextPageName" : "5a.1"
                                 }
                             ],
-                            "key" : "gigJob"
+                            "key" : "gigJob",
+                            "bullhornKey" : "note.application"
                         }
                     ]
                 }, 
@@ -174,7 +189,8 @@
                                     "label" : "No"
                                 }
                             ],
-                            "key" : "primaryIncomeSourceFromCompany"
+                            "key" : "primaryIncomeSourceFromCompany",
+                            "bullhornKey" : "note.application"
                         }
                     ]
                 }, 
@@ -222,7 +238,8 @@
                         {
                             "type" : "date",
                             "label" : "What’s your date of birth?",
-                            "key" : "birthDate"
+                            "key" : "birthDate",
+                            "bullhornKey" : "dateOfBirth"
                         }
                     ],
                     "nextPageName" : "7a"
@@ -236,6 +253,7 @@
                             "type" : "radio",
                             "label" : "What’s your citizenship status?",
                             "key" : "citizenship",
+                            "bullhornKey" : "customText20",
                             "options" : [ 
                                 {
                                     "value" : "Citizen",
@@ -269,7 +287,8 @@
                         {
                             "type" : "text",
                             "label" : "ZIP code",
-                            "key" : "zipcode"
+                            "key" : "zipcode",
+                            "bullhornKey" : "zip"
                         }
                     ]
                 }, 
@@ -293,7 +312,8 @@
                                     "nextPageName" : "9a.1"
                                 }
                             ],
-                            "key" : "canProvideProofOfIncome"
+                            "key" : "canProvideProofOfIncome",
+                            "bullhornKey" : "customText27"
                         }
                     ]
                 }, 
@@ -320,7 +340,8 @@
                                     "nextPageName" : "10a.1"
                                 }
                             ],
-                            "key" : "willingToLiveInTulsa"
+                            "key" : "willingToRelocate",
+                            "bullhornKey" : "willRelocate"
                         }
                     ]
                 }
@@ -343,12 +364,14 @@
                         {
                             "type" : "text",
                             "label" : "What's your current address?",
-                            "key" : "address"
+                            "key" : "address",
+                            "bullhornKey" : "fullSecondaryAddress"
                         }, 
                         {
                             "type" : "date",
                             "label" : "When did you start living there?",
-                            "key" : "addressDate"
+                            "key" : "addressDate",
+                            "bullhornKey" : "note.application"
                         }
                     ]
                 }, 
@@ -362,6 +385,7 @@
                             "type" : "radio",
                             "label" : "What is the highest level of traditional education that you’ve completed?",
                             "key" : "education",
+                            "bullhornKey" : "educationDegree",
                             "options" : [ 
                                 {
                                     "value" : "None",
@@ -397,10 +421,7 @@
                     "name" : "13a",
                     "questions" : [ 
                         {
-                            "type" : "label",
-                            "label" : "<p>Have you taken coursework outside of traditional institutions?</p><small>E.g. coding boot camp, online courses, or a vocational program</small>"
-                        }, 
-                        {
+                            "label" : "<p>Have you taken coursework outside of traditional institutions?</p><small>E.g. coding boot camp, online courses, or a vocational program</small>",
                             "type" : "radio",
                             "options" : [ 
                                 {
@@ -414,7 +435,8 @@
                                     "nextPageName" : "section3"
                                 }
                             ],
-                            "key" : "streetSmarts"
+                            "key" : "streetSmarts",
+                            "bullhornKey" : "note.application"
                         }
                     ]
                 }, 
@@ -426,7 +448,8 @@
                         {
                             "type" : "textarea",
                             "label" : "Nice! Can you tell us the name and give a bit of a description of this coursework?",
-                            "key" : "streetSmartsDesc"
+                            "key" : "streetSmartsDesc",
+                            "bullhornKey" : "customTextBlock6"
                         }
                     ]
                 }
@@ -528,7 +551,8 @@
                                     "label" : "Other Services"
                                 }
                             ],
-                            "key" : "industry"
+                            "key" : "industry",
+                            "bullhornKey" : "customText13"
                         }
                     ]
                 }, 
@@ -558,7 +582,8 @@
                         {
                             "label" : "Give us a brief overview of your role and responsibilities.",
                             "type" : "textarea",
-                            "key" : "jobRole"
+                            "key" : "jobRole",
+                            "bullhornKey" : "customTextBlock10"
                         }
                     ]
                 }, 
@@ -570,6 +595,7 @@
                             "label" : "Which range best fits your estimated total annual income?",
                             "type" : "radio",
                             "key" : "jobIncome",
+                            "bullhornKey" : "customText19",
                             "options" : [ 
                                 {
                                     "value" : "Less than $40,000",
@@ -607,7 +633,8 @@
                         {
                             "label" : "Give us a brief overview of your company and what it does.",
                             "type" : "textarea",
-                            "key" : "jobRole"
+                            "key" : "jobRole",
+                            "bullhornKey" : "note.application"
                         }
                     ]
                 }, 
@@ -631,7 +658,8 @@
                                     "label" : "No"
                                 }
                             ],
-                            "key" : "isJobStartup"
+                            "key" : "isJobStartup",
+                            "bullhornKey" : "customText18"
                         }
                     ]
                 }, 
@@ -642,7 +670,8 @@
                         {
                             "label" : "When was your start up founded?",
                             "type" : "date",
-                            "key" : "startupDate"
+                            "key" : "startupDate",
+                            "bullhornKey" : "customDate12"
                         }
                     ]
                 }, 
@@ -654,6 +683,7 @@
                             "label" : "Which range best fits your estimated total annual revenue?",
                             "type" : "radio",
                             "key" : "startupIncome",
+                            "bullhornKey" : "customText17",
                             "options" : [ 
                                 {
                                     "value" : "Less than $40,000",
@@ -687,7 +717,8 @@
                         {
                             "label" : "Give us a brief overview of your job and your typical day at work.",
                             "type" : "textarea",
-                            "key" : "jobRole"
+                            "key" : "jobRole",
+                            "bullhornKey" : "customTextBlock10"
                         }
                     ]
                 }, 
@@ -698,7 +729,8 @@
                         {
                             "label" : "What year did you become self-employed?",
                             "type" : "date",
-                            "key" : "startupDate"
+                            "key" : "startupDate",
+                            "bullhornKey" : "customDate12"
                         }
                     ]
                 }, 
@@ -710,6 +742,7 @@
                             "label" : "Which range best fits your estimated total annual income?",
                             "type" : "radio",
                             "key" : "startupIncome",
+                            "bullhornKey" : "customText19",
                             "options" : [ 
                                 {
                                     "value" : "Less than $40,000",
@@ -748,6 +781,7 @@
                             "label" : "Do you manage other employees?",
                             "type" : "radio",
                             "key" : "manageEmployees",
+                            "bullhornKey" : "note.application",
                             "options" : [ 
                                 {
                                     "value" : "Yes",
@@ -770,7 +804,8 @@
                         {
                             "label" : "How many employees do you manage?",
                             "type" : "radio",
-                            "key" : "startupIncome",
+                            "key" : "manageEmployeesCount",
+                            "bullhornKey" : "note.application",
                             "options" : [ 
                                 {
                                     "value" : "Less than 5",
@@ -835,7 +870,8 @@
                                     "value" : "already bought a house or signed a lease in Tulsa"
                                 }
                             ],
-                            "key" : "relocationPlan"
+                            "key" : "relocationPlan",
+                            "bullhornKey" : "note.application"
                         }
                     ]
                 }, 
@@ -844,9 +880,10 @@
                     "title" : "History",
                     "questions" : [ 
                         {
-                            "label" : "Do you ever lived in Tulsa?",
+                            "label" : "Have you ever lived in Tulsa?",
                             "type" : "radio",
                             "key" : "everLivedInTulsa",
+                            "bullhornKey" : "customText16",
                             "options" : [ 
                                 {
                                     "value" : "Yes",
@@ -869,7 +906,8 @@
                         {
                             "label" : "We thought you looked familiar! When did you move away?",
                             "type" : "date",
-                            "key" : "movedAwayFromTulsaDate"
+                            "key" : "movedAwayFromTulsaDate",
+                            "bullhornKey" : "note.application"
                         }
                     ]
                 }, 
@@ -881,6 +919,7 @@
                             "label" : "Hmm, maybe we know the same people. Do you have friends or family in Tulsa?",
                             "type" : "radio",
                             "key" : "knowPeopleInTulsa",
+                            "bullhornKey" : "customText14",
                             "options" : [ 
                                 {
                                     "value" : "Yes",
@@ -901,7 +940,7 @@
                         {
                             "label" : "In your current community, do you regularly volunteer, or are you a member of any community groups?",
                             "type" : "radio",
-                            "key" : "knowPeopleInTulsa",
+                            "key" : "volunteerInTulsa",
                             "options" : [ 
                                 {
                                     "value" : "Yes",
@@ -924,7 +963,8 @@
                         {
                             "label" : "Nice! Tell us a little about your volunteering and community activities?",
                             "type" : "textarea",
-                            "key" : "volunteerInfo"
+                            "key" : "volunteerInfo",
+                            "bullhornKey" : "customTextBlock8"
                         }
                     ]
                 }, 
@@ -935,7 +975,8 @@
                         {
                             "label" : "We’d love to know — what do you think makes you a great fit for Tulsa Remote?",
                             "type" : "textarea",
-                            "key" : "whyYou"
+                            "key" : "fitForTulsaRemote",
+                            "bullhornKey" : "customTextBlock7"
                         }
                     ]
                 }, 
@@ -946,7 +987,8 @@
                         {
                             "label" : "<p>We believe that by celebrating remote work, we can attract people from all over the country and dramatically increase Tulsa’s diversity of industries. This diversity of industry and representation ensures that every child born in Tulsa has the opportunity to have a fantastic career, even if they don’t have the means to leave the state to achieve it.</p><p>How does that align to your values, passions, or beliefs?</p>",
                             "type" : "textarea",
-                            "key" : "whoWeAre"
+                            "key" : "diversityAlignment",
+                            "bullhornKey" : "customTextBlock9"
                         }
                     ]
                 }, 
@@ -957,7 +999,8 @@
                         {
                             "label" : "Which category best describes your race/ethnicity?",
                             "type" : "radio",
-                            "key" : "race",
+                            "key" : "ethnicity",
+                            "bullhornKey" : "ethnicity",
                             "options" : [ 
                                 {
                                     "value" : "Black or African American",
@@ -1009,21 +1052,27 @@
                             "label" : "What gender do you identify with?",
                             "type" : "radio",
                             "key" : "gender",
+                            "bullhornKey" : "gender",
                             "options" : [ 
                                 {
-                                    "label" : "Female"
+                                    "label" : "Female",
+                                    "value" : "F"
                                 }, 
                                 {
-                                    "label" : "Male"
+                                    "label" : "Male",
+                                    "value" : "M"
                                 }, 
                                 {
-                                    "label" : "Non-Binary"
+                                    "label" : "Non-Binary",
+                                    "value" : "U"
                                 }, 
                                 {
-                                    "label" : "Other"
+                                    "label" : "Other",
+                                    "value" : "U"
                                 }, 
                                 {
-                                    "label" : "Prefer not to say"
+                                    "label" : "Prefer not to say",
+                                    "value" : "U"
                                 }
                             ]
                         }
@@ -1037,6 +1086,7 @@
                             "label" : "What is your relationship status?",
                             "type" : "radio",
                             "key" : "relationship",
+                            "bullhornKey" : "customText15",
                             "options" : [ 
                                 {
                                     "label" : "Single"
@@ -1071,14 +1121,105 @@
                             "label" : "Is your significant other currently a member or alumni?",
                             "type" : "radio",
                             "key" : "significantOtherMember",
+                            "bullhornKey" : "note.partner",
+                            "options" : [ 
+                                {
+                                    "label" : "Yes",
+                                    "nextPageName" : "26a.3"
+                                }, 
+                                {
+                                    "label" : "No",
+                                    "nextPageName" : "26a.4"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "26a.3",
+                    "title" : "Significant other",
+                    "questions" : [ 
+                        {
+                            "label" : "Can you provide their name and email?",
+                            "type" : "label"
+                        }, 
+                        {
+                            "type" : "text",
+                            "label" : "Significant Other First Name",
+                            "key" : "significantOtherFirstName",
+                            "bullhornKey" : "note.partner"
+                        }, 
+                        {
+                            "type" : "text",
+                            "label" : "Significant Other Last Name",
+                            "key" : "significantOtherLastName",
+                            "bullhornKey" : "note.partner"
+                        }, 
+                        {
+                            "type" : "text",
+                            "label" : "Significant Other Email Address",
+                            "key" : "significantOtherEmail",
+                            "bullhornKey" : "note.partner"
+                        }
+                    ],
+                    "nextPageName" : "27a"
+                }, 
+                {
+                    "name" : "26a.4",
+                    "title" : "Significant other",
+                    "questions" : [ 
+                        {
+                            "label" : "Are they applying to Tulsa Remote also?",
+                            "type" : "radio",
+                            "key" : "significantOtherApplying",
+                            "bullhornKey" : "note.partner",
                             "options" : [ 
                                 {
                                     "label" : "Yes"
                                 }, 
                                 {
-                                    "label" : "No"
+                                    "label" : "No",
+                                    "nextPageName" : "27a"
                                 }
                             ]
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "26a.5",
+                    "title" : "Significant other",
+                    "questions" : [ 
+                        {
+                            "label" : "Can you provide their name and email?",
+                            "type" : "label"
+                        }, 
+                        {
+                            "type" : "text",
+                            "label" : "Significant Other First Name",
+                            "key" : "significantOtherFirstName",
+                            "bullhornKey" : "note.partner"
+                        }, 
+                        {
+                            "type" : "text",
+                            "label" : "Significant Other Last Name",
+                            "key" : "significantOtherLastName",
+                            "bullhornKey" : "note.partner"
+                        }, 
+                        {
+                            "type" : "text",
+                            "label" : "Significant Other Email Address",
+                            "key" : "significantOtherEmail",
+                            "bullhornKey" : "note.partner"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "26a.6",
+                    "title" : "Significant other",
+                    "questions" : [ 
+                        {
+                            "label" : "Couples that are applying together have to submit their application within 2 weeks of each other in order to be considered.",
+                            "type" : "label"
                         }
                     ]
                 }, 
@@ -1089,6 +1230,7 @@
                         {
                             "label" : "What is your veteran status?",
                             "key" : "veteranStatus",
+                            "bullhornKey" : "veteran",
                             "type" : "radio",
                             "options" : [ 
                                 {
@@ -1114,6 +1256,7 @@
                         {
                             "label" : "Please select which option applies to you",
                             "key" : "disability",
+                            "bullhornKey" : "disability",
                             "type" : "radio",
                             "options" : [ 
                                 {
@@ -1166,7 +1309,8 @@
                         {
                             "label" : "What's your profile URL?",
                             "type" : "text",
-                            "key" : "linkedInUrl"
+                            "key" : "linkedInUrl",
+                            "bullhornKey" : "customText40"
                         }
                     ]
                 }, 
@@ -1197,7 +1341,8 @@
                         {
                             "label" : "Do you have a website or portfolio?",
                             "type" : "text",
-                            "key" : "websiteUrl"
+                            "key" : "websiteUrl",
+                            "bullhornKey" : "note.application"
                         }
                     ]
                 }, 
@@ -1233,22 +1378,26 @@
                         {
                             "label" : "Instagram",
                             "type" : "text",
-                            "key" : "instagramUrl"
+                            "key" : "instagramUrl",
+                            "bullhornKey" : "note.application"
                         }, 
                         {
                             "label" : "Twitter",
                             "type" : "text",
-                            "key" : "twitterUrl"
+                            "key" : "twitterUrl",
+                            "bullhornKey" : "note.application"
                         }, 
                         {
                             "label" : "YouTube",
                             "type" : "text",
-                            "key" : "youtubeUrl"
+                            "key" : "youtubeUrl",
+                            "bullhornKey" : "note.application"
                         }, 
                         {
-                            "label" : "Other",
+                            "label" : "Other Social Media",
                             "type" : "text",
-                            "key" : "otherSocialMediaUrl"
+                            "key" : "otherSocialMediaUrl",
+                            "bullhornKey" : "note.application"
                         }
                     ]
                 }, 
@@ -1259,7 +1408,20 @@
                         {
                             "label" : "Are you an artist? Do you have a family? Pets? Are you starting an entirely new chapter? Anything you want to share is fair game.",
                             "type" : "textarea",
-                            "key" : "otherInfo"
+                            "key" : "otherInfo",
+                            "bullhornKey" : "note.application"
+                        }
+                    ]
+                }, 
+                {
+                    "name" : "33a",
+                    "title" : "Tell us more",
+                    "questions" : [ 
+                        {
+                            "label" : "How did you hear about the Tulsa Remote Program?",
+                            "type" : "textarea",
+                            "key" : "hearAboutUs",
+                            "bullhornKey" : "source"
                         }
                     ]
                 }

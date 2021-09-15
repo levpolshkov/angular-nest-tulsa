@@ -13,6 +13,7 @@ export interface ApplicationQuestion {
 	order: number,
 	type: ApplicationQuestionType,
 	key: string,
+	bullhornKey?: string,
 	label: string,
 	options?: ApplicationQuestionOption[]
 };

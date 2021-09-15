@@ -10,10 +10,20 @@
   // TODO: fix this font weight/size when we get proxima
   font-weight: 600;
   font-size: .9em;
+  border: 2px solid transparent;
+  position: relative;
 
   &:hover {
-    background: darken($color-brand-purple, 20);
+    background: $color-brand-purple-light;
     color: white;
+  }
+
+  &:focus {
+    background: $color-brand-purple-light;
+    border-color: white;
+    color: white;
+    box-shadow: 0 0 0 0.15rem $color-brand-purple;
+
   }
 
   &.--next {
@@ -27,6 +37,11 @@
       top: 50%;
       transform: translateY(-50%);
     }
+  }
+
+  &.--reverse {
+    background: white;
+    color: $color-brand-purple;
   }
 
   &.--plain-link {

@@ -4,3 +4,21 @@ body {
   font-weight: 300;
   color: $color-brand-dark-gray;
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+:host ::ng-deep {
+  body {
+    font-family: $font-family-main;
+    font-weight: 300;
+    color: $color-brand-dark-gray;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}

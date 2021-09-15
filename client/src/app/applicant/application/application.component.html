@@ -15,6 +15,7 @@
 		</div>
 
 		<ng-container *ngIf="page.questions.length">
+      <!-- do we need this row class here? -->
 			<div class="questions row">
 				<div class="question mb-3" *ngFor="let question of page.questions">
 					<label class="form-label" [class.heading-label]="question.type == 'label' || question.type == 'radio'" [innerHtml]="question.label"></label>
@@ -44,7 +45,7 @@
 			</div>
 		</ng-container>
 
-		<div *ngIf="page.heroHtml" [innerHtml]="page.heroHtml"></div>
+		<div *ngIf="page.heroHtml" class="questions" [innerHtml]="page.heroHtml"></div>
 
 		<div *ngIf="page.type==='reject'">
 			<label class="form-label text-light">Verify your email address</label>
@@ -60,13 +61,17 @@
 			<small class="helperText">If you feel we’ve made an error, please contact us at <a class="text-light" href="mailto:info@tulsaremote.com" target="_blank">info@tulsaremote.com</a></small>
 		</div>
 
-		<div class="buttons px-4" *ngIf="page.type!=='reject' && page.type!=='submit'">
+		<div class="buttons px-4" *ngIf="page.type!=='reject' && page.type!=='submit' && page.name!=='welcome'">
 			<button class="btn --plain-link" (click)="onPrevBtn()">Back</button>
 			<button class="btn --next" (click)="onNextBtn()">
 				Next
 				<span *ngIf="applicationService.debugMode && page.nextPageName">[{{page.nextPageName}}]</span>
 			</button>
 		</div>
-	</div>
 
+    <div class="buttons --dark px-4 text-right" *ngIf="page.name==='welcome'">
+      <button class="btn --next --reverse" (click)="onNextBtn()">Let's Get Started</button>
+    </div>
+	</div>
+  
 </div>

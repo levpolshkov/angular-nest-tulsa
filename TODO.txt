@@ -6,8 +6,9 @@ X Session statefulness
 X Reject based on zipcode
 - Bullhorn integration
 - Add section0
-- Fix next section logic
+X Fix next section logic
 - Back button logic
+- apply.tulsaremote.com
 
 
 - questions
@@ -25,3 +26,7 @@ X Save response on bummer
 - Bummer screen is permanent
 * Add missing screens
 - Dump all answers as key-value csv as a 3rd note (or as a file attachment)
+- Note for full app?
+
+- Fix bummer pages
+- Make questions required

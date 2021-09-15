@@ -81,6 +81,36 @@
 	}
 }
 
+
+:host ::ng-deep {
+  .quote {
+    margin-top: 2em;
+    font-family: $font-family-main;
+
+    &-content {
+      font-weight: 100;
+      padding: 1em 0;
+      font-size: 1em;
+      line-height: 1.5;
+    }
+    &-metadata {
+      display: flex;
+      margin-top: .7em;
+    }
+    &-image {
+      border-radius: 100%;
+      overflow: hidden;
+      height: 80px;
+      width: 80px;
+    }
+    &-name {
+      padding-left: 1em;
+    }
+  }
+}
+
+
+
 // TODO: this still needs some love
 .buttons {
 	background: $color-white;
@@ -90,11 +120,23 @@
 	justify-content: space-between;
 	align-items: center;
 
+  &.--dark {
+    background: transparent;
+    justify-content: flex-end;
+    border-top: 0;
+  }
+
 	@include media-breakpoint-down(md) {
 		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
+
+    &.--dark {
+      padding: 40px;
+      position: static;
+      justify-content: center;
+    }
 	}
 
 	@include media-breakpoint-up(md) {
@@ -146,3 +188,4 @@
 		}
 	}
 }
+
