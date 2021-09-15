@@ -4,8 +4,8 @@ X Enter all questions
 X AWS deployment
 X Session statefulness
 X Reject based on zipcode
-- Bullhorn integration
-- Add section0
+X Bullhorn integration
+X Add section0
 X Fix next section logic
 - Back button logic
 - apply.tulsaremote.com
@@ -19,14 +19,14 @@ X Fix next section logic
 - URL validation
 
 * BullHorn needs as a web response
-- Come in as a new candiate record
+X Come in as a new candiate record
 - Status of web response (submission status?) of job 1183
-- For testing submit against job 65
+X For testing submit against job 65
 X Save response on bummer
 - Bummer screen is permanent
-* Add missing screens
-- Dump all answers as key-value csv as a 3rd note (or as a file attachment)
-- Note for full app?
+X Add missing screens
+X Dump all answers as key-value csv as a 3rd note (or as a file attachment)
+X Note for full app?
 
-- Fix bummer pages
+X Fix bummer pages
 - Make questions required

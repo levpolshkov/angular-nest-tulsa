@@ -8,7 +8,7 @@
   font-family: $font-family-main;
   letter-spacing: .1em;
   // TODO: fix this font weight/size when we get proxima
-  font-weight: 600;
+  font-weight: 400;
   font-size: .9em;
   border: 2px solid transparent;
   position: relative;
@@ -23,7 +23,6 @@
     border-color: white;
     color: white;
     box-shadow: 0 0 0 0.15rem $color-brand-purple;
-
   }
 
   &.--next {
@@ -39,22 +38,37 @@
     }
   }
 
-  &.--reverse {
-    background: white;
-    color: $color-brand-purple;
-  }
-
   &.--plain-link {
     background: transparent;
-    padding: 0;
     color: $color-brand-purple;
     text-decoration: underline;
-    letter-spacing: 0;
+    border: 1px solid transparent;
 
     &:hover {
-      color: darken($color-brand-purple, 20);
+      background: $color-xtra-lt-gray;
+    }
+
+    &:focus {
+      border-color: $color-brand-purple;
     }
   }
 
-  
+  &.--reverse {
+    background: white;
+    color: $color-brand-purple;
+    border-color: $color-brand-purple;
+
+    &:focus {
+      box-shadow: 0 0 0 0.15rem $color-white;
+    }
+  }
+
+  &.--reverse.--plain-link {
+    color: white;
+    background: transparent;
+
+    &:hover {
+      background: $color-brand-purple-light;
+    }
+  }
 }
