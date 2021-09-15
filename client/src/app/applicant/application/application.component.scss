@@ -152,9 +152,11 @@
 }
 
 .questions {
+  @include media-breakpoint-down(sm) {
+    padding-bottom: 100px;
+  }
 	@include media-breakpoint-up(lg) {
 		// TODO: this is gross and should be fixed
-		// flex: 0 0 80%;
 		width: 80%;
 	}
 
