@@ -17,6 +17,8 @@ export const applicationSchema = new mongoose.Schema({
 				order: Number,
 				type: {type: String},
 				label: String,
+				key: String,
+				bullhornKey: String,
 				options: [{
 					value: mongoose.Schema.Types.Mixed,
 					label: String,

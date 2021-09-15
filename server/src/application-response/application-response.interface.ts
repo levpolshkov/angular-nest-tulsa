@@ -12,9 +12,10 @@ export interface ApplicationResponse {
 	_id?: any,
 
 	status: ApplicationResponseStatus,
-
 	application: Application,
 	questionAnswers: ApplicationResponseQuestionAnswer[],
+
+	bullhornCandidateId?: number,
 
 	createDate?: Date,
 	updateDate?: Date,

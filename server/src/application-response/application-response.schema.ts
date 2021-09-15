@@ -14,6 +14,8 @@ export const applicationResponseSchema = new mongoose.Schema({
 		answer: mongoose.Schema.Types.Mixed
 	}],
 
+	bullhornCandidateId: Number,
+
 	__v: {type:Number, select:false},
 
 	createDate: Date,
