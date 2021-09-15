@@ -1007,37 +1007,37 @@
                                     "label" : "Black or African American"
                                 }, 
                                 {
-                                    "value" : "Native Hawaiian or other Pacific Islander",
+                                    "value" : "NP",
                                     "label" : "Native Hawaiian or other Pacific Islander",
                                     "helperText" : "Samoan, Chamorro, Other Pacific Islander - Tongan, Fijian, Marshallese, Other"
                                 }, 
                                 {
-                                    "value" : "White or Caucasian",
+                                    "value" : "WH",
                                     "label" : "White or Caucasian"
                                 }, 
                                 {
-                                    "value" : "Native American or Alaska Native",
+                                    "value" : "IA",
                                     "label" : "Native American or Alaska Native"
                                 }, 
                                 {
-                                    "value" : "Hispanic or Latina/Latino or LatinX",
+                                    "value" : "HL",
                                     "label" : "Hispanic or Latina/Latino or LatinX"
                                 }, 
                                 {
-                                    "value" : "Asian",
+                                    "value" : "AS",
                                     "label" : "Asian",
                                     "helperText" : "Chinese, Filipino, South Asian, Vietnamese, Korean, Japanese, Other Asian"
                                 }, 
                                 {
-                                    "value" : "Multi-racial",
+                                    "value" : "DN",
                                     "label" : "Multi-racial"
                                 }, 
                                 {
-                                    "value" : "Other",
+                                    "value" : "DN",
                                     "label" : "Other"
                                 }, 
                                 {
-                                    "value" : "Prefer not to say",
+                                    "value" : "DN",
                                     "label" : "Prefer not to say"
                                 }
                             ]
@@ -1064,15 +1064,15 @@
                                 }, 
                                 {
                                     "label" : "Non-Binary",
-                                    "value" : "U"
+                                    "value" : "D"
                                 }, 
                                 {
                                     "label" : "Other",
-                                    "value" : "U"
+                                    "value" : "D"
                                 }, 
                                 {
                                     "label" : "Prefer not to say",
-                                    "value" : "U"
+                                    "value" : "D"
                                 }
                             ]
                         }
@@ -1234,16 +1234,20 @@
                             "type" : "radio",
                             "options" : [ 
                                 {
-                                    "label" : "Active duty military"
+                                    "label" : "Active duty military",
+                                    "value" : "P"
                                 }, 
                                 {
-                                    "label" : "Veteran"
+                                    "label" : "Veteran",
+                                    "value" : "V"
                                 }, 
                                 {
-                                    "label" : "None of the above"
+                                    "label" : "None of the above",
+                                    "value" : "N"
                                 }, 
                                 {
-                                    "label" : "Prefer not to say"
+                                    "label" : "Prefer not to say",
+                                    "value" : "D"
                                 }
                             ]
                         }
@@ -1260,13 +1264,16 @@
                             "type" : "radio",
                             "options" : [ 
                                 {
-                                    "label" : "Yes, I have a disability, or have a history/record of having a disability"
+                                    "label" : "Yes, I have a disability, or have a history/record of having a disability",
+                                    "value" : "Y"
                                 }, 
                                 {
-                                    "label" : "No, I don't have a disability or a history/record of having a disability"
+                                    "label" : "No, I don't have a disability or a history/record of having a disability",
+                                    "value" : "N"
                                 }, 
                                 {
-                                    "label" : "I prefer not to say"
+                                    "label" : "I prefer not to say",
+                                    "value" : "D"
                                 }
                             ]
                         }
