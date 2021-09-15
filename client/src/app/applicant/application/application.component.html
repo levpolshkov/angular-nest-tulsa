@@ -16,7 +16,7 @@
 
 		<ng-container *ngIf="page.questions.length">
       <!-- do we need this row class here? -->
-			<div class="questions row">
+			<div class="questions">
 				<div class="question mb-3" *ngFor="let question of page.questions">
 					<label class="form-label" [class.heading-label]="question.type == 'label' || question.type == 'radio'" [innerHtml]="question.label"></label>
 
@@ -30,11 +30,16 @@
 
 					<div class="radio form-group" *ngIf="question.type==='radio'">
 						<div class="d-grid gap-2">
-							<div class="option" *ngFor="let option of question.options" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
-								<p class="label">{{option.label}}</p>
-								<p class="helper-text" *ngIf="option.helperText">{{option.helperText}}</p>
-								<div *ngIf="applicationService.debugMode && option.nextPageName">[{{option.nextPageName}}]</div>
-							</div>
+							<ng-container *ngFor="let option of question.options; let i = index">
+                <label for="control_{{i}}">
+                  <input type="radio" id="control_{{i}}" name="selectQuestion" value="{{i}}" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
+                  <span class="faux-label">
+                    <span class="label">{{option.label}}</span>
+                    <span class="helper-text" *ngIf="option.helperText">{{option.helperText}}</span>
+                    <span *ngIf="applicationService.debugMode && option.nextPageName">[{{option.nextPageName}}]</span>
+                  </span>
+                </label>
+              </ng-container>
 						</div>
 					</div>
 
@@ -47,15 +52,11 @@
 
 		<div *ngIf="page.heroHtml" class="questions" [innerHtml]="page.heroHtml"></div>
 
-		<div *ngIf="page.type==='reject'">
+		<div *ngIf="page.type==='reject'" class="questions">
 			<label class="form-label text-light">Verify your email address</label>
-			<div>
-				<div class="float-start">
-					<input class="form-control" type="email" name="rejectionEmail" [(ngModel)]="answers.email">
-				</div>
-				<div class="float-end">
-					<button class="btn btn-light">Submit</button>
-				</div>
+			<div class="d-flex justify-content-between">
+        <input class="form-control" type="email" name="rejectionEmail" [(ngModel)]="answers.email">
+        <button class="btn --next --reverse">Submit</button>
 			</div>
 			<div class="clearfix mb-3"></div>
 			<small class="helperText">If you feel we’ve made an error, please contact us at <a class="text-light" href="mailto:info@tulsaremote.com" target="_blank">info@tulsaremote.com</a></small>

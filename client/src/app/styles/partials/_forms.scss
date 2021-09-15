@@ -4,19 +4,30 @@ label {
 	font-size: .9em;
 }
 
+:host ::ng-deep .hero-page-content p,
 .heading-label {
 	font-size: 1.5rem;
 	font-weight: 100;
 	margin-bottom: 2em;
 }
 
+:host ::ng-deep .heading-label {
+  font-size: 1.5rem;
+	font-weight: 100;
+	margin-bottom: 2em;
 
+  ul {
+    margin-top: 1em;
+  }
+}
 
-input[type="text"], input[type="email"], input[type="phone"] {
+input[type="text"], input[type="email"], input[type="phone"], input[type="date"] {
 	border: 1px solid $color-brand-dark-gray;
 	box-sizing: border-box;
 	border-radius: 2px;
   padding: 0.7rem 0.75rem;
+  font-family: $font-family-main;
+  font-weight: 100;
 
 	&:focus {
 		border-color: $color-brand-purple;

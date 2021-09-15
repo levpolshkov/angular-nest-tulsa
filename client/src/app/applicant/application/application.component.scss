@@ -33,6 +33,10 @@
 	padding: 10px;
 
 	.page-title {
+    h3 {
+      font-family: $font-family-heading;
+      font-size: 2.75rem;
+    }
 		@include media-breakpoint-down(md) {
 			margin-top: 3em;
 		}
@@ -150,40 +154,55 @@
 .questions {
 	@include media-breakpoint-up(lg) {
 		// TODO: this is gross and should be fixed
-		flex: 0 0 80%;
+		// flex: 0 0 80%;
 		width: 80%;
 	}
 
 	.question {
 		.radio {
-			.option {
-				border: 1px solid #ddd;
-				border-radius: 5px;
-				padding: 16px 24px 20px 24px;
+      input[type="radio"] { 
+        border-width: 0 !important;
+        clip: rect(1px, 1px, 1px, 1px) !important;
+        height: 1px !important;
+        overflow: hidden !important;
+        padding: 0 !important;
+        position: absolute !important;
+        white-space: nowrap !important;
+        width: 1px !important;
 
-        > p {
-          margin: 0;
-        }
+        &:checked + .faux-label {
+					border: 2px solid $color-medium-gray;
+          padding: 14px 22px 18px 22px;
+					background-color: $color-xtra-lt-gray;
+				}
 
-        p.label {
+        &:hover,
+        &:focus {
+          + .faux-label {
+            border-color: $color-brand-purple;
+            cursor: pointer;
+          }
+				}
+      }
+
+			.faux-label {
+        display: block;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px 24px 20px 24px;
+
+        span.label {
+          display: block;
           font-size: 1.5rem;
           font-weight: 300;
         }
 
         .helper-text {
+          display: block;
           font-size: 1rem;
           margin-top: 10px;
+          font-weight: 100;
         }
-
-				&:hover {
-					border-color: #aaa;
-					cursor: pointer;
-					background-color: #fafafa;
-				}
-				&.selected {
-					border: 1px solid #888;
-					background-color: #f4f4f4;
-				}
 			}
 		}
 	}
