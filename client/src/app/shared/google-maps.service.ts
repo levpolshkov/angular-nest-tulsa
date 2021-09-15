@@ -11,16 +11,21 @@ export class GoogleMapsService {
 		// this.lookupZipcode('74133');
 	}
 
-	lookupZipcode(zipcode:string) {
-		const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${apiKey}`;
+	lookupAddress(address:string) {
+		const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`;
 		return this.http.get(url).toPromise().then((res:any) => {
-			const result = res?.results.find(r => r.types.find(t => t==='postal_code'));
+			console.log('GoogleMapsService.lookupAddress: address=%o, result=%o', address, res);
+			const result = res?.results[0];
 			if(!result) return null;
+			const streetNumber = this.extractAddressComponentByType(result.address_components, 'street_number');
+			const streetName = this.extractAddressComponentByType(result.address_components, 'route');
+			const street = [streetNumber,streetName].filter(p => p).join(' ');
 			const city = this.extractAddressComponentByType(result.address_components, 'locality');
 			const state = this.extractAddressComponentByType(result.address_components, 'administrative_area_level_1');
 			const zipcode = this.extractAddressComponentByType(result.address_components,'postal_code');
-			console.log('lookupZipcode: result=%o', result, {city,state,zipcode});
-			return {city,state,zipcode};
+			const formatted = result.formatted_address;
+			console.log('lookupZipcode: result=%o', result, {street,city,state,zipcode,formatted});
+			return {street,city,state,zipcode,formatted};
 		}, err => null);
 	}
 
@@ -29,7 +34,5 @@ export class GoogleMapsService {
 		if(!component) return null;
 		return component.short_name || component.long_name;
 	}
-	
-
 
 }

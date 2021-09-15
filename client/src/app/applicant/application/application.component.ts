@@ -172,16 +172,32 @@ export class ApplicationComponent implements OnInit {
 		}
 
 		if(question.key==='zipcode') {		// Check and reject if they are inside of Oklahoma
-			const info = await this.googleMapsService.lookupZipcode(value);
+			const info = await this.googleMapsService.lookupAddress(value);
+			console.log('lookupAddress: %o', info);
 			if(!info) {
 				//  TODO: Handle if they enter something invalid
 			} else {
-				console.log('lookupZipcode: %o', info);
+			
 				if(info.state==='OK') {
 					this.page.nextPageName = '8a.1';
 				} else {
 					this.page.nextPageName = '9a';
 				}
+			}
+		}
+
+		if(question.key==='address') {
+			const info = await this.googleMapsService.lookupAddress(value);
+			console.log('lookupAddress: %o', info);
+			if(!info) {
+				//  TODO: Handle if they enter something invalid
+			} else {
+				if(info.formatted)  this.answers[question.key] = info.formatted;
+				// if(info.state==='OK') {
+				// 	this.page.nextPageName = '8a.1';
+				// } else {
+				// 	this.page.nextPageName = '9a';
+				// }
 			}
 		}
 	}
