@@ -56,7 +56,12 @@ export class ApplicationResponseService {
 					qa.answer = candidate['address'] = {zip:qa.answer};
 					break;
 				case 'fullSecondaryAddress':
-					qa.answer = candidate['secondaryAddress1'] = qa.answer;
+					candidate['fullSecondaryAddress'] = {
+						street1: response.questionAnswers.find(qa => qa.questionKey==='address.street')?.answer,
+						city: response.questionAnswers.find(qa => qa.questionKey==='address.city')?.answer,
+						state: response.questionAnswers.find(qa => qa.questionKey==='address.state')?.answer,
+						zipcode: response.questionAnswers.find(qa => qa.questionKey==='address.zipcode')?.answer
+					};
 					break;
 				default:
 					candidate[bullhornKey] = qa.answer;

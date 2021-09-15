@@ -192,12 +192,13 @@ export class ApplicationComponent implements OnInit {
 			if(!info) {
 				//  TODO: Handle if they enter something invalid
 			} else {
-				if(info.formatted)  this.answers[question.key] = info.formatted;
-				// if(info.state==='OK') {
-				// 	this.page.nextPageName = '8a.1';
-				// } else {
-				// 	this.page.nextPageName = '9a';
-				// }
+				if(info.formatted)  {
+					this.answers[question.key] = info.formatted;
+					this.answers['address.street'] = info.street;
+					this.answers['address.city'] = info.city;
+					this.answers['address.state'] = info.state;
+					this.answers['address.zipcode'] = info.zipcode;
+				}
 			}
 		}
 	}
