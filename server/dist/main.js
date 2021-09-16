@@ -1142,7 +1142,13 @@ let BullhornService = class BullhornService {
             username: this.configService.get('BULLHORN_USERNAME'),
             password: this.configService.get('BULLHORN_PASSWORD')
         });
-        this.bullhorn.login();
+        this.login();
+    }
+    async login() {
+        const result = await this.bullhorn.login().catch(err => {
+            console.log('BullhornService.login: err=%o', err);
+        });
+        console.log('BullhornService.login: result=%o', result);
     }
     async testBullhorn() {
         const loginResult = await this.bullhorn.login();
@@ -1151,6 +1157,7 @@ let BullhornService = class BullhornService {
         console.log('candidateId=%o', candidateId);
     }
     async addCandidate(candidate) {
+        await this.login();
         candidate.name = [candidate.firstName, candidate.lastName].map(p => String(p).trim()).filter(p => p).join(' ');
         const result = await this.bullhorn.fetch(`entity/Candidate`, {
             method: 'PUT',
@@ -1293,12 +1300,13 @@ let ApplicationResponseService = class ApplicationResponseService {
         const partnerNoteLines = [];
         const responseNoteLines = [];
         response.questionAnswers.map(qa => {
+            var _a, _b, _c, _d;
             const question = this.findQuestionByQuestionKey(response.application, qa.questionKey);
             const bullhornKey = question === null || question === void 0 ? void 0 : question.bullhornKey;
             console.log('submitResponseToBullhorn: qa=%o, bullhornKey=%o', qa, bullhornKey);
             if (!bullhornKey)
                 return;
-            const noteLine = `${question.label || question.key}\n${qa.answer}`;
+            const noteLine = `<b>${question.label || question.key}</b><br>${qa.answer}`;
             responseNoteLines.push(noteLine);
             switch (bullhornKey) {
                 case 'note.application':
@@ -1307,23 +1315,26 @@ let ApplicationResponseService = class ApplicationResponseService {
                 case 'note.partner':
                     partnerNoteLines.push(noteLine);
                     break;
-                case 'zip':
-                    qa.answer = candidate['address'] = { zip: qa.answer };
-                    break;
-                case 'fullSecondaryAddress':
-                    qa.answer = candidate['secondaryAddress1'] = qa.answer;
+                case 'secondaryAddress':
+                    candidate['secondaryAddress'] = {
+                        address1: (_a = response.questionAnswers.find(qa => qa.questionKey === 'address.street')) === null || _a === void 0 ? void 0 : _a.answer,
+                        address2: '',
+                        city: (_b = response.questionAnswers.find(qa => qa.questionKey === 'address.city')) === null || _b === void 0 ? void 0 : _b.answer,
+                        state: (_c = response.questionAnswers.find(qa => qa.questionKey === 'address.state')) === null || _c === void 0 ? void 0 : _c.answer,
+                        zip: (_d = response.questionAnswers.find(qa => qa.questionKey === 'address.zipcode')) === null || _d === void 0 ? void 0 : _d.answer
+                    };
                     break;
                 default:
                     candidate[bullhornKey] = qa.answer;
             }
         });
-        const appNote = appNoteLines.join('\n\n');
-        const partnerNote = partnerNoteLines.join('\n\n');
-        const responseNote = responseNoteLines.join('\n\n');
+        const appNote = appNoteLines.join('<br><br>');
+        const partnerNote = partnerNoteLines.join('<br><br>');
+        const responseNote = responseNoteLines.join('<br><br>');
         console.log('submitResponseToBullhorn: candidate=%o', candidate);
-        console.log('submitResponseToBullhorn: appNote=%o', appNote);
-        console.log('submitResponseToBullhorn: partnerNote=%o', partnerNote);
-        console.log('submitResponseToBullhorn: responseNote=%o', responseNote);
+        console.log('submitResponseToBullhorn: appNote=%s', appNote);
+        console.log('submitResponseToBullhorn: partnerNote=%s', partnerNote);
+        console.log('submitResponseToBullhorn: responseNote=%s', responseNote);
         if (true) {
             const candidateId = await this.bullhornService.addCandidate(candidate);
             console.log('submitResponseToBullhorn: candidateId=%o', candidateId);
