@@ -1,5 +1,6 @@
 import { BadRequestException, HttpException, Injectable }		from '@nestjs/common';
 import { InjectModel }											from '@nestjs/mongoose';
+import { DateTime }												from 'luxon';
 
 import { DocumentService, mongoose }							from '@app/database';
 import { SearchParams, SearchResult, SearchService }			from '@app/search';
@@ -16,6 +17,9 @@ export class ApplicationResponseService {
 		private searchService:SearchService,
 		private bullhornService:BullhornService
 	) {
+
+		const dateTime = DateTime.fromISO('1984-02-13').toUTC().toFormat('yyyy-MM-dd');
+		console.log('dateTime=%o', dateTime);
 		// setTimeout(() => {
 		// 	this.responseModel.findOne({_id:'6142b520172fbe9276f9deef'}).then(r => this.submitResponseToBullhorn(r));
 		// }, 5000);
@@ -45,6 +49,12 @@ export class ApplicationResponseService {
 			const noteLine = `<b>${question.label || question.key}</b><br>${qa.answer}`;
 			responseNoteLines.push(noteLine);
 			switch(bullhornKey) {
+				case 'dateOfBirth':
+					candidate['dateOfBirth']= DateTime.fromISO(qa.answer).toMillis();
+					break;
+				case 'customDate12':
+					candidate['customDate12']= DateTime.fromISO(qa.answer).toMillis();
+					break;
 				case 'note.application':
 					appNoteLines.push(noteLine);
 					break;
