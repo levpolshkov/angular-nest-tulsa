@@ -7,27 +7,27 @@ import { StorageService } from 'src/app/shared/storage.service';
 export { Application, ApplicationSection, ApplicationPage, ApplicationQuestion };
 
 @Injectable({
-	providedIn: 'root'
+    providedIn: 'root'
 })
 
 export class ApplicationService {
-	debugMode = true;
+    debugMode = true;
 
-	constructor(private http: HttpService, private searchService: SearchService, private storageService: StorageService) { }
+    constructor(private http: HttpService, private searchService: SearchService, private storageService: StorageService) { }
 
-	searchApplications(params: SearchParams): Promise<SearchResult<Application>> {
-		return this.searchService.search<Application>('/application', params);
-	}
+    searchApplications(params: SearchParams): Promise<SearchResult<Application>> {
+        return this.searchService.search<Application>('/application', params);
+    }
 
-	getApplicationById(applicationId: string): Promise<Application> {
-		return this.http.get(`/application/${applicationId}`);
-	}
+    getApplicationById(applicationId: string): Promise<Application> {
+        return this.http.get(`/application/${applicationId}`);
+    }
 
-	// saveApplication(application:Application) {
-	// 	return this.http.post('/application', application);
-	// }
+    // saveApplication(application:Application) {
+    // 	return this.http.post('/application', application);
+    // }
 
-	// deleteApplicationById(applicationId:string) {
-	// 	return this.http.delete(`/application/${applicationId}`);
-	// }
+    // deleteApplicationById(applicationId:string) {
+    // 	return this.http.delete(`/application/${applicationId}`);
+    // }
 }
