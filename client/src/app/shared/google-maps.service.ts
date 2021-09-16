@@ -22,16 +22,19 @@ export class GoogleMapsService {
 			const street = [streetNumber,streetName].filter(p => p).join(' ');
 			const city = this.extractAddressComponentByType(result.address_components, 'locality');
 			const state = this.extractAddressComponentByType(result.address_components, 'administrative_area_level_1');
+			const stateName = this.extractAddressComponentByType(result.address_components, 'administrative_area_level_1', true);
 			const zipcode = this.extractAddressComponentByType(result.address_components,'postal_code');
 			const formatted = result.formatted_address;
-			console.log('lookupZipcode: result=%o', result, {street,city,state,zipcode,formatted});
-			return {street,city,state,zipcode,formatted};
+			const info = {street,city,state,zipcode,formatted,stateName};
+			console.log('lookupZipcode: result=%o, info=%o', result, info);
+			return info;
 		}, err => null);
 	}
 
-	extractAddressComponentByType(addressComponents, type:string) {
+	extractAddressComponentByType(addressComponents, type:string, longName=false) {
 		const component = addressComponents.find(c => c.types.find(t => t===type));
 		if(!component) return null;
+		if(longName && component.long_name) return  component.long_name;
 		return component.short_name || component.long_name;
 	}
 

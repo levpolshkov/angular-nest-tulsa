@@ -196,7 +196,7 @@ export class ApplicationComponent implements OnInit {
 					this.answers[question.key] = info.formatted;
 					this.answers['address.street'] = info.street;
 					this.answers['address.city'] = info.city;
-					this.answers['address.state'] = info.state;
+					this.answers['address.state'] = info.stateName;
 					this.answers['address.zipcode'] = info.zipcode;
 				}
 			}
