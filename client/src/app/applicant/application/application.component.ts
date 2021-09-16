@@ -77,12 +77,12 @@ export class ApplicationComponent implements OnInit {
 
 		if (!this.page.questions) this.page.questions = [];
 		this.page.questions.forEach((question, i) => {
-		if (!question.key) question.key = `question_${this.sectionIndex}_${this.pageIndex}_${i}`;
+			if (!question.key) question.key = `question_${this.sectionIndex}_${this.pageIndex}_${i}`;
 
-		if (question.key in this.answers) {
-			console.log('hey, ' + question.key + ' already exists in the answers array! the answer is ' + this.answers[question.key]);
-			this.getSelectedQuestionValue(question);
-		}
+			if (question.key in this.answers) {
+				// console.log('hey, ' + question.key + ' already exists in the answers array! the answer is ' + this.answers[question.key]);
+				this.getSelectedQuestionValue(question);
+			}
 		});
 
 		this.inputReady = true;
@@ -151,9 +151,9 @@ export class ApplicationComponent implements OnInit {
 		console.log('onPrevBtn: sectionIndex=%o, pageIndex=%o, currentPageName=%o, prevPageName=%o', this.sectionIndex, this.pageIndex, currentPageName, prevPageName);
 
 		if (prevPageName) {
-		const sectionIndex = this.findSectionIndexByPageName(prevPageName);
-		const pageIndex = this.findPageIndexByPageName(prevPageName);
-		this.loadPage(sectionIndex, pageIndex);
+			const sectionIndex = this.findSectionIndexByPageName(prevPageName);
+			const pageIndex = this.findPageIndexByPageName(prevPageName);
+			this.loadPage(sectionIndex, pageIndex);
 		}
 		// if (this.pageIndex === 0) {
 		// 	if (this.sectionIndex === 0) return;		// Already at the start
@@ -187,10 +187,10 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	isQuestionOptionSelected(question: ApplicationQuestion, option: ApplicationQuestionOption) {
-		let optArr = question.options.map(function (item) { return item.value });
-		let isDuplicate = optArr.some(function (item, idx) {
-		return optArr.indexOf(item) != idx;
-		});
+		// let optArr = question.options.map(function (item) { return item.value });
+		// let isDuplicate = optArr.some(function (item, idx) {
+		// return optArr.indexOf(item) != idx;
+		// });
 
 		// if (isDuplicate) {
 		//   let selectedOpt = question.options.find(el => el.value == this.answers[question.key]);
@@ -204,11 +204,11 @@ export class ApplicationComponent implements OnInit {
 
 	getSelectedQuestionValue(question: ApplicationQuestion) {
 		if (question.type == 'radio') {
-		let selectedOpt = question.options.find(el => el.value == this.answers[question.key]);
-		this.page.nextPageName = selectedOpt.nextPageName;
+			let selectedOpt = question.options.find(el => el.value == this.answers[question.key]);
+			this.page.nextPageName = selectedOpt.nextPageName;
 		}
 		else if (question.type == 'text') {
-		this.onQuestionAnswer(question);
+			this.onQuestionAnswer(question);
 		}
 
 	}
