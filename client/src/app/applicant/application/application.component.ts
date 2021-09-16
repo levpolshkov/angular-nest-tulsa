@@ -85,16 +85,7 @@
 		}
 		});
 
-		console.log(this.page.questions);
-
-
-		if (this.page.questions.find(el => el['key'] == 'zipcode') || this.page.questions.find(el => el['key'] == 'address')) {
-			this.inputReady = false;
-		}
-		else {
-			this.inputReady = true;
-		}
-
+		this.inputReady = true;
 
 		if (this.page.type === 'submit') await this.submitResponse();
 		if (this.page.type === 'reject') await this.rejectReponse();
@@ -219,7 +210,7 @@
 		}
 
 		if (question.key === 'zipcode') {		// Check and reject if they are inside of Oklahoma
-			// TODO: save the results in the DB and check that first?
+			this.inputReady = false;
 			const info = await this.googleMapsService.lookupAddress(value);
 			console.log('lookupAddress: %o', info);
 			if (!info) {
@@ -235,6 +226,7 @@
 		}
 
 		if (question.key === 'address') {
+			this.inputReady = false;
 			const info = await this.googleMapsService.lookupAddress(value);
 			console.log('lookupAddress: %o', info);
 			if (!info) {
@@ -242,11 +234,11 @@
 			} else {
 				this.inputReady = true;
 				if (info.formatted) {
-				this.answers[question.key] = info.formatted;
-				this.answers['address.street'] = info.street;
-				this.answers['address.city'] = info.city;
-				this.answers['address.state'] = info.stateName;
-				this.answers['address.zipcode'] = info.zipcode;
+					this.answers[question.key] = info.formatted;
+					this.answers['address.street'] = info.street;
+					this.answers['address.city'] = info.city;
+					this.answers['address.state'] = info.stateName;
+					this.answers['address.zipcode'] = info.zipcode;
 				}
 			}
 		}
