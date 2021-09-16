@@ -17,7 +17,7 @@ export class ApplicationResponseService {
 		private bullhornService:BullhornService
 	) {
 		// setTimeout(() => {
-		// 	this.responseModel.findOne({_id:'6140f50551dcc3ed70600cb0'}).then(r => this.submitResponseToBullhorn(r));
+		// 	this.responseModel.findOne({_id:'6142b520172fbe9276f9deef'}).then(r => this.submitResponseToBullhorn(r));
 		// }, 5000);
 	}
 
@@ -41,9 +41,8 @@ export class ApplicationResponseService {
 			const bullhornKey = question?.bullhornKey;
 			console.log('submitResponseToBullhorn: qa=%o, bullhornKey=%o', qa, bullhornKey);
 
-			
 			if(!bullhornKey) return;
-			const noteLine = `${question.label || question.key}\n${qa.answer}`;
+			const noteLine = `<b>${question.label || question.key}</b><br>${qa.answer}`;
 			responseNoteLines.push(noteLine);
 			switch(bullhornKey) {
 				case 'note.application':
@@ -52,15 +51,13 @@ export class ApplicationResponseService {
 				case 'note.partner':
 					partnerNoteLines.push(noteLine);
 					break;
-				case 'zip':
-					qa.answer = candidate['address'] = {zip:qa.answer};
-					break;
 				case 'fullSecondaryAddress':
-					candidate['fullSecondaryAddress'] = {
-						street1: response.questionAnswers.find(qa => qa.questionKey==='address.street')?.answer,
+					candidate['secondaryAddress'] = {
+						address1: response.questionAnswers.find(qa => qa.questionKey==='address.street')?.answer,
+						address2: '',
 						city: response.questionAnswers.find(qa => qa.questionKey==='address.city')?.answer,
 						state: response.questionAnswers.find(qa => qa.questionKey==='address.state')?.answer,
-						zipcode: response.questionAnswers.find(qa => qa.questionKey==='address.zipcode')?.answer
+						zip: response.questionAnswers.find(qa => qa.questionKey==='address.zipcode')?.answer
 					};
 					break;
 				default:
@@ -68,13 +65,13 @@ export class ApplicationResponseService {
 			}
 		});
 
-		const appNote = appNoteLines.join('\n\n');
-		const partnerNote = partnerNoteLines.join('\n\n');
-		const responseNote = responseNoteLines.join('\n\n');
+		const appNote = appNoteLines.join('<br><br>');
+		const partnerNote = partnerNoteLines.join('<br><br>');
+		const responseNote = responseNoteLines.join('<br><br>');
 		console.log('submitResponseToBullhorn: candidate=%o', candidate);
-		console.log('submitResponseToBullhorn: appNote=%o', appNote);
-		console.log('submitResponseToBullhorn: partnerNote=%o', partnerNote);
-		console.log('submitResponseToBullhorn: responseNote=%o', responseNote);
+		console.log('submitResponseToBullhorn: appNote=%s', appNote);
+		console.log('submitResponseToBullhorn: partnerNote=%s', partnerNote);
+		console.log('submitResponseToBullhorn: responseNote=%s', responseNote);
 
 		if(true) {
 			const candidateId = await this.bullhornService.addCandidate(candidate);
