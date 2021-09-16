@@ -11,7 +11,7 @@ export { Application, ApplicationSection, ApplicationPage, ApplicationQuestion }
 })
 
 export class ApplicationService {
-	debugMode = false;
+	debugMode = true;
 
 	constructor(private http: HttpService, private searchService: SearchService, private storageService: StorageService) { }
 
