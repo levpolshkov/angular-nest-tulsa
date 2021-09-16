@@ -85,7 +85,7 @@ export class ApplicationComponent implements OnInit {
     console.log(this.page.questions);
 
 
-    if (this.page.questions.find(el => el['key'] == 'zipcode')) {
+    if (this.page.questions.find(el => el['key'] == 'zipcode') || this.page.questions.find(el => el['key'] == 'address')) {
       console.log('mark it false');
 
       this.inputReady = false;
@@ -225,6 +225,7 @@ export class ApplicationComponent implements OnInit {
       if (!info) {
         //  TODO: Handle if they enter something invalid
       } else {
+        this.inputReady = true;
         if (info.formatted) {
           this.answers[question.key] = info.formatted;
           this.answers['address.street'] = info.street;
