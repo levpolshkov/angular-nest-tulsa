@@ -39,8 +39,15 @@ export class BullhornService {
 			password: this.configService.get('BULLHORN_PASSWORD')
 		});
 
-		this.bullhorn.login();
+		this.login();
 		// this.testBullhorn();
+	}
+
+	async login() {
+		const result = await this.bullhorn.login().catch(err => {
+			console.log('BullhornService.login: err=%o', err);
+		});
+		console.log('BullhornService.login: result=%o', result);
 	}
 
 
@@ -84,6 +91,7 @@ export class BullhornService {
 	}
 
 	async addCandidate(candidate:Candidate):Promise<number> {
+		await this.login();
 		candidate.name = [candidate.firstName,candidate.lastName].map(p => String(p).trim()).filter(p => p).join(' ');
 		const result = await this.bullhorn.fetch(`entity/Candidate`, {
 			method: 'PUT',
