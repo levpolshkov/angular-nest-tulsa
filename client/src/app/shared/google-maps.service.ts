@@ -8,7 +8,23 @@ const apiKey = 'AIzaSyAUS6vZiILR5ypmGFLs6Je-m0E06TKEYg4';
 })
 export class GoogleMapsService {
 	constructor(private http:HttpClient) {
-		// this.lookupZipcode('74133');
+		this.lookupZipcode('10101');
+	}
+
+	lookupZipcode(zipcode:string) {
+		const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&components=postal_code:${zipcode}&key=${apiKey}`;
+		return this.http.get(url).toPromise().then((res:any) => {
+			console.log('GoogleMapsService.lookupAddress: address=%o, zipcode=%o', zipcode, res);
+			const result = res?.results[0];
+			if(!result) return null;
+			const city = this.extractAddressComponentByType(result.address_components, 'locality');
+			const state = this.extractAddressComponentByType(result.address_components, 'administrative_area_level_1');
+			const stateName = this.extractAddressComponentByType(result.address_components, 'administrative_area_level_1', true);
+			const formatted = result.formatted_address;
+			const info = {city,state,zipcode,formatted,stateName};
+			console.log('lookupZipcode: result=%o, info=%o', result, info);
+			return info;
+		}, err => null);
 	}
 
 	lookupAddress(address:string) {

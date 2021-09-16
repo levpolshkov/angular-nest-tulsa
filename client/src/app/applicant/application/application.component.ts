@@ -216,8 +216,8 @@ export class ApplicationComponent implements OnInit {
 
         if (question.key === 'zipcode') {		// Check and reject if they are inside of Oklahoma
             this.inputReady = false;
-            const info = await this.googleMapsService.lookupAddress(value);
-            console.log('lookupAddress: %o', info);
+            const info = await this.googleMapsService.lookupZipcode(value);
+            console.log('lookupZipcode: %o', info);
             if (!info) {
                 //  TODO: Handle if they enter something invalid
             } else {
