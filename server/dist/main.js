@@ -34,11 +34,11 @@ const config_1 = __webpack_require__(10);
 const database_1 = __webpack_require__(7);
 const search_1 = __webpack_require__(25);
 const utility_1 = __webpack_require__(11);
-const app_controller_1 = __webpack_require__(44);
-const app_service_1 = __webpack_require__(45);
-const auth_module_1 = __webpack_require__(46);
-const user_module_1 = __webpack_require__(57);
-const product_1 = __webpack_require__(61);
+const app_controller_1 = __webpack_require__(45);
+const app_service_1 = __webpack_require__(46);
+const auth_module_1 = __webpack_require__(47);
+const user_module_1 = __webpack_require__(58);
+const product_1 = __webpack_require__(62);
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -1224,11 +1224,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApplicationResponseModule = void 0;
 const common_1 = __webpack_require__(5);
 const application_response_service_1 = __webpack_require__(39);
-const application_response_controller_1 = __webpack_require__(43);
+const application_response_controller_1 = __webpack_require__(44);
 const database_1 = __webpack_require__(7);
 const search_1 = __webpack_require__(25);
 const mongoose_1 = __webpack_require__(6);
-const application_response_schema_1 = __webpack_require__(40);
+const application_response_schema_1 = __webpack_require__(41);
 const bullhorn_module_1 = __webpack_require__(35);
 let ApplicationResponseModule = class ApplicationResponseModule {
 };
@@ -1272,9 +1272,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApplicationResponseService = exports.ApplicationResponseDocument = exports.ApplicationResponse = void 0;
 const common_1 = __webpack_require__(5);
 const mongoose_1 = __webpack_require__(6);
+const luxon_1 = __webpack_require__(40);
 const database_1 = __webpack_require__(7);
 const search_1 = __webpack_require__(25);
-const application_response_schema_1 = __webpack_require__(40);
+const application_response_schema_1 = __webpack_require__(41);
 Object.defineProperty(exports, "ApplicationResponse", ({ enumerable: true, get: function () { return application_response_schema_1.ApplicationResponse; } }));
 Object.defineProperty(exports, "ApplicationResponseDocument", ({ enumerable: true, get: function () { return application_response_schema_1.ApplicationResponseDocument; } }));
 const bullhorn_service_1 = __webpack_require__(36);
@@ -1284,6 +1285,8 @@ let ApplicationResponseService = class ApplicationResponseService {
         this.documentService = documentService;
         this.searchService = searchService;
         this.bullhornService = bullhornService;
+        const dateTime = luxon_1.DateTime.fromISO('1984-02-13').toUTC().toFormat('yyyy-MM-dd');
+        console.log('dateTime=%o', dateTime);
     }
     saveResponse(response) {
         return this.documentService.saveDocument(this.responseModel, response, {
@@ -1309,6 +1312,12 @@ let ApplicationResponseService = class ApplicationResponseService {
             const noteLine = `<b>${question.label || question.key}</b><br>${qa.answer}`;
             responseNoteLines.push(noteLine);
             switch (bullhornKey) {
+                case 'dateOfBirth':
+                    candidate['dateOfBirth'] = luxon_1.DateTime.fromISO(qa.answer).toMillis();
+                    break;
+                case 'customDate12':
+                    candidate['customDate12'] = luxon_1.DateTime.fromISO(qa.answer).toMillis();
+                    break;
                 case 'note.application':
                     appNoteLines.push(noteLine);
                     break;
@@ -1372,14 +1381,20 @@ exports.ApplicationResponseService = ApplicationResponseService;
 
 /***/ }),
 /* 40 */
+/***/ ((module) => {
+
+module.exports = require("luxon");
+
+/***/ }),
+/* 41 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApplicationResponse = exports.applicationResponseSchema = void 0;
 const mongoose = __webpack_require__(8);
-const application_1 = __webpack_require__(41);
-const application_response_interface_1 = __webpack_require__(42);
+const application_1 = __webpack_require__(42);
+const application_response_interface_1 = __webpack_require__(43);
 Object.defineProperty(exports, "ApplicationResponse", ({ enumerable: true, get: function () { return application_response_interface_1.ApplicationResponse; } }));
 const ObjectId = mongoose.Schema.Types.ObjectId;
 exports.applicationResponseSchema = new mongoose.Schema({
@@ -1404,7 +1419,7 @@ exports.applicationResponseSchema = new mongoose.Schema({
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1426,7 +1441,7 @@ __exportStar(__webpack_require__(30), exports);
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1436,7 +1451,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1481,7 +1496,7 @@ exports.ApplicationResponseController = ApplicationResponseController;
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1498,7 +1513,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppController = void 0;
 const common_1 = __webpack_require__(5);
-const app_service_1 = __webpack_require__(45);
+const app_service_1 = __webpack_require__(46);
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
@@ -1521,7 +1536,7 @@ exports.AppController = AppController;
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1546,7 +1561,7 @@ exports.AppService = AppService;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1560,13 +1575,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthModule = void 0;
 const common_1 = __webpack_require__(5);
 const passport_1 = __webpack_require__(34);
-const jwt_1 = __webpack_require__(47);
+const jwt_1 = __webpack_require__(48);
 const config_1 = __webpack_require__(10);
-const auth_service_1 = __webpack_require__(48);
-const local_strategy_1 = __webpack_require__(51);
-const jwt_strategy_1 = __webpack_require__(53);
-const auth_controller_1 = __webpack_require__(55);
-const user_module_1 = __webpack_require__(57);
+const auth_service_1 = __webpack_require__(49);
+const local_strategy_1 = __webpack_require__(52);
+const jwt_strategy_1 = __webpack_require__(54);
+const auth_controller_1 = __webpack_require__(56);
+const user_module_1 = __webpack_require__(58);
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -1592,13 +1607,13 @@ exports.AuthModule = AuthModule;
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/jwt");
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1615,9 +1630,9 @@ var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthService = void 0;
 const common_1 = __webpack_require__(5);
-const jwt_1 = __webpack_require__(47);
-const crypto = __webpack_require__(49);
-const user_service_1 = __webpack_require__(50);
+const jwt_1 = __webpack_require__(48);
+const crypto = __webpack_require__(50);
+const user_service_1 = __webpack_require__(51);
 const config_1 = __webpack_require__(10);
 let AuthService = class AuthService {
     constructor(userService, jwtService, configService) {
@@ -1661,13 +1676,13 @@ exports.AuthService = AuthService;
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ ((module) => {
 
 module.exports = require("crypto");
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1689,7 +1704,7 @@ exports.UserService = void 0;
 const common_1 = __webpack_require__(5);
 const mongoose_1 = __webpack_require__(6);
 const config_1 = __webpack_require__(10);
-const auth_service_1 = __webpack_require__(48);
+const auth_service_1 = __webpack_require__(49);
 const search_1 = __webpack_require__(25);
 const utility_1 = __webpack_require__(11);
 const database_1 = __webpack_require__(7);
@@ -1876,7 +1891,7 @@ exports.UserService = UserService;
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1892,10 +1907,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LocalStrategy = void 0;
-const passport_local_1 = __webpack_require__(52);
+const passport_local_1 = __webpack_require__(53);
 const passport_1 = __webpack_require__(34);
 const common_1 = __webpack_require__(5);
-const auth_service_1 = __webpack_require__(48);
+const auth_service_1 = __webpack_require__(49);
 let LocalStrategy = class LocalStrategy extends passport_1.PassportStrategy(passport_local_1.Strategy) {
     constructor(authService) {
         super({
@@ -1921,13 +1936,13 @@ exports.LocalStrategy = LocalStrategy;
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ ((module) => {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1943,10 +1958,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.JwtStrategy = void 0;
-const passport_jwt_1 = __webpack_require__(54);
+const passport_jwt_1 = __webpack_require__(55);
 const passport_1 = __webpack_require__(34);
 const common_1 = __webpack_require__(5);
-const user_service_1 = __webpack_require__(50);
+const user_service_1 = __webpack_require__(51);
 const config_1 = __webpack_require__(10);
 let JwtStrategy = class JwtStrategy extends passport_1.PassportStrategy(passport_jwt_1.Strategy) {
     constructor(userService, configService) {
@@ -1971,13 +1986,13 @@ exports.JwtStrategy = JwtStrategy;
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ ((module) => {
 
 module.exports = require("passport-jwt");
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1997,8 +2012,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthController = void 0;
 const common_1 = __webpack_require__(5);
-const local_auth_guard_1 = __webpack_require__(56);
-const auth_service_1 = __webpack_require__(48);
+const local_auth_guard_1 = __webpack_require__(57);
+const auth_service_1 = __webpack_require__(49);
 const jwt_auth_guard_1 = __webpack_require__(33);
 let AuthController = class AuthController {
     constructor(authService) {
@@ -2035,7 +2050,7 @@ exports.AuthController = AuthController;
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2058,7 +2073,7 @@ exports.LocalAuthGuard = LocalAuthGuard;
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2076,10 +2091,10 @@ const utility_1 = __webpack_require__(11);
 const common_1 = __webpack_require__(5);
 const common_2 = __webpack_require__(5);
 const mongoose_1 = __webpack_require__(6);
-const auth_module_1 = __webpack_require__(46);
-const user_controller_1 = __webpack_require__(58);
-const user_schema_1 = __webpack_require__(59);
-const user_service_1 = __webpack_require__(50);
+const auth_module_1 = __webpack_require__(47);
+const user_controller_1 = __webpack_require__(59);
+const user_schema_1 = __webpack_require__(60);
+const user_service_1 = __webpack_require__(51);
 let UserModule = class UserModule {
 };
 UserModule = __decorate([
@@ -2103,7 +2118,7 @@ exports.UserModule = UserModule;
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2123,9 +2138,9 @@ var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const common_1 = __webpack_require__(5);
-const auth_service_1 = __webpack_require__(48);
+const auth_service_1 = __webpack_require__(49);
 const jwt_auth_guard_1 = __webpack_require__(33);
-const user_service_1 = __webpack_require__(50);
+const user_service_1 = __webpack_require__(51);
 let UserController = class UserController {
     constructor(userService, authService) {
         this.userService = userService;
@@ -2216,14 +2231,14 @@ exports.UserController = UserController;
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.User = exports.userSchema = void 0;
 const mongoose = __webpack_require__(8);
-const user_interface_1 = __webpack_require__(60);
+const user_interface_1 = __webpack_require__(61);
 Object.defineProperty(exports, "User", ({ enumerable: true, get: function () { return user_interface_1.User; } }));
 const ObjectId = mongoose.Schema.Types.ObjectId;
 exports.userSchema = new mongoose.Schema({
@@ -2253,7 +2268,7 @@ exports.userSchema = new mongoose.Schema({
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -2262,7 +2277,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2277,14 +2292,14 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(62), exports);
 __exportStar(__webpack_require__(63), exports);
-__exportStar(__webpack_require__(65), exports);
 __exportStar(__webpack_require__(64), exports);
+__exportStar(__webpack_require__(66), exports);
+__exportStar(__webpack_require__(65), exports);
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2300,9 +2315,9 @@ const common_1 = __webpack_require__(5);
 const mongoose_1 = __webpack_require__(6);
 const database_1 = __webpack_require__(7);
 const search_1 = __webpack_require__(25);
-const product_service_1 = __webpack_require__(63);
-const product_controller_1 = __webpack_require__(66);
-const product_schema_1 = __webpack_require__(64);
+const product_service_1 = __webpack_require__(64);
+const product_controller_1 = __webpack_require__(67);
+const product_schema_1 = __webpack_require__(65);
 let ProductModule = class ProductModule {
 };
 ProductModule = __decorate([
@@ -2323,7 +2338,7 @@ exports.ProductModule = ProductModule;
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2346,7 +2361,7 @@ const common_1 = __webpack_require__(5);
 const mongoose_1 = __webpack_require__(6);
 const database_1 = __webpack_require__(7);
 const search_1 = __webpack_require__(25);
-const product_schema_1 = __webpack_require__(64);
+const product_schema_1 = __webpack_require__(65);
 Object.defineProperty(exports, "Product", ({ enumerable: true, get: function () { return product_schema_1.Product; } }));
 Object.defineProperty(exports, "ProductDocument", ({ enumerable: true, get: function () { return product_schema_1.ProductDocument; } }));
 let ProductService = class ProductService {
@@ -2416,14 +2431,14 @@ exports.ProductService = ProductService;
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Product = exports.productSchema = void 0;
 const mongoose = __webpack_require__(8);
-const product_interface_1 = __webpack_require__(65);
+const product_interface_1 = __webpack_require__(66);
 Object.defineProperty(exports, "Product", ({ enumerable: true, get: function () { return product_interface_1.Product; } }));
 const ObjectId = mongoose.Schema.Types.ObjectId;
 exports.productSchema = new mongoose.Schema({
@@ -2443,7 +2458,7 @@ exports.productSchema = new mongoose.Schema({
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -2452,7 +2467,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2473,7 +2488,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductController = void 0;
 const common_1 = __webpack_require__(5);
 const jwt_auth_guard_1 = __webpack_require__(33);
-const product_service_1 = __webpack_require__(63);
+const product_service_1 = __webpack_require__(64);
 let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
