@@ -23,6 +23,8 @@ export class ApplicationComponent implements OnInit {
   answers: any = {};
   response: ApplicationResponse;
 
+  inputReady: Boolean;
+
   // prevPageName:string = null;		// For back button
 
   constructor(public applicationService: ApplicationService, private responseService: ApplicationResponseService, private route: ActivatedRoute, private router: Router, private googleMapsService: GoogleMapsService) { }
@@ -64,7 +66,6 @@ export class ApplicationComponent implements OnInit {
 
 
   async loadPage(sectionIndex: number, pageIndex: number) {
-
     this.sectionIndex = sectionIndex;
     this.pageIndex = pageIndex;
     this.section = this.application.sections[sectionIndex];
@@ -79,8 +80,19 @@ export class ApplicationComponent implements OnInit {
         console.log('hey, ' + question.key + ' already exists in the answers array! the answer is ' + this.answers[question.key]);
         this.getSelectedQuestionValue(question);
       }
-
     });
+
+    console.log(this.page.questions);
+
+
+    if (this.page.questions.find(el => el['key'] == 'zipcode')) {
+      console.log('mark it false');
+
+      this.inputReady = false;
+    }
+    else {
+      this.inputReady = true;
+    }
 
 
     if (this.page.type === 'submit') await this.submitResponse();
@@ -99,9 +111,9 @@ export class ApplicationComponent implements OnInit {
   }
 
   async onNextBtn() {
-
     let nextPageIndex = this.pageIndex + 1;
     let nextSectionIndex = this.sectionIndex;
+
     if (this.page.nextPageName) {
       nextSectionIndex = this.findSectionIndexByPageName(this.page.nextPageName);
       if (nextSectionIndex === -1) nextSectionIndex = this.sectionIndex;
@@ -192,12 +204,13 @@ export class ApplicationComponent implements OnInit {
     }
 
     if (question.key === 'zipcode') {		// Check and reject if they are inside of Oklahoma
+      // TODO: save the results in the DB and check that first?
       const info = await this.googleMapsService.lookupAddress(value);
       console.log('lookupAddress: %o', info);
       if (!info) {
         //  TODO: Handle if they enter something invalid
       } else {
-
+        this.inputReady = true;  // show the button
         if (info.state === 'OK') {
           this.page.nextPageName = '8a.1';
         } else {
