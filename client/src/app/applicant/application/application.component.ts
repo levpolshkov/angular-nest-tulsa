@@ -87,6 +87,21 @@ export class ApplicationComponent implements OnInit {
 
         this.inputReady = true;
 
+        if (this.page.name === '14.5a') {
+            console.log("employment type=%o", this.answers);
+            switch (this.answers['employmentType']) {
+                case 'Full Time Employee':
+                    this.page.nextPageName = '15FE.1'; break;
+                case 'Business Owner':
+                    this.page.nextPageName = '15BO.1'; break;
+                case 'Independent Contractor':
+                    this.page.nextPageName = '15IC.1'; break;
+                default:
+                    this.page.nextPageName = '16a'; break;
+            }
+            console.log('Employment: At 14.5a: employmentType=%o, nextPageName=%o', this.answers['employmentType'], this.page.nextPageName);
+        }
+
         if (this.page.type === 'submit') await this.submitResponse();
         if (this.page.type === 'reject') await this.rejectReponse();
 
@@ -112,21 +127,6 @@ export class ApplicationComponent implements OnInit {
             nextPageIndex = this.findPageIndexByPageName(this.page.nextPageName);
             console.log('onNextBtn: nextPageName=%o, nextSectionIndex=%o, nextPageIndex=%o', this.page.nextPageName, nextSectionIndex, nextPageIndex);
             if (nextPageIndex === -1) nextPageIndex = this.pageIndex + 1;
-        }
-
-        if (this.page.name === '14.5a') {
-            console.log("employment type=%o", this.answers);
-            switch (this.answers['employmentType']) {
-                case 'Full Time Employee':
-                    this.page.nextPageName = '15FE.1'; break;
-                case 'Business Owner':
-                    this.page.nextPageName = '15BO.1'; break;
-                case 'Independent Contractor':
-                    this.page.nextPageName = '15IC.1'; break;
-                default:
-                    this.page.nextPageName = '16a'; break;
-            }
-            console.log('Employment: At 14.5a: employmentType=%o, nextPageName=%o', this.answers['employmentType'], this.page.nextPageName);
         }
 
         if (this.page.name === '5a.1') {
