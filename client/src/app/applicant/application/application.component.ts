@@ -64,6 +64,7 @@ export class ApplicationComponent implements OnInit {
 
 
   async loadPage(sectionIndex: number, pageIndex: number) {
+
     this.sectionIndex = sectionIndex;
     this.pageIndex = pageIndex;
     this.section = this.application.sections[sectionIndex];
@@ -73,7 +74,14 @@ export class ApplicationComponent implements OnInit {
     if (!this.page.questions) this.page.questions = [];
     this.page.questions.forEach((question, i) => {
       if (!question.key) question.key = `question_${this.sectionIndex}_${this.pageIndex}_${i}`;
+
+      if (question.key in this.answers) {
+        console.log('hey, ' + question.key + ' already exists in the answers array! the answer is ' + this.answers[question.key]);
+        this.getSelectedQuestionValue(question);
+      }
+
     });
+
 
     if (this.page.type === 'submit') await this.submitResponse();
     if (this.page.type === 'reject') await this.rejectReponse();
@@ -91,7 +99,6 @@ export class ApplicationComponent implements OnInit {
   }
 
   async onNextBtn() {
-    console.log('onNextBtn: answers=%o', this.answers);
 
     let nextPageIndex = this.pageIndex + 1;
     let nextSectionIndex = this.sectionIndex;
@@ -162,6 +169,17 @@ export class ApplicationComponent implements OnInit {
 
   isQuestionOptionSelected(question: ApplicationQuestion, option: ApplicationQuestionOption) {
     return this.answers[question.key] === (option.value || option.label);
+  }
+
+  getSelectedQuestionValue(question: ApplicationQuestion) {
+    if (question.type == 'radio') {
+      let selectedOpt = question.options.find(el => el.value == this.answers[question.key]);
+      this.page.nextPageName = selectedOpt.nextPageName;
+    }
+    else if (question.type == 'text') {
+      this.onQuestionAnswer(question);
+    }
+
   }
 
   async onQuestionAnswer(question: ApplicationQuestion) {

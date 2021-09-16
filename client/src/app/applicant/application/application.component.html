@@ -33,7 +33,7 @@
 						<div class="d-grid gap-2" [class.d-flex]="question.options.length <= 2">
 							<ng-container *ngFor="let option of question.options; let i = index">
 								<label for="control_{{i}}">
-									<input type="radio" id="control_{{i}}" name="selectQuestion{{i}}" value="{{i}}" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
+									<input type="radio" id="control_{{i}}" name="selectQuestion" value="{{i}}" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
 									<span class="faux-label">
 										<span class="label">{{option.label}}</span>
 										<span class="helper-text" *ngIf="option.helperText">{{option.helperText}}</span>
