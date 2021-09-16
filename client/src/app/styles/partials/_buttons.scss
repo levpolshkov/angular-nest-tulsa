@@ -30,10 +30,12 @@
     padding-right: 2.25em;
 
     &:after {
+      color: white;
       content: '';
       display: block;
       height: 8px;
       width: 4px;
+      fill: white;
       background-size: contain;
       background-image: url('/assets/raw/arrow-right-white@2x.svg');
       background-repeat: no-repeat;
@@ -76,6 +78,12 @@
 
     &:hover {
       background: $color-brand-purple-light;
+    }
+  }
+
+  &.--reverse.--next {
+    &:after {
+      background-image: url('/assets/raw/arrow-right-dark@2x.svg');
     }
   }
 }
