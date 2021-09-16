@@ -115,6 +115,7 @@ export class ApplicationComponent implements OnInit {
         }
 
         if (this.page.name === '14.5a') {
+            console.log("employment type=%o", this.answers);
             switch (this.answers['employmentType']) {
                 case 'Full Time Employee':
                     this.page.nextPageName = '15FE.1'; break;
@@ -126,6 +127,12 @@ export class ApplicationComponent implements OnInit {
                     this.page.nextPageName = '16a'; break;
             }
             console.log('Employment: At 14.5a: employmentType=%o, nextPageName=%o', this.answers['employmentType'], this.page.nextPageName);
+        }
+
+        if (this.page.name === '5a.1') {
+            if (this.answers['primaryIncomeSourceFromCompany'] === "Yes") {
+                this.answers['employmentType'] = "Full Time Employee";
+            }
         }
 
         await this.saveResponse();
