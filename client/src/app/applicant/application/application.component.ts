@@ -47,6 +47,8 @@ export class ApplicationComponent implements OnInit {
         application: this.application,
         questionAnswers: []
       };
+    } else {
+      this.application = this.response.application;		// To make sure we restore page.nextPageName for Back button functionality
     }
     this.response.questionAnswers.forEach(qa => {
       this.answers[qa.questionKey] = qa.answer;
@@ -60,6 +62,7 @@ export class ApplicationComponent implements OnInit {
         answer: this.answers[questionKey]
       };
     });
+    this.response.application = this.application;
     console.log('ApplicationComponent.saveResponse: response=%o', this.response);
     await this.responseService.saveResponseLocal(this.response);
   }
@@ -82,18 +85,7 @@ export class ApplicationComponent implements OnInit {
       }
     });
 
-    console.log(this.page.questions);
-
-
-    if (this.page.questions.find(el => el['key'] == 'zipcode') || this.page.questions.find(el => el['key'] == 'address')) {
-      console.log('mark it false');
-
-      this.inputReady = false;
-    }
-    else {
-      this.inputReady = true;
-    }
-
+    this.inputReady = true;
 
     if (this.page.type === 'submit') await this.submitResponse();
     if (this.page.type === 'reject') await this.rejectReponse();
@@ -147,14 +139,28 @@ export class ApplicationComponent implements OnInit {
     }
   }
   onPrevBtn() {
-    console.log('onPrevBtn: sectionIndex=%o, pageIndex=%o', this.sectionIndex, this.pageIndex);
-    if (this.pageIndex === 0) {
-      if (this.sectionIndex === 0) return;		// Already at the start
-      const lastPage = this.application.sections[this.sectionIndex - 1].pages.length - 1;
-      this.loadPage(this.sectionIndex - 1, lastPage);
-    } else {
-      this.loadPage(this.sectionIndex, this.pageIndex - 1);
+    const currentPageName = this.page.name;
+    if (!currentPageName) return;
+
+
+    const allPages = this.application.sections.map(s => s.pages).reduce((a, b) => a.concat(b), []);
+    const prevPage = allPages.find(p => p.nextPageName === currentPageName);
+    const prevPageName = prevPage?.name;
+
+    console.log('onPrevBtn: sectionIndex=%o, pageIndex=%o, currentPageName=%o, prevPageName=%o', this.sectionIndex, this.pageIndex, currentPageName, prevPageName);
+
+    if (prevPageName) {
+      const sectionIndex = this.findSectionIndexByPageName(prevPageName);
+      const pageIndex = this.findPageIndexByPageName(prevPageName);
+      this.loadPage(sectionIndex, pageIndex);
     }
+    // if (this.pageIndex === 0) {
+    // 	if (this.sectionIndex === 0) return;		// Already at the start
+    // 	const lastPage = this.application.sections[this.sectionIndex - 1].pages.length - 1;
+    // 	this.loadPage(this.sectionIndex - 1, lastPage);
+    // } else {
+    // 	this.loadPage(this.sectionIndex, this.pageIndex - 1);
+    // }
   }
 
   findSectionIndexByPageName(pageName: string) {
@@ -180,7 +186,19 @@ export class ApplicationComponent implements OnInit {
   }
 
   isQuestionOptionSelected(question: ApplicationQuestion, option: ApplicationQuestionOption) {
+    let optArr = question.options.map(function (item) { return item.value });
+    let isDuplicate = optArr.some(function (item, idx) {
+      return optArr.indexOf(item) != idx;
+    });
+
+    // if (isDuplicate) {
+    //   let selectedOpt = question.options.find(el => el.value == this.answers[question.key]);
+    //   console.log(selectedOpt['label']);
+    //   return this.answers[question.key] === selectedOpt;
+    // }
+    // else {
     return this.answers[question.key] === (option.value || option.label);
+    // }
   }
 
   getSelectedQuestionValue(question: ApplicationQuestion) {
@@ -199,12 +217,12 @@ export class ApplicationComponent implements OnInit {
     if (question.key === 'birthDate') {		// Check and reject if they are under 18
       const duration = DateTime.fromISO(value).diffNow('years');
       const age = -duration.years;
-      // console.log('dateOfBirth=%o, age=%o', value, age);
+      console.log('dateOfBirth=%o, age=%o', value, age);
       if (age < 18) this.page.nextPageName = '6a.1';
     }
 
     if (question.key === 'zipcode') {		// Check and reject if they are inside of Oklahoma
-      // TODO: save the results in the DB and check that first?
+      this.inputReady = false;
       const info = await this.googleMapsService.lookupAddress(value);
       console.log('lookupAddress: %o', info);
       if (!info) {
@@ -220,6 +238,7 @@ export class ApplicationComponent implements OnInit {
     }
 
     if (question.key === 'address') {
+      this.inputReady = false;
       const info = await this.googleMapsService.lookupAddress(value);
       console.log('lookupAddress: %o', info);
       if (!info) {
