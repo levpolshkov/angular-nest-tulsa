@@ -172,7 +172,7 @@
         white-space: nowrap !important;
         width: 1px !important;
 
-        &:checked + .faux-label {
+        &.selected + .faux-label {
 					border: 2px solid $color-medium-gray;
           padding: 14px 22px 18px 22px;
 					background-color: $color-xtra-lt-gray;
