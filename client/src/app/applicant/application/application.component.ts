@@ -217,7 +217,7 @@ export class ApplicationComponent implements OnInit {
     if (question.key === 'birthDate') {		// Check and reject if they are under 18
       const duration = DateTime.fromISO(value).diffNow('years');
       const age = -duration.years;
-      // console.log('dateOfBirth=%o, age=%o', value, age);
+      console.log('dateOfBirth=%o, age=%o', value, age);
       if (age < 18) this.page.nextPageName = '6a.1';
     }
 

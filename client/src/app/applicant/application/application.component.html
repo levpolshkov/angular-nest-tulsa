@@ -32,7 +32,7 @@
 					<div class="radio form-group" *ngIf="question.type==='radio'">
 						<div class="d-grid gap-2" [class.d-flex]="question.options.length <= 2">
 							<ng-container *ngFor="let option of question.options; let i = index">
-								<label for="control_{{i}}">
+								<label [class.col-sm-6]="question.options.length <= 2" [class.text-center]="question.options.length <= 2" for="control_{{i}}">
 									<input type="radio" id="control_{{i}}" name="selectQuestion" value="{{i}}" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
 									<span class="faux-label">
 										<span class="label">{{option.label}}</span>
