@@ -10,7 +10,7 @@ export { Application, ApplicationSection, ApplicationPage, ApplicationQuestion }
 	providedIn: 'root'
 })
 export class ApplicationService {
-	debugMode = true;
+	debugMode = false;
 
 	constructor(private http:HttpService, private searchService:SearchService, private storageService:StorageService) { }
 
