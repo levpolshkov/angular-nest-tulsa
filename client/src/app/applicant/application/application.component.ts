@@ -201,6 +201,7 @@ export class ApplicationComponent implements OnInit {
         if (question.type == 'radio') {
             let selectedOpt = question.options.find(el => el.value == this.answers[question.key]);
             this.page.nextPageName = selectedOpt.nextPageName;
+            console.log(this.page.nextPageName);
         }
         else if (question.type == 'text') {
             this.onQuestionAnswer(question);
