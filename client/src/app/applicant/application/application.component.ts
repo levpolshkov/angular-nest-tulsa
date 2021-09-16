@@ -72,6 +72,8 @@ export class ApplicationComponent implements OnInit {
 
     this.page = this.section.pages[pageIndex];
 
+    console.log(this.answers);
+
     if (!this.page.questions) this.page.questions = [];
     this.page.questions.forEach((question, i) => {
       if (!question.key) question.key = `question_${this.sectionIndex}_${this.pageIndex}_${i}`;
@@ -79,6 +81,9 @@ export class ApplicationComponent implements OnInit {
       if (question.key in this.answers) {
         console.log('hey, ' + question.key + ' already exists in the answers array! the answer is ' + this.answers[question.key]);
         this.getSelectedQuestionValue(question);
+      }
+      else {
+        console.log('new question');
       }
     });
 
@@ -180,12 +185,25 @@ export class ApplicationComponent implements OnInit {
   }
 
   isQuestionOptionSelected(question: ApplicationQuestion, option: ApplicationQuestionOption) {
+    let optArr = question.options.map(function (item) { return item.value });
+    let isDuplicate = optArr.some(function (item, idx) {
+      return optArr.indexOf(item) != idx;
+    });
+
+    // if (isDuplicate) {
+    //   let selectedOpt = question.options.find(el => el.value == this.answers[question.key]);
+    //   console.log(selectedOpt['label']);
+    //   return this.answers[question.key] === selectedOpt;
+    // }
+    // else {
     return this.answers[question.key] === (option.value || option.label);
+    // }
   }
 
   getSelectedQuestionValue(question: ApplicationQuestion) {
     if (question.type == 'radio') {
       let selectedOpt = question.options.find(el => el.value == this.answers[question.key]);
+      console.log(selectedOpt);
       this.page.nextPageName = selectedOpt.nextPageName;
     }
     else if (question.type == 'text') {
