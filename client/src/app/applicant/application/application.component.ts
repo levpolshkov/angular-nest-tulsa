@@ -216,4 +216,8 @@ export class ApplicationComponent implements OnInit {
 		console.log('submitResponse: response=%o', this.response);
 		this.saveResponse();
 	}
+
+	get canNext() {
+		return this.page.questions.every(q => q.type==='label' || this.answers[q.key]);
+	}
 }

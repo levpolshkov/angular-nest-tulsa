@@ -51,7 +51,7 @@ export class ApplicationResponseService {
 				case 'note.partner':
 					partnerNoteLines.push(noteLine);
 					break;
-				case 'fullSecondaryAddress':
+				case 'secondaryAddress':
 					candidate['secondaryAddress'] = {
 						address1: response.questionAnswers.find(qa => qa.questionKey==='address.street')?.answer,
 						address2: '',
