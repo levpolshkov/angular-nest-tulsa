@@ -63,8 +63,8 @@ export class ApplicationResponseService {
 					break;
 				case 'secondaryAddress':
 					candidate['secondaryAddress'] = {
-						address1: response.questionAnswers.find(qa => qa.questionKey==='address.street')?.answer,
-						address2: '',
+						address1: response.questionAnswers.find(qa => qa.questionKey==='address.street1')?.answer,
+						address2: response.questionAnswers.find(qa => qa.questionKey==='address.street2')?.answer,
 						city: response.questionAnswers.find(qa => qa.questionKey==='address.city')?.answer,
 						state: response.questionAnswers.find(qa => qa.questionKey==='address.state')?.answer,
 						zip: response.questionAnswers.find(qa => qa.questionKey==='address.zipcode')?.answer
@@ -94,7 +94,7 @@ export class ApplicationResponseService {
 				const partnerNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Partner Note', partnerNote);
 				console.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
 
-				const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Application Note', responseNote);
+				const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Entire Application', responseNote);
 				console.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
 
 				const jobSubId = await this.bullhornService.addJobSubmission(candidateId, 65);

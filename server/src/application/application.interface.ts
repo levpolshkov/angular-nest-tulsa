@@ -1,6 +1,6 @@
 import { User } from '../user/user.interface';
 
-export type ApplicationQuestionType = 'label' | 'text' | 'phone' | 'email' | 'currency' | 'date' | 'number' | 'radio' | 'textarea';
+export type ApplicationQuestionType = 'label' | 'text' | 'phone' | 'email' | 'currency' | 'date' | 'number' | 'radio' | 'textarea' | 'url';
 export type ApplicationPageType = 'question' | 'hero' | 'single-question' | 'reject' | 'submit';
 export interface ApplicationQuestionOption {
   value: string | number | boolean,
@@ -15,7 +15,8 @@ export interface ApplicationQuestion {
   key: string,
   bullhornKey?: string,
   label: string,
-  options?: ApplicationQuestionOption[]
+  options?: ApplicationQuestionOption[],
+  optional?: boolean
 };
 
 
