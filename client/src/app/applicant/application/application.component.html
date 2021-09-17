@@ -33,7 +33,10 @@
 								<label [class.col-sm-6]="question.options.length <= 2" [class.text-center]="question.options.length <= 2" for="control_{{i}}">
 									<input (keyup.enter)="onEnter(question)" type="radio" id="control_{{i}}" name="selectQuestion" value="{{i}}" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
 									<span class="faux-label">
-										<span class="label">{{option.label}}</span>
+										<span class="label">
+											{{option.label}}
+											<span *ngIf="applicationService.debugMode && option.value">[{{option.value}}]</span>
+										</span>
 										<span class="helper-text" *ngIf="option.helperText">{{option.helperText}}</span>
 										<span *ngIf="applicationService.debugMode && option.nextPageName">[{{option.nextPageName}}]</span>
 									</span>
