@@ -108,7 +108,7 @@ export class ApplicationComponent implements OnInit {
 		}
 
 		if (this.page.type === 'submit') await this.submitResponse();
-		if (this.page.type === 'reject') await this.rejectReponse();
+		if (this.page.type === 'reject') await this.rejectResponse();
 
 		this.router.navigate([], { queryParams: { section: this.sectionIndex, page: this.pageIndex }, replaceUrl: true });
 	}
@@ -277,18 +277,22 @@ export class ApplicationComponent implements OnInit {
 	}
 
 
-	async rejectReponse() {
+	async rejectResponse() {
 		this.response.status = 'rejected';
 		this.response = await this.responseService.submitResponse(this.response);
-		console.log('rejectReponse: response=%o', this.response);
+		console.log('rejectResponse: response=%o', this.response);
 		this.saveResponse();
 	}
 
 	async submitResponse() {
+		if(this.response.status==='submitted') {
+			console.warn('submitResponse: Response status already submitted, bailing.');
+			return;
+		}
 		this.response.status = 'submitted';
 		this.response = await this.responseService.submitResponse(this.response);
 		console.log('submitResponse: response=%o', this.response);
-		this.saveResponse();
+		await this.saveResponse();
 	}
 
 	get canNext() {
