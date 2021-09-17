@@ -6,6 +6,7 @@ import { DateTime } from 'luxon';
 import { GoogleMapsService } from 'src/app/shared/google-maps.service';
 import { ApplicationResponse } from '@server/application-response/application-response.interface';
 import { ApplicationResponseService } from './application-response.service';
+import packageJson					from '../../../../package.json';
 
 @Component({
 	selector: 'app-application',
@@ -16,6 +17,7 @@ export class ApplicationComponent implements OnInit {
 	application: Application;
 	section: ApplicationSection;
 	page: ApplicationPage;
+	version = `v${packageJson.version}`;
 
 	pageIndex: number = 0;
 	sectionIndex: number = 0;
