@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ApplicationSection } from '../../../models';
-
+import { ApplicationPage } from '../../../models';
 
 interface Title {
 	x: number,
@@ -26,13 +26,19 @@ interface Section extends ApplicationSection {
 	current?: boolean
 };
 
+interface Page extends ApplicationPage {
+	completed?: number,
+	current?: boolean
+};
+
 @Component({
 	selector: 'wayfinder',
 	templateUrl: './wayfinder.component.html',
 	styleUrls: ['./wayfinder.component.scss']
 })
 export class WayfinderComponent implements OnInit {
-	@Input() sections:Section[] = [];
+    @Input() sections: Section[] = [];
+    @Input() pages:Page[] = [];
 	@Input() sectionIndex:number;		// Currently active sectionIndex
 	@Input() pageIndex:number;		// Currently active pageIndex
 
@@ -64,13 +70,14 @@ export class WayfinderComponent implements OnInit {
 
 	draw() {
 		// console.log('Wayfinder: sectionIndex=%o, pageIndex=%o', this.sectionIndex, this.pageIndex);
-		const sectionWidth = (this.width)/this.sections.length;
+        const sectionWidth = (this.width) / this.sections.length;
+        
 
 		this.sections.map((section,i) => {
 			section.completed = i>=this.sectionIndex ? 0 : 1;
 		});
 		const progress = (this.pageIndex/this.sections[this.sectionIndex].pages.length) || 0;
-		// console.log('Wayfinder: progress=%o', progress);
+		console.log('Wayfinder: progress=%o', progress);
 		
 		this.sections[this.sectionIndex].completed = progress;
 		this.sections.forEach(s => s.current=false);
