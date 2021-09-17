@@ -35,3 +35,10 @@ input[type="text"], input[type="email"], input[type="phone"], input[type="date"]
 		box-shadow: none;
 	}
 }
+
+
+.highlight-empty {
+   input.empty {
+	border: 1px solid red;
+   }
+}

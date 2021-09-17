@@ -77,7 +77,7 @@ export class WayfinderComponent implements OnInit {
 			section.completed = i>=this.sectionIndex ? 0 : 1;
 		});
 		const progress = (this.pageIndex/this.sections[this.sectionIndex].pages.length) || 0;
-		console.log('Wayfinder: progress=%o', progress);
+		// console.log('Wayfinder: progress=%o', progress);
 		
 		this.sections[this.sectionIndex].completed = progress;
 		this.sections.forEach(s => s.current=false);

@@ -23,7 +23,8 @@ export class ApplicationComponent implements OnInit {
 	answers: any = {};
 	response: ApplicationResponse;
 
-	inputReady: Boolean;
+    inputReady: Boolean;
+    emptyFields: Boolean;
 
 	// prevPageName:string = null;		// For back button
 
@@ -53,7 +54,7 @@ export class ApplicationComponent implements OnInit {
 		this.response.questionAnswers.forEach(qa => {
 			this.answers[qa.questionKey] = qa.answer;
 		});
-		console.log('ApplicationComponent.loadResponse: response=%o', this.response);
+		// console.log('ApplicationComponent.loadResponse: response=%o', this.response);
 	}
 	async saveResponse() {
 		this.response.questionAnswers = Object.keys(this.answers).map(questionKey => {
@@ -63,7 +64,7 @@ export class ApplicationComponent implements OnInit {
 			};
 		});
 		this.response.application = this.application;
-		console.log('ApplicationComponent.saveResponse: response=%o', this.response);
+		// console.log('ApplicationComponent.saveResponse: response=%o', this.response);
 		await this.responseService.saveResponseLocal(this.response);
 	}
 
@@ -85,7 +86,8 @@ export class ApplicationComponent implements OnInit {
 			}
 		});
 
-		this.inputReady = true;
+        this.inputReady = true;
+        this.emptyFields = false;
 		this.page.questions.filter(q => q.key==='zipcode' || q.key==='address').forEach(q => this.onQuestionAnswer(q));
 
 		if (this.page.name === '14.5a') {
@@ -169,7 +171,21 @@ export class ApplicationComponent implements OnInit {
 		// } else {
 		// 	this.loadPage(this.sectionIndex, this.pageIndex - 1);
 		// }
-	}
+    }
+    
+    async onEnter(question:ApplicationQuestion) {
+        console.log('you pressed enter');
+        await this.onQuestionAnswer(question);
+        if (this.inputReady && this.page.questions.every(q => this.isQuestionValid(q))) {
+            this.onNextBtn();
+        }
+        else if (!this.page.questions.every(q => this.isQuestionValid(q))) {
+            this.emptyFields = true;
+            console.log('please fill out all the fields');
+        }
+
+
+    }
 
 	findSectionIndexByPageName(pageName: string) {
 		return this.application.sections.findIndex(s => s.pages.find(p => p.name === pageName));

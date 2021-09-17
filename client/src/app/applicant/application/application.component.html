@@ -15,23 +15,23 @@
 		</div>
         
 		<ng-container *ngIf="page.questions.length">
-			<div class="questions">
+			<div class="questions" [class.highlight-empty]="emptyFields">
 				<div class="question mb-3" *ngFor="let question of page.questions; let questionIndex=index">
 					<label class="form-label" [class.heading-label]="page.type == 'single-question' || question.type == 'label' || question.type == 'radio'" [innerHtml]="question.label"></label>
 
 					<div class="form-group" *ngIf="question.type==='text' || question.type==='email' || question.type==='phone' || question.type==='url'">
-						<input class="form-control" [type]="question.type" name="question{{questionIndex}}" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
+						<input (keyup.enter)="onEnter(question)" [class.empty]="!isQuestionValid(question)" class="form-control" [type]="question.type" name="question{{questionIndex}}" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
 					</div>
 
 					<div class="form-group" *ngIf="question.type==='date'">
-						<input class="form-control" type="date" name="question{{questionIndex}}" [(ngModel)]="answers[question.key]"  (blur)="onQuestionAnswer(question)">
+						<input class="form-control" (keyup.enter)="onEnter(question)" type="date" [class.empty]="!isQuestionValid(question)" name="question{{questionIndex}}" [(ngModel)]="answers[question.key]"  (blur)="onQuestionAnswer(question)">
 					</div>
 
 					<div class="radio form-group" *ngIf="question.type==='radio'">
 						<div class="d-grid gap-2" [class.d-flex]="question.options.length <= 2">
 							<ng-container *ngFor="let option of question.options; let i = index">
 								<label [class.col-sm-6]="question.options.length <= 2" [class.text-center]="question.options.length <= 2" for="control_{{i}}">
-									<input type="radio" id="control_{{i}}" name="selectQuestion" value="{{i}}" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
+									<input (keyup.enter)="onEnter(question)" type="radio" id="control_{{i}}" name="selectQuestion" value="{{i}}" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
 									<span class="faux-label">
 										<span class="label">{{option.label}}</span>
 										<span class="helper-text" *ngIf="option.helperText">{{option.helperText}}</span>
@@ -43,7 +43,7 @@
 					</div>
 
 					<div class="form-group" *ngIf="question.type==='textarea'">
-						<textarea class="form-control" rows="10" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)"></textarea>
+						<textarea (keyup.enter)="onEnter(question)" class="form-control" rows="10" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)"></textarea>
 					</div>
 				</div>
 			</div>
