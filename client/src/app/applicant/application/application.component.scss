@@ -92,7 +92,7 @@
     font-family: $font-family-main;
 
     &-content {
-      font-weight: 100;
+      font-weight: 300;
       padding: 1em 0;
       font-size: 1em;
       line-height: 1.5;
@@ -244,14 +244,14 @@
         span.label {
           display: block;
           font-size: 1.5rem;
-          font-weight: 300;
+          font-weight: 400;
         }
 
         .helper-text {
           display: block;
           font-size: 1rem;
           margin-top: 10px;
-          font-weight: 100;
+          font-weight: 300;
         }
 			}
 		}

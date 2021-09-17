@@ -7,13 +7,13 @@ label {
 :host ::ng-deep .hero-page-content p,
 .heading-label {
 	font-size: 1.5rem;
-	font-weight: 100;
+	font-weight: 300;
 	margin-bottom: 2em;
 }
 
 :host ::ng-deep .heading-label {
   font-size: 1.5rem;
-	font-weight: 100;
+	font-weight: 300;
 	margin-bottom: 2em;
 
   ul {
@@ -27,7 +27,7 @@ input[type="text"], input[type="email"], input[type="phone"], input[type="date"]
 	border-radius: 2px;
   padding: 0.7rem 0.75rem;
   font-family: $font-family-main;
-  font-weight: 100;
+  font-weight: 300;
 
 	&:focus {
 		border-color: $color-brand-purple;
