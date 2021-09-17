@@ -248,7 +248,8 @@ export class ApplicationComponent implements OnInit {
                 this.inputReady = true;
                 if (info.formatted) {
                     this.answers[question.key] = info.formatted;
-                    this.answers['address.street'] = info.street;
+                    this.answers['address.street1'] = info.street1;
+					this.answers['address.street2'] = info.street2;
                     this.answers['address.city'] = info.city;
                     this.answers['address.state'] = info.stateName;
                     this.answers['address.zipcode'] = info.zipcode;

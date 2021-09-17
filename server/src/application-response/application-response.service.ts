@@ -63,8 +63,8 @@ export class ApplicationResponseService {
 					break;
 				case 'secondaryAddress':
 					candidate['secondaryAddress'] = {
-						address1: response.questionAnswers.find(qa => qa.questionKey==='address.street')?.answer,
-						address2: '',
+						address1: response.questionAnswers.find(qa => qa.questionKey==='address.street1')?.answer,
+						address2: response.questionAnswers.find(qa => qa.questionKey==='address.street2')?.answer,
 						city: response.questionAnswers.find(qa => qa.questionKey==='address.city')?.answer,
 						state: response.questionAnswers.find(qa => qa.questionKey==='address.state')?.answer,
 						zip: response.questionAnswers.find(qa => qa.questionKey==='address.zipcode')?.answer
