@@ -8,7 +8,7 @@ const apiKey = 'AIzaSyAUS6vZiILR5ypmGFLs6Je-m0E06TKEYg4';
 })
 export class GoogleMapsService {
 	constructor(private http:HttpClient) {
-		this.lookupZipcode('10101');
+		// this.lookupZipcode('10101');
 	}
 
 	lookupZipcode(zipcode:string) {
