@@ -17,12 +17,6 @@ export class ApplicationResponseService {
 		private searchService:SearchService,
 		private bullhornService:BullhornService
 	) {
-
-		const dateTime = DateTime.fromISO('1984-02-13').toUTC().toFormat('yyyy-MM-dd');
-		console.log('dateTime=%o', dateTime);
-		// setTimeout(() => {
-		// 	this.responseModel.findOne({_id:'6142b520172fbe9276f9deef'}).then(r => this.submitResponseToBullhorn(r));
-		// }, 5000);
 	}
 
 	saveResponse(response:ApplicationResponse) {
@@ -43,7 +37,7 @@ export class ApplicationResponseService {
 		response.questionAnswers.map(qa => {
 			const question = this.findQuestionByQuestionKey(response.application, qa.questionKey);
 			const bullhornKey = question?.bullhornKey;
-			console.log('submitResponseToBullhorn: qa=%o, bullhornKey=%o', qa, bullhornKey);
+			// console.log('submitResponseToBullhorn: qa=%o, bullhornKey=%o', qa, bullhornKey);
 
 			if(!bullhornKey) return;
 			const noteLine = `<b>${question.label || question.key}</b><br>${qa.answer}`;

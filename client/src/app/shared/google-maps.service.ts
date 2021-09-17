@@ -8,13 +8,14 @@ const apiKey = 'AIzaSyAUS6vZiILR5ypmGFLs6Je-m0E06TKEYg4';
 })
 export class GoogleMapsService {
 	constructor(private http:HttpClient) {
-		// this.lookupAddress('2504 Williamsburg Drive, Apt #2, Melissa, TX 75454');
+		// this.lookupZipcode('90210');
 	}
 
 	lookupZipcode(zipcode:string) {
-		const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&components=postal_code:${zipcode}&key=${apiKey}`;
+		zipcode = encodeURIComponent(zipcode);
+		const url = `https://maps.googleapis.com/maps/api/geocode/json?&components=postal_code:${zipcode}&key=${apiKey}`;
 		return this.http.get(url).toPromise().then((res:any) => {
-			console.log('GoogleMapsService.lookupAddress: address=%o, zipcode=%o', zipcode, res);
+			console.log('GoogleMapsService.lookupZipcode: zipcode=%o, res=%o', zipcode, res);
 			const result = res?.results[0];
 			if(!result) return null;
 			const city = this.extractAddressComponentByType(result.address_components, 'locality');
@@ -44,7 +45,7 @@ export class GoogleMapsService {
 			const zipcode = this.extractAddressComponentByType(result.address_components,'postal_code');
 			const formatted = result.formatted_address;
 			const info = {street1,street2:aptNumber, city,state,zipcode,formatted,stateName};
-			console.log('lookupZipcode: result=%o, info=%o', result, info);
+			console.log('lookupAddress: result=%o, info=%o', result, info);
 			return info;
 		}, err => null);
 	}
