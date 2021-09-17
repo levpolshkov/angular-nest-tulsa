@@ -14,9 +14,8 @@
 		<div class="wayfinder text-center" *ngIf="!page.heroImage">
 			<wayfinder [sections]="application.sections" [sectionIndex]="sectionIndex" [pageIndex]="pageIndex"></wayfinder>
 		</div>
-
+        
 		<ng-container *ngIf="page.questions.length">
-
 			<div class="questions">
 				<div class="question mb-3" *ngFor="let question of page.questions; let questionIndex=index">
 					<label class="form-label" [class.heading-label]="page.type == 'single-question' || question.type == 'label' || question.type == 'radio'" [innerHtml]="question.label"></label>
@@ -63,6 +62,15 @@
 			<small class="helperText">If you feel we’ve made an error, please contact us at <a class="text-light" href="mailto:info@tulsaremote.com" target="_blank">info@tulsaremote.com</a></small>
 		</div>
 
+        <div *ngIf="page.type==='submit'" class="exit-meta">
+            <div class="return-link"><a class="btn --plain-link --reverse" href="https://tulsaremote.com">Return to website</a></div>
+            <ul class="social-media">
+                <li><a class="facebook" href="https://www.facebook.com/tulsaremote"><span class="visually-hidden">Facebook</span></a></li>
+                <li><a class="twitter" href="https://twitter.com/tulsaremote"><span class="visually-hidden">Twitter</span></a></li>
+                <li><a class="linkedin" href="https://www.linkedin.com/company/tulsaremote/"><span class="visually-hidden">LinkedIn</span></a></li>
+            </ul>
+        </div>
+
 		<div class="buttons px-4" *ngIf="page.type!=='reject' && page.type!=='submit' && page.name!=='welcome'">
 			<button class="btn --plain-link" (click)="onPrevBtn()">Back</button>
 			<button class="btn --next" (click)="onNextBtn()" [disabled]="!canNext || !inputReady">
@@ -74,6 +82,8 @@
 		<div class="buttons --dark px-4 text-right" *ngIf="page.name==='welcome'">
 			<button class="btn --next --reverse" (click)="onNextBtn()">Let's Get Started</button>
 		</div>
+
+
 	</div>
 	
 </div>
