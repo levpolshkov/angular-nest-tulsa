@@ -934,6 +934,7 @@ exports.applicationSchema = new mongoose.Schema({
                             label: String,
                             key: String,
                             bullhornKey: String,
+                            optional: Boolean,
                             options: [{
                                     value: mongoose.Schema.Types.Mixed,
                                     label: String,
@@ -1303,7 +1304,7 @@ let ApplicationResponseService = class ApplicationResponseService {
         const partnerNoteLines = [];
         const responseNoteLines = [];
         response.questionAnswers.map(qa => {
-            var _a, _b, _c, _d;
+            var _a, _b, _c, _d, _e;
             const question = this.findQuestionByQuestionKey(response.application, qa.questionKey);
             const bullhornKey = question === null || question === void 0 ? void 0 : question.bullhornKey;
             console.log('submitResponseToBullhorn: qa=%o, bullhornKey=%o', qa, bullhornKey);
@@ -1326,11 +1327,11 @@ let ApplicationResponseService = class ApplicationResponseService {
                     break;
                 case 'secondaryAddress':
                     candidate['secondaryAddress'] = {
-                        address1: (_a = response.questionAnswers.find(qa => qa.questionKey === 'address.street')) === null || _a === void 0 ? void 0 : _a.answer,
-                        address2: '',
-                        city: (_b = response.questionAnswers.find(qa => qa.questionKey === 'address.city')) === null || _b === void 0 ? void 0 : _b.answer,
-                        state: (_c = response.questionAnswers.find(qa => qa.questionKey === 'address.state')) === null || _c === void 0 ? void 0 : _c.answer,
-                        zip: (_d = response.questionAnswers.find(qa => qa.questionKey === 'address.zipcode')) === null || _d === void 0 ? void 0 : _d.answer
+                        address1: (_a = response.questionAnswers.find(qa => qa.questionKey === 'address.street1')) === null || _a === void 0 ? void 0 : _a.answer,
+                        address2: (_b = response.questionAnswers.find(qa => qa.questionKey === 'address.street2')) === null || _b === void 0 ? void 0 : _b.answer,
+                        city: (_c = response.questionAnswers.find(qa => qa.questionKey === 'address.city')) === null || _c === void 0 ? void 0 : _c.answer,
+                        state: (_d = response.questionAnswers.find(qa => qa.questionKey === 'address.state')) === null || _d === void 0 ? void 0 : _d.answer,
+                        zip: (_e = response.questionAnswers.find(qa => qa.questionKey === 'address.zipcode')) === null || _e === void 0 ? void 0 : _e.answer
                     };
                     break;
                 default:
@@ -1352,7 +1353,7 @@ let ApplicationResponseService = class ApplicationResponseService {
                 console.log('submitResponseToBullhorn: appNoteId=%o', appNoteId);
                 const partnerNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Partner Note', partnerNote);
                 console.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
-                const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Application Note', responseNote);
+                const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Entire Application', responseNote);
                 console.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
                 const jobSubId = await this.bullhornService.addJobSubmission(candidateId, 65);
                 console.log('submitResponseToBullhorn: jobSubId=%o', jobSubId);
