@@ -49,8 +49,9 @@ export class WayfinderComponent implements OnInit {
 	circles:Circle[] = [];
 	lines:Line[] = [];
 
-	completedColor = '#4e40f3';
-	grayColor = '#ccc';
+	completedColor = '#4E40F3';
+    grayColor = '#DCDEE5';
+    textColor = '#283045';
 
 	constructor() { }
 
