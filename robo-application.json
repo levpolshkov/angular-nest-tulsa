@@ -9,8 +9,9 @@
                     "order" : 0,
                     "name" : "welcome",
                     "type" : "welcome",
+                    "nextPageName" : "1a",
                     "heroImage" : "assets/heros/welcome.jpg",
-                    "heroHtml" : "<h2 class='mb-5'>Hi, we’re Tulsa Remote. 👋</h2><h3 class='mb-4'>We’re thrilled that you’re interested in our city!</h3><h4>Before we dive in, hear what some real Remoters have to say:</h4><div class='quote'><div class='quote-content'>“Quote about warmth of community. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ”</div><div class='quote-metadata'><div class='quote-image'><img src='assets/members/JennaBoyd.jpg' alt='Jenna Boyd' /></div><div class='quote-name'><strong>Jenna Boyd</strong><br/>Los Angeles, CA<br/>Actress</div></div><div class='quote'><div class='quote-content'>“Quote about affordability + buying a house. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</div><div class='quote-metadata'><div class='quote-image'><img src='assets/members/ObumUkabam.jpg' alt='Obum Ukabam' /></div><div class='quote-name'><strong>Obum Ukabam</strong><br/>Moreno Valley, CA<br/>Media, Education</div></div></div>"
+                    "heroHtml" : "<h2 class='mb-5'>Hi, we’re Tulsa Remote. 👋</h2><h3 class='mb-4'>We’re thrilled that you’re interested in our city!</h3><h4>Before we dive in, hear what some real Remoters have to say:</h4><div class='quote'><div class='quote-content'>“It’s definitely not easy to live in Los Angeles. The cost of living is crazy, as most people know. But it’s just a difficult place to find community. I lived there for 18 years and I still felt like I was trying to figure out who my people were. I was so shocked at how ready people were to welcome me here, not only just within my church community and the Tulsa Remote Community, but just people.”</div><div class='quote-metadata'><div class='quote-image'><img src='assets/members/JennaBoyd.jpg' alt='Jenna Boyd' /></div><div class='quote-name'><strong>Jenna Boyd</strong><br/>Los Angeles, CA<br/>Actress</div></div><div class='quote'><div class='quote-content'>“Moving to Tulsa for me and her, our blood pressures went down because we are not stressed out anymore. We’re doing things. We’re enjoying things. We’re breathing better air, we’re going out walking. We are experiencing life. So that has really taken a toll on me and my health. I’m just a healthier person because I’m able to relax, take a deep breath. And my wife being happy does wonders for me too.”</div><div class='quote-metadata'><div class='quote-image'><img src='assets/members/ObumUkabam.jpg' alt='Obum Ukabam' /></div><div class='quote-name'><strong>Obum Ukabam</strong><br/>Moreno Valley, CA<br/>Media, Education</div></div></div>"
                 }, 
                 {
                     "order" : 1,
@@ -63,7 +64,7 @@
                     "name" : "3a",
                     "questions" : [ 
                         {
-                            "label" : "Which best describes you?",
+                            "label" : "Which best describes you? (Please select the one that is your main source of income)",
                             "type" : "radio",
                             "key" : "employmentType",
                             "bullhornKey" : "note.application",
@@ -182,11 +183,13 @@
                             "options" : [ 
                                 {
                                     "value" : "Yes",
-                                    "label" : "Yes"
+                                    "label" : "Yes",
+                                    "nextPageName" : "6a"
                                 }, 
                                 {
                                     "value" : "No",
-                                    "label" : "No"
+                                    "label" : "No",
+                                    "nextPageName" : "6a"
                                 }
                             ],
                             "key" : "primaryIncomeSourceFromCompany",
@@ -233,6 +236,7 @@
                 {
                     "order" : 3,
                     "title" : "Age",
+                    "type" : "single-question",
                     "name" : "6a",
                     "questions" : [ 
                         {
@@ -279,6 +283,8 @@
                     "order" : 5,
                     "title" : "Location",
                     "name" : "8a",
+                    "type" : "single-question",
+                    "nextPageName" : "9a",
                     "questions" : [ 
                         {
                             "type" : "label",
@@ -287,8 +293,7 @@
                         {
                             "type" : "text",
                             "label" : "ZIP code",
-                            "key" : "zipcode",
-                            "bullhornKey" : "zip"
+                            "key" : "zipcode"
                         }
                     ]
                 }, 
@@ -332,7 +337,8 @@
                             "options" : [ 
                                 {
                                     "value" : "Yes",
-                                    "label" : "Yes"
+                                    "label" : "Yes",
+                                    "nextPageName" : "section2"
                                 }, 
                                 {
                                     "value" : "No",
@@ -352,8 +358,10 @@
             "pages" : [ 
                 {
                     "order" : 0,
+                    "name" : "section2",
                     "heroImage" : "assets/heros/section2.jpg",
-                    "heroHtml" : "<h2 class='mb-5'>Nice!</h2><h4>You meet the eligibility requirements, and we’d love to have you apply!</h4><p>You meet the eligibility requirements, and we’d love to have you apply!</p><small>It takes most folks around 10 - 15 minutes to complete this section.</small>"
+                    "nextPageName" : "11a",
+                    "heroHtml" : "<h2 class='mb-5'>Nice!</h2><h3>You meet the eligibility requirements, and we’d love to have you apply!</h3><h4>It takes most folks around 10 - 15 minutes to complete this section.</h4>"
                 }, 
                 {
                     "order" : 1,
@@ -365,7 +373,7 @@
                             "type" : "text",
                             "label" : "What's your current address?",
                             "key" : "address",
-                            "bullhornKey" : "fullSecondaryAddress"
+                            "bullhornKey" : "secondaryAddress"
                         }, 
                         {
                             "type" : "date",
@@ -443,7 +451,9 @@
                 {
                     "order" : 3,
                     "title" : "Street Smarts",
+                    "type" : "single-question",
                     "name" : "13a.1",
+                    "nextPageName" : "section3",
                     "questions" : [ 
                         {
                             "type" : "textarea",
@@ -461,9 +471,10 @@
                 {
                     "name" : "section3",
                     "order" : 0,
+                    "nextPageName" : "14a",
                     "type" : "hero",
                     "heroImage" : "assets/heros/section3.jpg",
-                    "heroHtml" : "<h3 class='mb-5'>Tulsa Remoters do it all.</h3><p><b>Our community spans industries, organization types, roles, and experience levels.</b></p><p>In the next section, we’ll ask about what you do.</p>"
+                    "heroHtml" : "<h2 class='mb-4'>Tulsa Remoters do it all.</h2><p class='mb-4'><strong>Our community spans industries, organization types, roles, and experience levels.</strong></p><p>In the next section, we’ll ask about what you do.</p>"
                 }, 
                 {
                     "order" : 1,
@@ -472,6 +483,7 @@
                     "questions" : [ 
                         {
                             "type" : "radio",
+                            "nextPageName" : "14.5a",
                             "label" : "What industry do you work in?",
                             "options" : [ 
                                 {
@@ -561,23 +573,28 @@
                     "title" : "Work",
                     "questions" : [ 
                         {
-                            "label" : "Can you provide your title and company name?"
+                            "label" : "Can you provide your title and company name?",
+                            "type" : "label"
                         }, 
                         {
                             "label" : "Title",
                             "type" : "text",
-                            "key" : "jobTitle"
+                            "key" : "jobTitle",
+                            "bullhornKey" : "occupation"
                         }, 
                         {
                             "label" : "Company Name",
                             "type" : "text",
-                            "key" : "companyName"
+                            "key" : "companyName",
+                            "bullhornKey" : "companyName"
                         }
                     ]
                 }, 
                 {
                     "name" : "15FE.1",
                     "title" : "Work",
+                    "type" : "single-question",
+                    "nextPageName" : "15FE.2",
                     "questions" : [ 
                         {
                             "label" : "Give us a brief overview of your role and responsibilities.",
@@ -598,28 +615,32 @@
                             "bullhornKey" : "customText19",
                             "options" : [ 
                                 {
-                                    "value" : "Less than $40,000",
+                                    "value" : "Less than $40K",
                                     "label" : "Less than $40,000"
                                 }, 
                                 {
-                                    "value" : "$40,000 - $59,999",
-                                    "label" : "$40,000 - $59,999"
+                                    "value" : "$40K-$60K",
+                                    "label" : "$40,000 - $60,000"
                                 }, 
                                 {
-                                    "value" : "$60,000 - $79,999",
-                                    "label" : "$40,000 - $59,999"
+                                    "value" : "$60K-$80K",
+                                    "label" : "$60,000 - $80,000"
                                 }, 
                                 {
-                                    "value" : "$80,000 - $99,999",
-                                    "label" : "$40,000 - $59,999"
+                                    "value" : "$80K-$100K",
+                                    "label" : "$80,000 - $100,000"
                                 }, 
                                 {
-                                    "value" : "$100,000 - $120,000",
+                                    "value" : "$100K-$120K",
                                     "label" : "$100,000 - $120,000"
                                 }, 
                                 {
-                                    "value" : "Greater than $120,000",
-                                    "label" : "Greater than $120,000"
+                                    "value" : "$120K-$150K",
+                                    "label" : "$120,000 - $150,000"
+                                }, 
+                                {
+                                    "value" : "$150K or higher",
+                                    "label" : "Greater than $150,000"
                                 }
                             ]
                         }
@@ -629,6 +650,8 @@
                 {
                     "name" : "15BO.1",
                     "title" : "Work",
+                    "type" : "single-question",
+                    "nextPageName" : "15BO.2",
                     "questions" : [ 
                         {
                             "label" : "Give us a brief overview of your company and what it does.",
@@ -641,21 +664,21 @@
                 {
                     "name" : "15BO.2",
                     "title" : "Work",
+                    "nextPageName" : "15BO.3",
                     "questions" : [ 
                         {
-                            "label" : "Is your company a start up?"
-                        }, 
-                        {
-                            "label" : "Start up funding usually come from family, friends, venture capitalists, crowdfunding or loans.",
+                            "label" : "Is your company a start up? (Start up funding usually come from family, friends, venture capitalists, crowdfunding or loans.)",
                             "type" : "radio",
                             "options" : [ 
                                 {
                                     "value" : "Yes",
-                                    "label" : "Yes"
+                                    "label" : "Yes",
+                                    "nextPageName" : "15BO.3"
                                 }, 
                                 {
                                     "value" : "No",
-                                    "label" : "No"
+                                    "label" : "No",
+                                    "nextPageName" : "15IC.2"
                                 }
                             ],
                             "key" : "isJobStartup",
@@ -666,6 +689,8 @@
                 {
                     "name" : "15BO.3",
                     "title" : "Work",
+                    "type" : "single-question",
+                    "nextPageName" : "15BO.4",
                     "questions" : [ 
                         {
                             "label" : "When was your start up founded?",
@@ -686,23 +711,23 @@
                             "bullhornKey" : "customText17",
                             "options" : [ 
                                 {
-                                    "value" : "Less than $40,000",
+                                    "value" : "Less than $40K",
                                     "label" : "Less than $40,000"
                                 }, 
                                 {
-                                    "value" : "$40,000 - $99,999",
+                                    "value" : "$40K-$99K",
                                     "label" : "$40,000 - $99,999"
                                 }, 
                                 {
-                                    "value" : "$100,000 - $499,499",
+                                    "value" : "$100K-$499K",
                                     "label" : "$100,000 - $499,499"
                                 }, 
                                 {
-                                    "value" : "$1 Million - $10 Million",
+                                    "value" : "$1M-$10M",
                                     "label" : "$1 Million - $10 Million"
                                 }, 
                                 {
-                                    "value" : "Greater than $10 Million",
+                                    "value" : "$10M or higher",
                                     "label" : "Greater than $10 Million"
                                 }
                             ]
@@ -713,6 +738,8 @@
                 {
                     "name" : "15IC.1",
                     "title" : "Work",
+                    "type" : "single-question",
+                    "nextPageName" : "15IC.2",
                     "questions" : [ 
                         {
                             "label" : "Give us a brief overview of your job and your typical day at work.",
@@ -725,6 +752,8 @@
                 {
                     "name" : "15IC.2",
                     "title" : "Work",
+                    "type" : "single-question",
+                    "nextPageName" : "15IC.3",
                     "questions" : [ 
                         {
                             "label" : "What year did you become self-employed?",
@@ -745,27 +774,27 @@
                             "bullhornKey" : "customText19",
                             "options" : [ 
                                 {
-                                    "value" : "Less than $40,000",
+                                    "value" : "Less than $40K",
                                     "label" : "Less than $40,000"
                                 }, 
                                 {
-                                    "value" : "$40,000 - $59,999",
+                                    "value" : "$40K-$59K",
                                     "label" : "$40,000 - $59,999"
                                 }, 
                                 {
-                                    "value" : "$60,000 - $79,999",
-                                    "label" : "$40,000 - $59,999"
+                                    "value" : "$60K-$79K",
+                                    "label" : "$60,000 - $79,999"
                                 }, 
                                 {
-                                    "value" : "$80,000 - $99,999",
-                                    "label" : "$40,000 - $59,999"
+                                    "value" : "$80K-$99K",
+                                    "label" : "$80,000 - $99,999"
                                 }, 
                                 {
-                                    "value" : "$100,000 - $120,000",
+                                    "value" : "$100K-$120K",
                                     "label" : "$100,000 - $120,000"
                                 }, 
                                 {
-                                    "value" : "Greater than $120,000",
+                                    "value" : "$120K or higher",
                                     "label" : "Greater than $120,000"
                                 }
                             ]
@@ -800,6 +829,7 @@
                 {
                     "name" : "16a.1",
                     "title" : "Work",
+                    "nextPageName" : "17",
                     "questions" : [ 
                         {
                             "label" : "How many employees do you manage?",
@@ -838,12 +868,15 @@
             "pages" : [ 
                 {
                     "name" : "17",
+                    "type" : "hero",
+                    "nextPageName" : "18a.new",
                     "heroImage" : "assets/heros/section4.jpg",
-                    "heroHtml" : "<h3 class='mb-4'>Thanks for that.</h3><p class='mb-2'><b>Now, enough about work! What are you like outside of your job?</b></p><p>In this section, we’ll get a sense of your relationship with Tulsa (if any) and how you engage with the community.</p>"
+                    "heroHtml" : "<h2 class='mb-4'>Thanks for that.</h2><p class='mb-3'><strong>Now, enough about work! What are you like outside of your job?</strong></p><p>In this section, we’ll get a sense of your relationship with Tulsa (if any) and how you engage with the community.</p>"
                 }, 
                 {
                     "name" : "18a.new",
                     "title" : "History",
+                    "nextPageName" : "18a",
                     "questions" : [ 
                         {
                             "type" : "radio",
@@ -902,6 +935,8 @@
                 {
                     "name" : "18a.1",
                     "title" : "History",
+                    "type" : "single-question",
+                    "nextPageName" : "19a",
                     "questions" : [ 
                         {
                             "label" : "We thought you looked familiar! When did you move away?",
@@ -914,6 +949,7 @@
                 {
                     "name" : "19a",
                     "title" : "History",
+                    "nextPageName" : "20a",
                     "questions" : [ 
                         {
                             "label" : "Hmm, maybe we know the same people. Do you have friends or family in Tulsa?",
@@ -959,6 +995,8 @@
                 {
                     "name" : "20a.1",
                     "title" : "Community",
+                    "type" : "single-question",
+                    "nextPageName" : "21a",
                     "questions" : [ 
                         {
                             "label" : "Nice! Tell us a little about your volunteering and community activities?",
@@ -970,7 +1008,9 @@
                 }, 
                 {
                     "name" : "21a",
+                    "type" : "single-question",
                     "title" : "Why you?",
+                    "nextPageName" : "22a",
                     "questions" : [ 
                         {
                             "label" : "We’d love to know — what do you think makes you a great fit for Tulsa Remote?",
@@ -982,10 +1022,12 @@
                 }, 
                 {
                     "name" : "22a",
+                    "type" : "single-question",
+                    "nextPageName" : "23a",
                     "title" : "Who we are",
                     "questions" : [ 
                         {
-                            "label" : "<p>We believe that by celebrating remote work, we can attract people from all over the country and dramatically increase Tulsa’s diversity of industries. This diversity of industry and representation ensures that every child born in Tulsa has the opportunity to have a fantastic career, even if they don’t have the means to leave the state to achieve it.</p><p>How does that align to your values, passions, or beliefs?</p>",
+                            "label" : "<p>We’re a diverse group of folks. Tulsa Remote members represent many communities: people of color, LGBTQ+, differently-abled folks, and people of different faiths and political beliefs. But diversity is just the first step. We’re always working toward inclusivity as well, welcoming all to the table in an effort to help Tulsa thrive. How does this align to your own beliefs, passions, and motivations?</p></p>Please provide at least 2-3 sentences in your answer.</p>",
                             "type" : "textarea",
                             "key" : "diversityAlignment",
                             "bullhornKey" : "customTextBlock9"
@@ -994,22 +1036,23 @@
                 }, 
                 {
                     "name" : "23a",
+                    "nextPageName" : "24a",
                     "title" : "Demographic",
                     "questions" : [ 
                         {
-                            "label" : "Which category best describes your race/ethnicity?",
+                            "label" : "Which category best describes your race/ethnicity? (Please select any that apply).",
                             "type" : "radio",
                             "key" : "ethnicity",
                             "bullhornKey" : "ethnicity",
                             "options" : [ 
                                 {
-                                    "value" : "Black or African American",
+                                    "value" : "BL",
                                     "label" : "Black or African American"
                                 }, 
                                 {
                                     "value" : "NP",
                                     "label" : "Native Hawaiian or other Pacific Islander",
-                                    "helperText" : "Samoan, Chamorro, Other Pacific Islander - Tongan, Fijian, Marshallese, Other"
+                                    "helperText" : "Native Hawaiian , Somoan, Chamorro, Other Pacific Islander (for example, Tongan, Figian, Mashallese, Other)"
                                 }, 
                                 {
                                     "value" : "WH",
@@ -1029,15 +1072,15 @@
                                     "helperText" : "Chinese, Filipino, South Asian, Vietnamese, Korean, Japanese, Other Asian"
                                 }, 
                                 {
-                                    "value" : "DN",
+                                    "value" : "M",
                                     "label" : "Multi-racial"
                                 }, 
                                 {
-                                    "value" : "DN",
+                                    "value" : "O",
                                     "label" : "Other"
                                 }, 
                                 {
-                                    "value" : "DN",
+                                    "value" : "U",
                                     "label" : "Prefer not to say"
                                 }
                             ]
@@ -1046,6 +1089,7 @@
                 }, 
                 {
                     "name" : "24a",
+                    "nextPageName" : "26a",
                     "title" : "Demographic",
                     "questions" : [ 
                         {
@@ -1064,15 +1108,15 @@
                                 }, 
                                 {
                                     "label" : "Non-Binary",
-                                    "value" : "D"
+                                    "value" : "NB"
                                 }, 
                                 {
                                     "label" : "Other",
-                                    "value" : "D"
+                                    "value" : "O"
                                 }, 
                                 {
                                     "label" : "Prefer not to say",
-                                    "value" : "D"
+                                    "value" : "U"
                                 }
                             ]
                         }
@@ -1089,25 +1133,32 @@
                             "bullhornKey" : "customText15",
                             "options" : [ 
                                 {
-                                    "label" : "Single"
+                                    "label" : "Single",
+                                    "nextPageName" : "27a"
                                 }, 
                                 {
-                                    "label" : "Married"
+                                    "label" : "Married",
+                                    "nextPageName" : "26a.1"
                                 }, 
                                 {
-                                    "label" : "Domestic partnership"
+                                    "label" : "Domestic partnership",
+                                    "nextPageName" : "26a.1"
                                 }, 
                                 {
-                                    "label" : "Widowed"
+                                    "label" : "Widowed",
+                                    "nextPageName" : "27a"
                                 }, 
                                 {
-                                    "label" : "Divorced"
+                                    "label" : "Divorced",
+                                    "nextPageName" : "27a"
                                 }, 
                                 {
-                                    "label" : "Separated"
+                                    "label" : "Separated",
+                                    "nextPageName" : "27a"
                                 }, 
                                 {
-                                    "label" : "Prefer not to say"
+                                    "label" : "Prefer not to say",
+                                    "nextPageName" : "27a"
                                 }
                             ]
                         }
@@ -1175,7 +1226,8 @@
                             "bullhornKey" : "note.partner",
                             "options" : [ 
                                 {
-                                    "label" : "Yes"
+                                    "label" : "Yes",
+                                    "nextPageName" : "26a.5"
                                 }, 
                                 {
                                     "label" : "No",
@@ -1188,6 +1240,7 @@
                 {
                     "name" : "26a.5",
                     "title" : "Significant other",
+                    "nextPageName" : "26a.6",
                     "questions" : [ 
                         {
                             "label" : "Can you provide their name and email?",
@@ -1216,6 +1269,7 @@
                 {
                     "name" : "26a.6",
                     "title" : "Significant other",
+                    "nextPageName" : "27a",
                     "questions" : [ 
                         {
                             "label" : "Couples that are applying together have to submit their application within 2 weeks of each other in order to be considered.",
@@ -1226,28 +1280,41 @@
                 {
                     "name" : "27a",
                     "title" : "Demographic",
+                    "nextPageName" : "28a",
                     "questions" : [ 
                         {
-                            "label" : "What is your veteran status?",
+                            "label" : "What is your uniformed service status/history?",
                             "key" : "veteranStatus",
                             "bullhornKey" : "veteran",
                             "type" : "radio",
                             "options" : [ 
                                 {
-                                    "label" : "Active duty military",
-                                    "value" : "P"
+                                    "label" : "I have applied for membership in the uniformed service",
+                                    "value" : "A"
                                 }, 
                                 {
-                                    "label" : "Veteran",
-                                    "value" : "V"
+                                    "label" : "I am a present member of the uniformed service",
+                                    "value" : "R"
+                                }, 
+                                {
+                                    "label" : "I am a past member of the uniformed service",
+                                    "value" : "S"
+                                }, 
+                                {
+                                    "label" : "I am obligated to serve in the uniformed service",
+                                    "value" : "O"
+                                }, 
+                                {
+                                    "label" : "I am a veteran with a disability",
+                                    "value" : "D"
+                                }, 
+                                {
+                                    "label" : "Prefer not to say",
+                                    "value" : "U"
                                 }, 
                                 {
                                     "label" : "None of the above",
                                     "value" : "N"
-                                }, 
-                                {
-                                    "label" : "Prefer not to say",
-                                    "value" : "D"
                                 }
                             ]
                         }
@@ -1255,6 +1322,7 @@
                 }, 
                 {
                     "name" : "28a",
+                    "nextPageName" : "section5",
                     "title" : "Demographic",
                     "questions" : [ 
                         {
@@ -1264,16 +1332,30 @@
                             "type" : "radio",
                             "options" : [ 
                                 {
-                                    "label" : "Yes, I have a disability, or have a history/record of having a disability",
+                                    "label" : "I am a person with a disability.",
+                                    "helperText" : "A person has a disability if he or she has a physical or mental condition that substantially limits a major life activity such as walking, talking, seeing, hearing, or learning, or operation of a major bodily function.",
                                     "value" : "Y"
                                 }, 
                                 {
-                                    "label" : "No, I don't have a disability or a history/record of having a disability",
-                                    "value" : "N"
+                                    "label" : "I am a person with a history of a disability.",
+                                    "helperText" : "A person has a disability if he or she has a history of a disability such as cancer that is in remission.",
+                                    "value" : "H"
+                                }, 
+                                {
+                                    "label" : "I can perform the essential functions of my remote work with a reasonable accommodation.",
+                                    "value" : "A"
+                                }, 
+                                {
+                                    "label" : "I need a reasonable accommodation to perform the essential function of my remote work.",
+                                    "value" : "R"
                                 }, 
                                 {
                                     "label" : "I prefer not to say",
-                                    "value" : "D"
+                                    "value" : "U"
+                                }, 
+                                {
+                                    "label" : "None of the above",
+                                    "value" : "N"
                                 }
                             ]
                         }
@@ -1286,8 +1368,9 @@
             "pages" : [ 
                 {
                     "name" : "section5",
+                    "nextPageName" : "29a",
                     "heroImage" : "assets/heros/section5.jpg",
-                    "heroHtml" : "<h3 class='mb-4'>We feel like we’ve gotten to know you better... but what are you like online?</h3><p>We’re interested to know how you use digital spaces.</p>"
+                    "heroHtml" : "<h2 class='mb-4'>We feel like we’ve gotten to know you better... but what are you like online?</h2><p>We’re interested to know how you use digital spaces.</p>"
                 }, 
                 {
                     "name" : "29a",
@@ -1312,10 +1395,12 @@
                 {
                     "name" : "29a.1",
                     "title" : "Online",
+                    "nextPageName" : "30a",
+                    "type" : "single-question",
                     "questions" : [ 
                         {
                             "label" : "What's your profile URL?",
-                            "type" : "text",
+                            "type" : "url",
                             "key" : "linkedInUrl",
                             "bullhornKey" : "customText40"
                         }
@@ -1344,10 +1429,12 @@
                 {
                     "name" : "30a.1",
                     "title" : "Online",
+                    "nextPageName" : "31a",
+                    "type" : "single-question",
                     "questions" : [ 
                         {
-                            "label" : "Do you have a website or portfolio?",
-                            "type" : "text",
+                            "label" : "What's your website or portfolio URL?",
+                            "type" : "url",
                             "key" : "websiteUrl",
                             "bullhornKey" : "note.application"
                         }
@@ -1381,36 +1468,43 @@
                 {
                     "name" : "31a.1",
                     "title" : "Online",
+                    "nextPageName" : "32a",
                     "questions" : [ 
                         {
-                            "label" : "Instagram",
+                            "label" : "Instagram Handle",
                             "type" : "text",
                             "key" : "instagramUrl",
-                            "bullhornKey" : "note.application"
+                            "bullhornKey" : "note.application",
+                            "optional" : true
                         }, 
                         {
-                            "label" : "Twitter",
+                            "label" : "Twitter Handle",
                             "type" : "text",
                             "key" : "twitterUrl",
-                            "bullhornKey" : "note.application"
+                            "bullhornKey" : "note.application",
+                            "optional" : true
                         }, 
                         {
-                            "label" : "YouTube",
+                            "label" : "YouTube URL or Handle",
                             "type" : "text",
                             "key" : "youtubeUrl",
-                            "bullhornKey" : "note.application"
+                            "bullhornKey" : "note.application",
+                            "optional" : true
                         }, 
                         {
-                            "label" : "Other Social Media",
-                            "type" : "text",
+                            "label" : "Other Social Media URL",
+                            "type" : "url",
                             "key" : "otherSocialMediaUrl",
-                            "bullhornKey" : "note.application"
+                            "bullhornKey" : "note.application",
+                            "optional" : true
                         }
                     ]
                 }, 
                 {
                     "name" : "32a",
                     "title" : "Tell us more",
+                    "type" : "single-question",
+                    "nextPageName" : "33a",
                     "questions" : [ 
                         {
                             "label" : "Are you an artist? Do you have a family? Pets? Are you starting an entirely new chapter? Anything you want to share is fair game.",
@@ -1423,12 +1517,28 @@
                 {
                     "name" : "33a",
                     "title" : "Tell us more",
+                    "type" : "single-question",
+                    "nextPageName" : "section6",
                     "questions" : [ 
                         {
                             "label" : "How did you hear about the Tulsa Remote Program?",
-                            "type" : "textarea",
+                            "type" : "radio",
                             "key" : "hearAboutUs",
-                            "bullhornKey" : "source"
+                            "bullhornKey" : "source",
+                            "options" : [ 
+                                {
+                                    "label" : "Television Program"
+                                }, 
+                                {
+                                    "label" : "Social Media/Internet Article"
+                                }, 
+                                {
+                                    "label" : "Friend/Coworker"
+                                }, 
+                                {
+                                    "label" : "Family Member"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -1441,7 +1551,7 @@
                     "name" : "section6",
                     "type" : "submit",
                     "heroImage" : "assets/heros/section6.jpg",
-                    "heroHtml" : "<h3 class='mb-4'>Thank you for applying to Tulsa Remote.</h3><p>You should get a status update from our team via email within approximately 4 weeks.</p>"
+                    "heroHtml" : "<h2 class='mb-4'>Thank you for applying to Tulsa Remote.</h2><p>You should get a status update from our team via email within approximately 4 weeks.</p>"
                 }
             ]
         }

@@ -279,6 +279,7 @@ export class ApplicationComponent implements OnInit {
 
 	isQuestionValid(question:ApplicationQuestion) {
 		const value = this.answers[question.key];
+		if(question.optional && !value) return true;
 		switch(question.type) {
 			case 'label':	return true;
 			case 'radio':
@@ -288,6 +289,7 @@ export class ApplicationComponent implements OnInit {
 				return !!value;
 			case 'email':	return this.isEmailValid(value);
 			case 'phone':	return this.isPhoneValid(value);
+			case 'url':		return this.isUrlValid(value);
 		}
 		return false;
 	}
@@ -297,5 +299,8 @@ export class ApplicationComponent implements OnInit {
 	}
 	isEmailValid(email:string) {
 		return !!(email && email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/));
+	}
+	isUrlValid(url:string) {
+		return !!(url && url.match(/(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/));
 	}
 }

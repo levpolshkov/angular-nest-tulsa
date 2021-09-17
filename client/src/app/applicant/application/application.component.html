@@ -21,7 +21,7 @@
 				<div class="question mb-3" *ngFor="let question of page.questions; let questionIndex=index">
 					<label class="form-label" [class.heading-label]="page.type == 'single-question' || question.type == 'label' || question.type == 'radio'" [innerHtml]="question.label"></label>
 
-					<div class="form-group" *ngIf="question.type==='text' || question.type==='email' || question.type==='phone'">
+					<div class="form-group" *ngIf="question.type==='text' || question.type==='email' || question.type==='phone' || question.type==='url'">
 						<input class="form-control" [type]="question.type" name="question{{questionIndex}}" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
 					</div>
 

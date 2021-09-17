@@ -19,6 +19,7 @@ export const applicationSchema = new mongoose.Schema({
 				label: String,
 				key: String,
 				bullhornKey: String,
+				optional: Boolean,
 				options: [{
 					value: mongoose.Schema.Types.Mixed,
 					label: String,
