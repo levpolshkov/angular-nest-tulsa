@@ -1,7 +1,7 @@
 
 body {
   font-family: $font-family-main;
-  font-weight: 300;
+  font-weight: 400;
   color: $color-brand-dark-gray;
 }
 
@@ -13,7 +13,7 @@ img {
 :host ::ng-deep {
   body {
     font-family: $font-family-main;
-    font-weight: 300;
+    font-weight: 400;
     color: $color-brand-dark-gray;
   }
 
