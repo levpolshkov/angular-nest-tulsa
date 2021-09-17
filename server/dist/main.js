@@ -1286,8 +1286,6 @@ let ApplicationResponseService = class ApplicationResponseService {
         this.documentService = documentService;
         this.searchService = searchService;
         this.bullhornService = bullhornService;
-        const dateTime = luxon_1.DateTime.fromISO('1984-02-13').toUTC().toFormat('yyyy-MM-dd');
-        console.log('dateTime=%o', dateTime);
     }
     saveResponse(response) {
         return this.documentService.saveDocument(this.responseModel, response, {
@@ -1307,7 +1305,6 @@ let ApplicationResponseService = class ApplicationResponseService {
             var _a, _b, _c, _d, _e;
             const question = this.findQuestionByQuestionKey(response.application, qa.questionKey);
             const bullhornKey = question === null || question === void 0 ? void 0 : question.bullhornKey;
-            console.log('submitResponseToBullhorn: qa=%o, bullhornKey=%o', qa, bullhornKey);
             if (!bullhornKey)
                 return;
             const noteLine = `<b>${question.label || question.key}</b><br>${qa.answer}`;
