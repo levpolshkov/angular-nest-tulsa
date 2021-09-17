@@ -240,7 +240,7 @@ export class ApplicationComponent implements OnInit {
 			console.log('dateOfBirth=%o, age=%o, nextPageName=%o', value, age, this.page.nextPageName);
 		}
 
-		if (question.key === 'zipcode') {		// Check and reject if they are inside of Oklahoma
+		if (question.key === 'zipcode' && value) {		// Check and reject if they are inside of Oklahoma
 			this.inputReady = false;
 			const info = await this.googleMapsService.lookupZipcode(value);
 			console.log('lookupZipcode: %o', info);
@@ -256,7 +256,7 @@ export class ApplicationComponent implements OnInit {
 			}
 		}
 
-		if (question.key === 'address') {
+		if (question.key === 'address' && value) {
 			this.inputReady = false;
 			const info = await this.googleMapsService.lookupAddress(value);
 			console.log('lookupAddress: %o', info);
