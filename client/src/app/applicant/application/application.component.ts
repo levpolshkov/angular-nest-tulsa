@@ -27,6 +27,7 @@ export class ApplicationComponent implements OnInit {
 
     inputReady: Boolean;
     emptyFields: Boolean;
+    landingPage: Boolean;
 
 	// prevPageName:string = null;		// For back button
 
