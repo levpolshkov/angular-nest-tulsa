@@ -85,9 +85,10 @@ export class ApplicationResponseService {
 				const appNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Application Note', appNote);
 				console.log('submitResponseToBullhorn: appNoteId=%o', appNoteId);
 
-				const partnerNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Partner Note', partnerNote);
-				console.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
-
+				if(partnerNote) {
+					const partnerNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Partner Note', partnerNote);
+					console.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
+				}
 				const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Entire Application', responseNote);
 				console.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
 
