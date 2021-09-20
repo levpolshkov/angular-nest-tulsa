@@ -41,6 +41,12 @@
             left: 0;
             right: 50%;
         }
+        .version {
+            font-size: .75rem;
+            position: fixed;
+            bottom: 15px;
+            left: 20px;
+        }
     }
 
 	.page-title {
@@ -58,6 +64,8 @@
 			margin-left: 50px;
 		}
 	}
+
+
 }
 
 .side2 {
