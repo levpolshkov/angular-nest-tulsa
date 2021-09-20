@@ -40,6 +40,11 @@ export class ApplicationResponseService {
 		const responseNoteLines = [];
 		response.questionAnswers.map(qa => {
 			const question = this.findQuestionByQuestionKey(response.application, qa.questionKey);
+
+			if(question.type==='url' && qa.answer) {			// Prepend https:// for url type questions
+				qa.answer = `https://${qa.answer}`;
+			}
+
 			const bullhornKey = question?.bullhornKey;
 			// console.log('submitResponseToBullhorn: qa=%o, bullhornKey=%o', qa, bullhornKey);
 
@@ -48,10 +53,10 @@ export class ApplicationResponseService {
 			responseNoteLines.push(noteLine);
 			switch(bullhornKey) {
 				case 'dateOfBirth':
-					candidate['dateOfBirth']= DateTime.fromISO(qa.answer).toMillis();
+					candidate['dateOfBirth'] = DateTime.fromISO(qa.answer).toMillis();
 					break;
 				case 'customDate12':
-					candidate['customDate12']= DateTime.fromISO(qa.answer).toMillis();
+					candidate['customDate12'] = DateTime.fromISO(qa.answer).toMillis();
 					break;
 				case 'note.application':
 					appNoteLines.push(noteLine);
