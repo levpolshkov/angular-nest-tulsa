@@ -1,16 +1,19 @@
 <div class="row vh-100" *ngIf="application && page">
 	<div class="col side1">
-		<h3><img src="/assets/raw/TRlogo-white.svg" alt="Tulsa Remote" /></h3>
-		<div class="hero-image" style="background-image: url({{page.heroImage}})" *ngIf="page.heroImage">
-			<h3><img src="/assets/raw/TRlogo.svg" alt="Tulsa Remote" /></h3>
-		</div>
-		<div class="page-title">
-			<h3>{{page.title}}</h3>
-			<div *ngIf="applicationService.debugMode && page.name">[{{page.name}}]</div>
-			<div class="version" *ngIf="applicationService.debugMode && version">[{{version}}]</div>
-		</div>
+        <div class="fixed-height">
+            <h3><img src="/assets/raw/TRlogo-white.svg" alt="Tulsa Remote" /></h3>
+            <div class="hero-image" style="background-image: url({{page.heroImage}})" *ngIf="page.heroImage">
+                <h3><img src="/assets/raw/TRlogo.svg" alt="Tulsa Remote" /></h3>
+            </div>
+            <div class="page-title">
+                <h3>{{page.title}}</h3>
+                <div *ngIf="applicationService.debugMode && page.name">[{{page.name}}]</div>
+                <div class="version" *ngIf="applicationService.debugMode && version">[{{version}}]</div>
+            </div>
+        </div>
 	</div>
 	<div class="col side2" [class.hero-page-content]="page.heroImage">
+        
 		<div class="wayfinder text-center" *ngIf="!page.heroImage">
 			<wayfinder [sections]="application.sections" [sectionIndex]="sectionIndex" [pageIndex]="pageIndex"></wayfinder>
 		</div>
