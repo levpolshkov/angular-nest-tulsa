@@ -7,6 +7,7 @@ import { SearchParams, SearchResult, SearchService }			from '@app/search';
 import { ApplicationResponse, ApplicationResponseDocument }		from './application-response.schema';
 import { BullhornService } from 'src/bullhorn/bullhorn.service';
 import { Application } from 'src/application';
+import { ConfigService } from '@nestjs/config';
 export { ApplicationResponse, ApplicationResponseDocument };
 
 @Injectable()
@@ -15,7 +16,8 @@ export class ApplicationResponseService {
 		@InjectModel('ApplicationResponse') public responseModel:mongoose.Model<ApplicationResponseDocument>,
 		private documentService:DocumentService,
 		private searchService:SearchService,
-		private bullhornService:BullhornService
+		private bullhornService:BullhornService,
+		private configService:ConfigService
 	) {
 	}
 
@@ -94,7 +96,8 @@ export class ApplicationResponseService {
 				const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Entire Application', responseNote);
 				console.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
 
-				const jobSubId = await this.bullhornService.addJobSubmission(candidateId, 65);
+				const jobId = +this.configService.get('BULLHORN_JOBID') || 66;
+				const jobSubId = await this.bullhornService.addJobSubmission(candidateId, jobId);
 				console.log('submitResponseToBullhorn: jobSubId=%o', jobSubId);
 		
 				response.bullhornCandidateId = candidateId;
