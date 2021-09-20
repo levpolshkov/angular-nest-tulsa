@@ -30,7 +30,9 @@ export class ApplicationResponseService {
 	}
 
 	async submitResponseToBullhorn(response:ApplicationResponseDocument) {
-		const candidate:any = {};
+		const candidate:any = {
+			status: 'New Applicant'
+		};
 		const appNoteLines = [];
 		const partnerNoteLines = [];
 		const responseNoteLines = [];
