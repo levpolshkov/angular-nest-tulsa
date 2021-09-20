@@ -29,8 +29,6 @@ export class ApplicationComponent implements OnInit {
     emptyFields: Boolean;
     landingPage: Boolean;
 
-	// prevPageName:string = null;		// For back button
-
 	constructor(public applicationService: ApplicationService, private responseService: ApplicationResponseService, private route: ActivatedRoute, private router: Router, private googleMapsService: GoogleMapsService) { }
 
 	async ngOnInit() {
@@ -39,8 +37,14 @@ export class ApplicationComponent implements OnInit {
 
 		const sectionIndex = +this.route.snapshot.queryParams['section'] || 0;
 		const pageIndex = +this.route.snapshot.queryParams['page'] || 0;
-
 		this.loadPage(sectionIndex, pageIndex);
+
+		this.route.queryParams.subscribe(queryParams => {
+			const sectionIndex = +queryParams['section'] || 0;
+			const pageIndex = +queryParams['page'] || 0;
+			console.log('ApplicationComponent: queryParams subscribe: sectionIndex=%o, pageIndex=%o', sectionIndex,pageIndex);
+			this.loadPage(sectionIndex, pageIndex);
+		})
 	}
 
 	async loadResponse() {
@@ -72,7 +76,20 @@ export class ApplicationComponent implements OnInit {
 	}
 
 
-	async loadPage(sectionIndex: number, pageIndex: number) {
+	gotoPage(sectionIndex:number, pageIndex:number) {
+		console.log('gotoPage: sectionIndex=%o, pageIndex=%o', sectionIndex,pageIndex);
+		this.router.navigate(['/applicant/application'], {
+			queryParams: {
+				section: sectionIndex,
+				page: pageIndex
+			},
+			skipLocationChange: false
+			// replaceUrl: false
+		});
+	}
+
+
+	async loadPage(sectionIndex:number, pageIndex:number) {
 		this.sectionIndex = sectionIndex;
 		this.pageIndex = pageIndex;
 		this.section = this.application.sections[sectionIndex];
@@ -110,8 +127,6 @@ export class ApplicationComponent implements OnInit {
 
 		if (this.page.type === 'submit') await this.submitResponse();
 		if (this.page.type === 'reject') await this.rejectResponse();
-
-		this.router.navigate([], { queryParams: { section: this.sectionIndex, page: this.pageIndex }, replaceUrl: true });
 	}
 
 	get lastPageIndex() {
@@ -147,9 +162,9 @@ export class ApplicationComponent implements OnInit {
 
 		if (nextPageIndex > this.lastPageIndex) {
 			nextSectionIndex++;
-			if (this.sectionIndex < this.lastSectionIndex) this.loadPage(nextSectionIndex, 0);
+			if (this.sectionIndex < this.lastSectionIndex) this.gotoPage(nextSectionIndex, 0);
 		} else {
-			this.loadPage(nextSectionIndex, nextPageIndex);
+			this.gotoPage(nextSectionIndex, nextPageIndex);
 		}
 	}
 	onPrevBtn() {
@@ -165,17 +180,11 @@ export class ApplicationComponent implements OnInit {
 		if (prevPageName) {
 			const sectionIndex = this.findSectionIndexByPageName(prevPageName);
 			const pageIndex = this.findPageIndexByPageName(prevPageName);
-			this.loadPage(sectionIndex, pageIndex);
+			this.gotoPage(sectionIndex, pageIndex);
 		}
-		// if (this.pageIndex === 0) {
-		// 	if (this.sectionIndex === 0) return;		// Already at the start
-		// 	const lastPage = this.application.sections[this.sectionIndex - 1].pages.length - 1;
-		// 	this.loadPage(this.sectionIndex - 1, lastPage);
-		// } else {
-		// 	this.loadPage(this.sectionIndex, this.pageIndex - 1);
-		// }
+
     }
-    
+
     async onEnter(question:ApplicationQuestion) {
         console.log('you pressed enter');
         await this.onQuestionAnswer(question);
@@ -186,8 +195,6 @@ export class ApplicationComponent implements OnInit {
             this.emptyFields = true;
             console.log('please fill out all the fields');
         }
-
-
     }
 
 	findSectionIndexByPageName(pageName: string) {
