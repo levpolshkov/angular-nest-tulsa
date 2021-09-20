@@ -318,7 +318,7 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	isPhoneValid(phone:string) {
-		return !!(phone && phone.match(/[0-9]{10}/));
+		return !!(phone && phone.match(/^[\d-\(\)\+\s]+$/g) && phone.replace(/[^\d]/g, '').match(/^[0-9]{10,12}$/));
 	}
 	isEmailValid(email:string) {
 		return !!(email && email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/));
