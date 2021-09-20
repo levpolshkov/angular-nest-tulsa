@@ -20,7 +20,12 @@
 				<div class="question mb-3" *ngFor="let question of page.questions; let questionIndex=index">
 					<label class="form-label" [class.heading-label]="page.type == 'single-question' || question.type == 'label' || question.type == 'radio'" [innerHtml]="question.label"></label>
 
-					<div class="form-group" *ngIf="question.type==='text' || question.type==='email' || question.type==='phone' || question.type==='url'">
+					<div class="form-group" *ngIf="question.type==='text' || question.type==='email' || question.type==='phone'">
+						<input (keyup.enter)="onEnter(question)" [class.empty]="!isQuestionValid(question)" class="form-control" [type]="question.type" name="question{{questionIndex}}" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
+					</div>
+
+					<div class="input-group" *ngIf="question.type==='url'">
+						<span class="input-group-text">https://</span>
 						<input (keyup.enter)="onEnter(question)" [class.empty]="!isQuestionValid(question)" class="form-control" [type]="question.type" name="question{{questionIndex}}" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
 					</div>
 
