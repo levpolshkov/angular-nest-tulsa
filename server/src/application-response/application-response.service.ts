@@ -32,6 +32,7 @@ export class ApplicationResponseService {
 	}
 
 	async submitResponseToBullhorn(response:ApplicationResponseDocument) {
+		console.log('submitResponseToBullhorn: date=%o', new Date().toISOString());
 		const candidate:any = {
 			status: 'New Applicant'
 		};
