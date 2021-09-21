@@ -12,6 +12,9 @@ export interface ApplicationResponse {
 	_id?: any,
 
 	status: ApplicationResponseStatus,
+	lastPage?: string,
+	ipAddress?: string,
+
 	application: Application,
 	questionAnswers: ApplicationResponseQuestionAnswer[],
 

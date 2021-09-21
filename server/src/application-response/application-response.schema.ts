@@ -7,6 +7,8 @@ export const applicationResponseSchema = new mongoose.Schema({
 	name: String,
 
 	status: String,
+	lastPage: String,
+	ipAddress: String,
 
 	application: applicationSchema,
 	questionAnswers: [{

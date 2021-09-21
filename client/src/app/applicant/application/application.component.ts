@@ -49,7 +49,7 @@ export class ApplicationComponent implements OnInit {
 
 	async loadResponse() {
 		this.response = await this.responseService.loadResponseLocal();
-		if (!this.response) {
+		if(!this.response) {
 			this.response = {
 				status: 'pending',
 				application: this.application,
@@ -61,7 +61,13 @@ export class ApplicationComponent implements OnInit {
 		this.response.questionAnswers.forEach(qa => {
 			this.answers[qa.questionKey] = qa.answer;
 		});
-		// console.log('ApplicationComponent.loadResponse: response=%o', this.response);
+		console.log('ApplicationComponent.loadResponse: response=%o', this.response);
+		if(this.response.status==='rejected' && this.response.lastPage) {
+			const sectionIndex = this.findSectionIndexByPageName(this.response.lastPage);
+			const pageIndex = this.findPageIndexByPageName(this.response.lastPage);
+			this.gotoPage(sectionIndex, pageIndex);
+			this.loadPage(sectionIndex, pageIndex);
+		}
 	}
 	async saveResponse() {
 		this.response.questionAnswers = Object.keys(this.answers).map(questionKey => {
@@ -71,7 +77,8 @@ export class ApplicationComponent implements OnInit {
 			};
 		});
 		this.response.application = this.application;
-		// console.log('ApplicationComponent.saveResponse: response=%o', this.response);
+		this.response.lastPage = this.page.name;
+		console.log('ApplicationComponent.saveResponse: response=%o', this.response);
 		await this.responseService.saveResponseLocal(this.response);
 	}
 
@@ -287,6 +294,7 @@ export class ApplicationComponent implements OnInit {
 
 	async rejectResponse() {
 		this.response.status = 'rejected';
+		this.response.lastPage = this.page.name;
 		this.response = await this.responseService.submitResponse(this.response);
 		console.log('rejectResponse: response=%o', this.response);
 		this.saveResponse();
@@ -298,6 +306,7 @@ export class ApplicationComponent implements OnInit {
 			return;
 		}
 		this.response.status = 'submitted';
+		this.response.lastPage = this.page.name;
 		this.response = await this.responseService.submitResponse(this.response);
 		console.log('submitResponse: response=%o', this.response);
 		await this.saveResponse();
