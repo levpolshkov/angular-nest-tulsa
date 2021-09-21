@@ -24,7 +24,7 @@
 					<label class="form-label" [class.heading-label]="page.type == 'single-question' || question.type == 'label' || question.type == 'radio'" [innerHtml]="question.label"></label>
 
 					<div class="form-group" *ngIf="question.type==='text' || question.type==='email' || question.type==='phone'">
-						<input (keyup.enter)="onEnter(question)" [class.empty]="!isQuestionValid(question)" class="form-control" [type]="question.type" name="question{{questionIndex}}" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
+						<input maxlength="100" (keyup.enter)="onEnter(question)" [class.empty]="!isQuestionValid(question)" class="form-control" [type]="question.type" name="question{{questionIndex}}" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
 					</div>
 
 					<div class="input-group" *ngIf="question.type==='url'">
@@ -55,7 +55,7 @@
 					</div>
 
 					<div class="form-group" *ngIf="question.type==='textarea'">
-						<textarea (keyup.enter)="onEnter(question)" class="form-control" rows="10" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)"></textarea>
+						<textarea class="form-control" rows="10" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)"></textarea>
 					</div>
 				</div>
 			</div>
