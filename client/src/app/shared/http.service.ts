@@ -76,11 +76,11 @@ export class HttpService {
 		});
 	}
 
-	// getPublicIpAddress():Promise<string> {
-	// 	return this.http.get('https://api.ipify.org/?format=json').toPromise()
-
-	// 		.catch(err => {
-	// 			return null;
-	// 		});
-	// }
+	getPublicIpAddress():Promise<string> {
+		return this.http.get('https://api.ipify.org/?format=json').toPromise()
+			.then((result:any) => result?.ip)
+			.catch(err => {
+				return null;
+			});
+	}
 }

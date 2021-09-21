@@ -80,7 +80,7 @@ export class ApplicationComponent implements OnInit {
 		});
 		this.response.application = this.application;
 		this.response.lastPage = this.page.name;
-		// this.response.ipAddress = this.responseService.httpService.getPublicIpAddress
+		this.response.ipAddress = await this.responseService.http.getPublicIpAddress();
 		console.log('ApplicationComponent.saveResponse: response=%o', this.response);
 		await this.responseService.saveResponseLocal(this.response);
 	}
@@ -101,9 +101,13 @@ export class ApplicationComponent implements OnInit {
 
 	async loadPage(sectionIndex:number, pageIndex:number) {
 		if(this.response && this.response.status==='rejected' && this.response.lastPage) {
-			const sectionIndex = this.findSectionIndexByPageName(this.response.lastPage);
-			const pageIndex = this.findPageIndexByPageName(this.response.lastPage);
-			this.gotoPage(sectionIndex, pageIndex);
+			const bummerSectionIndex = this.findSectionIndexByPageName(this.response.lastPage);
+			const bummerPageIndex = this.findPageIndexByPageName(this.response.lastPage);
+			if(sectionIndex!==bummerSectionIndex && pageIndex!==bummerPageIndex) {
+				sectionIndex = bummerSectionIndex;
+				pageIndex = bummerPageIndex;
+				this.gotoPage(sectionIndex, pageIndex);
+			}
 		}
 
 		this.sectionIndex = sectionIndex;
