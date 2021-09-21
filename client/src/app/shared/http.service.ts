@@ -73,7 +73,14 @@ export class HttpService {
 			document.body.appendChild(script);
 			script.onload = event => resolve(event);
 			script.onerror = err => reject(err);
-		})
-		
+		});
 	}
+
+	// getPublicIpAddress():Promise<string> {
+	// 	return this.http.get('https://api.ipify.org/?format=json').toPromise()
+
+	// 		.catch(err => {
+	// 			return null;
+	// 		});
+	// }
 }

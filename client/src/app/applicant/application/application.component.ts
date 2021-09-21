@@ -8,6 +8,8 @@ import { ApplicationResponse } from '@server/application-response/application-re
 import { ApplicationResponseService } from './application-response.service';
 import packageJson					from '../../../../package.json';
 
+declare const gtag;
+
 @Component({
 	selector: 'app-application',
 	templateUrl: './application.component.html',
@@ -35,9 +37,9 @@ export class ApplicationComponent implements OnInit {
 		this.application = await this.applicationService.searchApplications({ filter: {} }).then(r => r.records[0]);
 		await this.loadResponse();
 
-		const sectionIndex = +this.route.snapshot.queryParams['section'] || 0;
-		const pageIndex = +this.route.snapshot.queryParams['page'] || 0;
-		this.loadPage(sectionIndex, pageIndex);
+		// const sectionIndex = +this.route.snapshot.queryParams['section'] || 0;
+		// const pageIndex = +this.route.snapshot.queryParams['page'] || 0;
+		// this.loadPage(sectionIndex, pageIndex);
 
 		this.route.queryParams.subscribe(queryParams => {
 			const sectionIndex = +queryParams['section'] || 0;
@@ -78,6 +80,7 @@ export class ApplicationComponent implements OnInit {
 		});
 		this.response.application = this.application;
 		this.response.lastPage = this.page.name;
+		// this.response.ipAddress = this.responseService.httpService.getPublicIpAddress
 		console.log('ApplicationComponent.saveResponse: response=%o', this.response);
 		await this.responseService.saveResponseLocal(this.response);
 	}
@@ -97,6 +100,12 @@ export class ApplicationComponent implements OnInit {
 
 
 	async loadPage(sectionIndex:number, pageIndex:number) {
+		if(this.response && this.response.status==='rejected' && this.response.lastPage) {
+			const sectionIndex = this.findSectionIndexByPageName(this.response.lastPage);
+			const pageIndex = this.findPageIndexByPageName(this.response.lastPage);
+			this.gotoPage(sectionIndex, pageIndex);
+		}
+
 		this.sectionIndex = sectionIndex;
 		this.pageIndex = pageIndex;
 		this.section = this.application.sections[sectionIndex];
@@ -130,6 +139,13 @@ export class ApplicationComponent implements OnInit {
 					this.page.nextPageName = '16a'; break;
 			}
 			console.log('Employment: At 14.5a: employmentType=%o, nextPageName=%o', this.answers['employmentType'], this.page.nextPageName);
+		}
+
+		if(gtag) {
+			console.log('Sending GA event');
+			gtag('event', 'loadPage', {
+				pageName: this.page.name
+			});
 		}
 
 		if (this.page.type === 'submit') await this.submitResponse();
@@ -298,6 +314,11 @@ export class ApplicationComponent implements OnInit {
 		this.response = await this.responseService.submitResponse(this.response);
 		console.log('rejectResponse: response=%o', this.response);
 		this.saveResponse();
+		if(gtag) {
+			gtag('event', 'bummer', {
+			pageName: this.page.name
+		});
+	}
 	}
 
 	async submitResponse() {
@@ -310,6 +331,11 @@ export class ApplicationComponent implements OnInit {
 		this.response = await this.responseService.submitResponse(this.response);
 		console.log('submitResponse: response=%o', this.response);
 		await this.saveResponse();
+		if(gtag) {
+				gtag('event', 'submit', {
+				pageName: this.page.name
+			});
+		}
 	}
 
 	get canNext() {

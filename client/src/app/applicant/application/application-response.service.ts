@@ -11,7 +11,7 @@ export { Application, ApplicationSection, ApplicationPage, ApplicationQuestion }
 export class ApplicationResponseService {
 	debugMode = true;
 
-	constructor(private http:HttpService, private searchService:SearchService, private storageService:StorageService) { }
+	constructor(public http:HttpService, private searchService:SearchService, private storageService:StorageService) { }
 
 
 	saveResponseLocal(response:ApplicationResponse) {
