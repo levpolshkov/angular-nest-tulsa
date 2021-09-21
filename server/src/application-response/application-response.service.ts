@@ -8,6 +8,7 @@ import { ApplicationResponse, ApplicationResponseDocument }		from './application
 import { BullhornService } from 'src/bullhorn/bullhorn.service';
 import { Application } from 'src/application';
 import { ConfigService } from '@nestjs/config';
+import { PostmarkService } from '@app/utility';
 export { ApplicationResponse, ApplicationResponseDocument };
 
 @Injectable()
@@ -17,8 +18,26 @@ export class ApplicationResponseService {
 		private documentService:DocumentService,
 		private searchService:SearchService,
 		private bullhornService:BullhornService,
-		private configService:ConfigService
+		private configService:ConfigService,
+		private postmarkService:PostmarkService
 	) {
+		
+	}
+
+	onFailedBullhornSubmission(response:ApplicationResponse, responseNote:string, error:any) {
+		const to = this.configService.get('FAILED_BULLHORN_EMAIL');
+		if(!to) return;
+
+		const html = `<p>Bullhorn Failed with Error: <pre>${JSON.stringify(error)}</pre></p>`
+			+ `<hr><p>applicationResponseId: ${response._id}</p><hr>`
+			+ responseNote
+			+ `<hr><pre>${JSON.stringify(response.questionAnswers)}</pre>`;
+
+		this.postmarkService.sendEmail({
+			to,
+			subject: 'Tulsa Remote - Failed Submission',
+			html
+		});
 	}
 
 	saveResponse(response:ApplicationResponse) {
@@ -39,9 +58,10 @@ export class ApplicationResponseService {
 		const appNoteLines = [];
 		const partnerNoteLines = [];
 		const responseNoteLines = [];
+		
 		response.questionAnswers.map(qa => {
 			const question = this.findQuestionByQuestionKey(response.application, qa.questionKey);
-
+			if(!question) return;
 			if(question.type==='url' && qa.answer) {			// Prepend https:// for url type questions
 				qa.answer = `https://${qa.answer}`;
 			}
@@ -87,7 +107,7 @@ export class ApplicationResponseService {
 		console.log('submitResponseToBullhorn: partnerNote=%s', partnerNote);
 		console.log('submitResponseToBullhorn: responseNote=%s', responseNote);
 
-		if(true) {
+		try {
 			const candidateId = await this.bullhornService.addCandidate(candidate);
 			console.log('submitResponseToBullhorn: candidateId=%o', candidateId);
 
@@ -109,8 +129,9 @@ export class ApplicationResponseService {
 				response.bullhornCandidateId = candidateId;
 				await response.save();
 			}
+		} catch(err) {
+			this.onFailedBullhornSubmission(response, responseNote, err?.stack || err);
 		}
-
 	}
 
 

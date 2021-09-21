@@ -6,6 +6,7 @@ import { SearchModule } from '@app/search';
 import { MongooseModule } from '@nestjs/mongoose';
 import { applicationResponseSchema } from './application-response.schema';
 import { BullhornModule } from 'src/bullhorn/bullhorn.module';
+import { UtilityModule } from '@app/utility';
 
 @Module({
 	imports: [
@@ -14,7 +15,8 @@ import { BullhornModule } from 'src/bullhorn/bullhorn.module';
 			{name:'ApplicationResponse', schema:applicationResponseSchema}
 		]),
 		SearchModule,
-		BullhornModule
+		BullhornModule,
+		UtilityModule
 	],
 	controllers: [ApplicationResponseController],
 	providers: [ApplicationResponseService],
