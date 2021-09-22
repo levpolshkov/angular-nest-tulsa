@@ -1,3 +1,4 @@
+import { LoggerService } from '@app/utility';
 import { Injectable }		from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Bullhorn				from 'bullhorn-api';
@@ -29,6 +30,7 @@ export interface Candidate {
 
 @Injectable()
 export class BullhornService {
+	logger = new LoggerService('BullhornService');
 	bullhorn:Bullhorn;
 
 	constructor(private configService:ConfigService) {
@@ -45,9 +47,9 @@ export class BullhornService {
 
 	async login() {
 		const result = await this.bullhorn.login().catch(err => {
-			console.log('BullhornService.login: err=%o', err);
+			this.logger.error('BullhornService.login: err=%o', err);
 		});
-		console.log('BullhornService.login: result=%o', result);
+		this.logger.debug('BullhornService.login: result=%o', result);
 	}
 
 
@@ -98,7 +100,7 @@ export class BullhornService {
 			body: JSON.stringify(candidate)
 		});
 		const data = await result.json();
-		console.log('addCandidate: candidate=%o, result=%o', candidate, data);
+		this.logger.debug('addCandidate: candidate=%o, result=%o', candidate, data);
 		return data?.changedEntityId;
 	}
 
@@ -114,7 +116,7 @@ export class BullhornService {
 			body: JSON.stringify(payload)
 		});
 		const data = await result.json();
-		console.log('addCandidateNote: payload=%o, result=%o', payload, data);
+		this.logger.debug('addCandidateNote: payload=%o, result=%o', payload, data);
 		return data?.changedEntityId;
 	}
 
@@ -128,7 +130,7 @@ export class BullhornService {
 			})
 		});
 		const data = await result.json();
-		console.log('addJobSubmission: candidateId=%o, jobId=%o, result=%o', data);
+		this.logger.debug('addJobSubmission: candidateId=%o, jobId=%o, result=%o', data);
 		return data?.changedEntityId;
 	}
 

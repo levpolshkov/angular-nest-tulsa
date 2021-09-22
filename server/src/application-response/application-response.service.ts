@@ -55,7 +55,7 @@ export class ApplicationResponseService {
 			application:undefined,
 			questionAnswers: newDoc.questionAnswers.map(qa => `${qa.questionKey}: ${qa.answer}`)
 		});
-		if(newDoc.status==='submitted') this.submitResponseToBullhorn(newDoc);
+		if(newDoc.status==='submitted' && oldDoc?.status!=='submitted') this.submitResponseToBullhorn(newDoc);
 	}
 
 	async submitResponseToBullhorn(response:ApplicationResponseDocument) {

@@ -160,8 +160,8 @@ export class ApplicationComponent implements OnInit {
 			});
 		}
 
-		if (this.page.type === 'submit') await this.submitResponse();
-		if (this.page.type === 'reject') await this.rejectResponse();
+		if(this.page.type==='submit') await this.submitResponse();
+		if(this.page.type==='reject') await this.rejectResponse();
 	}
 
 	get lastPageIndex() {
