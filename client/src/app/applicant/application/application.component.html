@@ -9,7 +9,7 @@
                 <h3>{{page.title}}</h3>
                 <div *ngIf="applicationService.debugMode && page.name">[{{page.name}}]</div>
             </div>
-            <div class="version" *ngIf="applicationService.debugMode && version">[{{version}}]</div>
+            <div class="version">[{{version}}]</div>
         </div>
 	</div>
 	<div class="col side2" [class.hero-page-content]="page.heroImage">
