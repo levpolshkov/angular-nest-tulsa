@@ -46,7 +46,7 @@ export class ApplicationComponent implements OnInit {
 			const pageIndex = +queryParams['page'] || 0;
 			console.log('ApplicationComponent: queryParams subscribe: sectionIndex=%o, pageIndex=%o', sectionIndex,pageIndex);
 			this.loadPage(sectionIndex, pageIndex);
-		})
+		});
 	}
 
 	async loadResponse() {
@@ -55,11 +55,13 @@ export class ApplicationComponent implements OnInit {
 			this.response = {
 				status: 'pending',
 				application: this.application,
-				questionAnswers: []
+				questionAnswers: [],
+				createDate: new Date()
 			};
 		} else {
 			this.application = this.response.application;		// To make sure we restore page.nextPageName for Back button functionality
 		}
+
 		this.response.questionAnswers.forEach(qa => {
 			this.answers[qa.questionKey] = qa.answer;
 		});
@@ -70,6 +72,11 @@ export class ApplicationComponent implements OnInit {
 			this.gotoPage(sectionIndex, pageIndex);
 			this.loadPage(sectionIndex, pageIndex);
 		}
+
+		this.responseService.http.getPublicIpAddress().then(ipAddress => {
+			console.log('Got ipAddress=%o', ipAddress);
+			this.response.ipAddress = ipAddress;
+		}, err => console.error('Failed to get ipAddress: %o', err));
 	}
 	async saveResponse() {
 		this.response.questionAnswers = Object.keys(this.answers).map(questionKey => {
@@ -80,8 +87,9 @@ export class ApplicationComponent implements OnInit {
 		});
 		this.response.application = this.application;
 		this.response.lastPage = this.page.name;
-		this.response.ipAddress = await this.responseService.http.getPublicIpAddress();
+		this.response.updateDate = new Date();
 		console.log('ApplicationComponent.saveResponse: response=%o', this.response);
+		this.response = await this.responseService.submitResponse(this.response);
 		await this.responseService.saveResponseLocal(this.response);
 	}
 

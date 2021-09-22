@@ -4,15 +4,18 @@ import { DateTime }												from 'luxon';
 
 import { DocumentService, mongoose }							from '@app/database';
 import { SearchParams, SearchResult, SearchService }			from '@app/search';
+import { LoggerService, PostmarkService }						from '@app/utility';
 import { ApplicationResponse, ApplicationResponseDocument }		from './application-response.schema';
 import { BullhornService } from 'src/bullhorn/bullhorn.service';
 import { Application } from 'src/application';
 import { ConfigService } from '@nestjs/config';
-import { PostmarkService } from '@app/utility';
+
 export { ApplicationResponse, ApplicationResponseDocument };
 
 @Injectable()
 export class ApplicationResponseService {
+	logger = new LoggerService('ApplicationResponse');
+
 	constructor(
 		@InjectModel('ApplicationResponse') public responseModel:mongoose.Model<ApplicationResponseDocument>,
 		private documentService:DocumentService,
@@ -47,11 +50,20 @@ export class ApplicationResponseService {
 	}
 
 	async afterSave(newDoc:ApplicationResponseDocument,oldDoc:ApplicationResponseDocument) {
+		this.logger.log('saveResponse: %o', {
+			...newDoc.toObject(),
+			application:undefined,
+			questionAnswers: newDoc.questionAnswers.map(qa => `${qa.questionKey}: ${qa.answer}`)
+		});
 		if(newDoc.status==='submitted') this.submitResponseToBullhorn(newDoc);
 	}
 
 	async submitResponseToBullhorn(response:ApplicationResponseDocument) {
-		console.log('submitResponseToBullhorn: date=%o', new Date().toISOString());
+		this.logger.log('submitResponseToBullhorn: %o', {
+			...response.toObject(),
+			application:undefined,
+			questionAnswers: response.questionAnswers.map(qa => `${qa.questionKey}: ${qa.answer}`)
+		});
 		const candidate:any = {
 			status: 'New Applicant'
 		};
@@ -102,29 +114,29 @@ export class ApplicationResponseService {
 		const appNote = appNoteLines.join('<br><br>');
 		const partnerNote = partnerNoteLines.join('<br><br>');
 		const responseNote = responseNoteLines.join('<br><br>');
-		console.log('submitResponseToBullhorn: candidate=%o', candidate);
-		console.log('submitResponseToBullhorn: appNote=%s', appNote);
-		console.log('submitResponseToBullhorn: partnerNote=%s', partnerNote);
-		console.log('submitResponseToBullhorn: responseNote=%s', responseNote);
+		// console.log('submitResponseToBullhorn: candidate=%o', candidate);
+		// console.log('submitResponseToBullhorn: appNote=%s', appNote);
+		// console.log('submitResponseToBullhorn: partnerNote=%s', partnerNote);
+		// console.log('submitResponseToBullhorn: responseNote=%s', responseNote);
 
 		try {
 			const candidateId = await this.bullhornService.addCandidate(candidate);
-			console.log('submitResponseToBullhorn: candidateId=%o', candidateId);
+			this.logger.log('submitResponseToBullhorn: candidateId=%o', candidateId);
 
 			if(candidateId) {
 				const appNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Application Note', appNote);
-				console.log('submitResponseToBullhorn: appNoteId=%o', appNoteId);
+				this.logger.log('submitResponseToBullhorn: appNoteId=%o', appNoteId);
 
 				if(partnerNote) {
 					const partnerNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Partner Note', partnerNote);
-					console.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
+					this.logger.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
 				}
 				const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Entire Application', responseNote);
-				console.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
+				this.logger.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
 
 				const jobId = +this.configService.get('BULLHORN_JOBID') || 66;
 				const jobSubId = await this.bullhornService.addJobSubmission(candidateId, jobId);
-				console.log('submitResponseToBullhorn: jobSubId=%o', jobSubId);
+				this.logger.log('submitResponseToBullhorn: jobSubId=%o', jobSubId);
 		
 				response.bullhornCandidateId = candidateId;
 				await response.save();
