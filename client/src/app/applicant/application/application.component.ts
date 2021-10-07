@@ -41,12 +41,12 @@ export class ApplicationComponent implements OnInit {
 		// const pageIndex = +this.route.snapshot.queryParams['page'] || 0;
 		// this.loadPage(sectionIndex, pageIndex);
 
-		this.route.queryParams.subscribe(queryParams => {
-			const sectionIndex = +queryParams['section'] || 0;
-			const pageIndex = +queryParams['page'] || 0;
-			console.log('ApplicationComponent: queryParams subscribe: sectionIndex=%o, pageIndex=%o', sectionIndex,pageIndex);
-			this.loadPage(sectionIndex, pageIndex);
-		});
+		// this.route.queryParams.subscribe(queryParams => {
+		// 	const sectionIndex = +queryParams['section'] || 0;
+		// 	const pageIndex = +queryParams['page'] || 0;
+		// 	console.log('ApplicationComponent: queryParams subscribe: sectionIndex=%o, pageIndex=%o', sectionIndex,pageIndex);
+		// 	this.loadPage(sectionIndex, pageIndex);
+		// });
 	}
 
 	async loadResponse() {
@@ -56,7 +56,8 @@ export class ApplicationComponent implements OnInit {
 				status: 'pending',
 				application: this.application,
 				questionAnswers: [],
-				createDate: new Date()
+				createDate: new Date(),
+				lastPage: '1a'
 			};
 		} else {
 			this.application = this.response.application;		// To make sure we restore page.nextPageName for Back button functionality
@@ -66,11 +67,13 @@ export class ApplicationComponent implements OnInit {
 			this.answers[qa.questionKey] = qa.answer;
 		});
 		console.log('ApplicationComponent.loadResponse: response=%o', this.response);
-		if(this.response.status==='rejected' && this.response.lastPage) {
-			const sectionIndex = this.findSectionIndexByPageName(this.response.lastPage);
-			const pageIndex = this.findPageIndexByPageName(this.response.lastPage);
-			this.gotoPage(sectionIndex, pageIndex);
-			this.loadPage(sectionIndex, pageIndex);
+		
+		if(this.response.lastPage) {
+			// const sectionIndex = this.findSectionIndexByPageName(this.response.lastPage);
+			// const pageIndex = this.findPageIndexByPageName(this.response.lastPage);
+			// this.gotoPage(sectionIndex, pageIndex);
+			// this.loadPage(sectionIndex, pageIndex);
+			this.loadPageByName(this.response.lastPage);
 		}
 
 		this.responseService.http.getPublicIpAddress().then(ipAddress => {
@@ -94,34 +97,44 @@ export class ApplicationComponent implements OnInit {
 	}
 
 
-	gotoPage(sectionIndex:number, pageIndex:number) {
-		console.log('gotoPage: sectionIndex=%o, pageIndex=%o', sectionIndex,pageIndex);
-		this.router.navigate(['/applicant/application'], {
-			queryParams: {
-				section: sectionIndex,
-				page: pageIndex
-			},
-			skipLocationChange: false
-			// replaceUrl: false
-		});
-	}
+	// gotoPage(sectionIndex:number, pageIndex:number) {
+	// 	console.log('gotoPage: sectionIndex=%o, pageIndex=%o', sectionIndex,pageIndex);
+	// 	this.router.navigate(['/applicant/application'], {
+	// 		queryParams: {
+	// 			section: sectionIndex,
+	// 			page: pageIndex
+	// 		},
+	// 		skipLocationChange: false
+	// 		// replaceUrl: false
+	// 	});
+	// }
 
+
+
+	loadPageByName(pageName:string) {
+		const sectionIndex = this.findSectionIndexByPageName(pageName);
+		const pageIndex = this.findPageIndexByPageName(pageName);
+		this.loadPage(sectionIndex,pageIndex);
+	}
 
 	async loadPage(sectionIndex:number, pageIndex:number) {
 		if(this.response && this.response.status==='rejected' && this.response.lastPage) {
-			const bummerSectionIndex = this.findSectionIndexByPageName(this.response.lastPage);
-			const bummerPageIndex = this.findPageIndexByPageName(this.response.lastPage);
-			if(sectionIndex!==bummerSectionIndex && pageIndex!==bummerPageIndex) {
-				sectionIndex = bummerSectionIndex;
-				pageIndex = bummerPageIndex;
-				this.gotoPage(sectionIndex, pageIndex);
-			}
+			// const bummerSectionIndex = this.findSectionIndexByPageName(this.response.lastPage);
+			// const bummerPageIndex = this.findPageIndexByPageName(this.response.lastPage);
+			// if(sectionIndex!==bummerSectionIndex && pageIndex!==bummerPageIndex) {
+			// 	sectionIndex = bummerSectionIndex;
+			// 	pageIndex = bummerPageIndex;
+			// 	this.gotoPage(sectionIndex, pageIndex);
+			// }
+			// this.gotoPageName(this.response.lastPage);
+
+			// TODO: Handle this
 		}
 
 		this.sectionIndex = sectionIndex;
 		this.pageIndex = pageIndex;
-		this.section = this.application.sections[sectionIndex];
 
+		this.section = this.application.sections[sectionIndex];
 		this.page = this.section.pages[pageIndex];
 
 		if (!this.page.questions) this.page.questions = [];
@@ -174,16 +187,16 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	async onNextBtn() {
-		let nextPageIndex = this.pageIndex + 1;
-		let nextSectionIndex = this.sectionIndex;
+		// let nextPageIndex = this.pageIndex + 1;
+		// let nextSectionIndex = this.sectionIndex;
 
-		if (this.page.nextPageName) {
-			nextSectionIndex = this.findSectionIndexByPageName(this.page.nextPageName);
-			if (nextSectionIndex === -1) nextSectionIndex = this.sectionIndex;
-			nextPageIndex = this.findPageIndexByPageName(this.page.nextPageName);
-			console.log('onNextBtn: nextPageName=%o, nextSectionIndex=%o, nextPageIndex=%o', this.page.nextPageName, nextSectionIndex, nextPageIndex);
-			if (nextPageIndex === -1) nextPageIndex = this.pageIndex + 1;
-		}
+		// if (this.page.nextPageName) {
+		// 	nextSectionIndex = this.findSectionIndexByPageName(this.page.nextPageName);
+		// 	if (nextSectionIndex === -1) nextSectionIndex = this.sectionIndex;
+		// 	nextPageIndex = this.findPageIndexByPageName(this.page.nextPageName);
+		// 	console.log('onNextBtn: nextPageName=%o, nextSectionIndex=%o, nextPageIndex=%o', this.page.nextPageName, nextSectionIndex, nextPageIndex);
+		// 	if (nextPageIndex === -1) nextPageIndex = this.pageIndex + 1;
+		// }
 
 		if (this.page.name === '5a.1') {
 			if (this.answers['primaryIncomeSourceFromCompany'] === "Yes") {
@@ -193,14 +206,15 @@ export class ApplicationComponent implements OnInit {
 
 		await this.saveResponse();
 
-		console.log('onNextBtn: nextPageIndex=%o', nextPageIndex);
+		console.log('onNextBtn: nextPageName=%o', this.page.nextPageName);
 
-		if (nextPageIndex > this.lastPageIndex) {
-			nextSectionIndex++;
-			if (this.sectionIndex < this.lastSectionIndex) this.gotoPage(nextSectionIndex, 0);
-		} else {
-			this.gotoPage(nextSectionIndex, nextPageIndex);
-		}
+		this.loadPageByName(this.page.nextPageName)
+		// if (nextPageIndex > this.lastPageIndex) {
+		// 	nextSectionIndex++;
+		// 	if (this.sectionIndex < this.lastSectionIndex) this.gotoPage(nextSectionIndex, 0);
+		// } else {
+		// 	this.gotoPage(nextSectionIndex, nextPageIndex);
+		// }
 	}
 	onPrevBtn() {
 		const currentPageName = this.page.name;
@@ -213,9 +227,10 @@ export class ApplicationComponent implements OnInit {
 		console.log('onPrevBtn: sectionIndex=%o, pageIndex=%o, currentPageName=%o, prevPageName=%o', this.sectionIndex, this.pageIndex, currentPageName, prevPageName);
 
 		if (prevPageName) {
-			const sectionIndex = this.findSectionIndexByPageName(prevPageName);
-			const pageIndex = this.findPageIndexByPageName(prevPageName);
-			this.gotoPage(sectionIndex, pageIndex);
+			// const sectionIndex = this.findSectionIndexByPageName(prevPageName);
+			// const pageIndex = this.findPageIndexByPageName(prevPageName);
+			// this.gotoPage(sectionIndex, pageIndex);
+			this.loadPageByName(prevPageName);
 		}
 
     }
