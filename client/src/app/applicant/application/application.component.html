@@ -66,11 +66,16 @@
 		<div *ngIf="page.heroHtml" class="questions" [innerHtml]="page.heroHtml"></div>
 
 		<div *ngIf="page.type==='reject'" class="questions">
-			<label class="form-label text-light">Verify your email address</label>
-			<div class="d-flex justify-content-between">
-				<input class="form-control" type="email" name="rejectionEmail" [(ngModel)]="answers.email">
-				<button class="btn --next --reverse">Submit</button>
+			<div *ngIf="!bummerSubmitted">
+				<label class="form-label text-light">Verify your email address</label>
+				<div class="d-flex justify-content-between">
+					<input class="form-control" type="email" name="bummerEmail" [(ngModel)]="response.bummerEmail">
+					<button class="btn --next --reverse" (click)="onBummerSubmit()">Submit</button>
+				</div>
 			</div>
+			<p *ngIf="bummerSubmitted">
+				Thank you!
+			</p>
 			<div class="clearfix mb-3"></div>
 			<small class="helperText">If you feel we’ve made an error, please contact us at <a class="text-light" href="mailto:info@tulsaremote.com" target="_blank">info@tulsaremote.com</a></small>
 		</div>

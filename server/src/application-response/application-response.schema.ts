@@ -17,6 +17,7 @@ export const applicationResponseSchema = new mongoose.Schema({
 	}],
 
 	bullhornCandidateId: Number,
+	bummerEmail: String,
 
 	__v: {type:Number, select:false},
 

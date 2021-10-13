@@ -20,6 +20,8 @@ export interface ApplicationResponse {
 
 	bullhornCandidateId?: number,
 
+	bummerEmail?: string,		// If the user bummered out and left an email
+
 	createDate?: Date,
 	updateDate?: Date,
 

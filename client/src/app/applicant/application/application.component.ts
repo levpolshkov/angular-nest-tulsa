@@ -31,6 +31,8 @@ export class ApplicationComponent implements OnInit {
     emptyFields: Boolean;
     landingPage: Boolean;
 
+	bummerSubmitted = false;
+
 	constructor(public applicationService: ApplicationService, private responseService: ApplicationResponseService, private route: ActivatedRoute, private router: Router, private googleMapsService: GoogleMapsService) { }
 
 	async ngOnInit() {
@@ -118,24 +120,15 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	async loadPage(sectionIndex:number, pageIndex:number) {
-		if(this.response && this.response.status==='rejected' && this.response.lastPage) {
-			// const bummerSectionIndex = this.findSectionIndexByPageName(this.response.lastPage);
-			// const bummerPageIndex = this.findPageIndexByPageName(this.response.lastPage);
-			// if(sectionIndex!==bummerSectionIndex && pageIndex!==bummerPageIndex) {
-			// 	sectionIndex = bummerSectionIndex;
-			// 	pageIndex = bummerPageIndex;
-			// 	this.gotoPage(sectionIndex, pageIndex);
-			// }
-			// this.gotoPageName(this.response.lastPage);
-
-			// TODO: Handle this
-		}
-
 		this.sectionIndex = sectionIndex;
 		this.pageIndex = pageIndex;
 
 		this.section = this.application.sections[sectionIndex];
 		this.page = this.section.pages[pageIndex];
+
+		if(this.page.type==='reject') {
+			this.response.bummerEmail = this.answers.email;
+		}
 
 		if (!this.page.questions) this.page.questions = [];
 		this.page.questions.forEach((question, i) => {
@@ -332,6 +325,12 @@ export class ApplicationComponent implements OnInit {
 				}
 			}
 		}
+	}
+
+	onBummerSubmit() {
+		console.log('onBummerSubmit() bummerEmail=%o', this.response.bummerEmail);
+		this.bummerSubmitted = true;
+		this.saveResponse();
 	}
 
 
