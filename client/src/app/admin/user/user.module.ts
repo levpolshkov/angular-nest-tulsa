@@ -6,7 +6,7 @@ import { UserLoginPageComponent } from './user-login-page/user-login-page.compon
 import { UserSearchPageComponent } from './user-search-page/user-search-page.component';
 import { UserDetailPageComponent } from './user-detail-page/user-detail-page.component';
 import { UserRoutingModule } from './user-routing.module';
-import { SearchModule } from '../shared/search/search.module';
+import { SearchModule } from '../../shared/search/search.module';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UserPasswordModalComponent } from './user-password-modal/user-password-modal.component';
 

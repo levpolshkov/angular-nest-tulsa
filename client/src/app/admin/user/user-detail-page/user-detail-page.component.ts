@@ -2,8 +2,8 @@ import { Component, OnInit }		from '@angular/core';
 import { ActivatedRoute, Router }	from '@angular/router';
 import { User }						from 'src/app/models';
 import { UserService }				from '../user.service';
-import { AlertService }				from 'src/app/site/alert.service';
-import { ConfirmService }			from 'src/app/site/confirm.service';
+import { AlertService }				from 'src/app/admin/site/alert.service';
+import { ConfirmService }			from 'src/app/admin/site/confirm.service';
 
 @Component({
 	selector: 'app-user-detail-page',

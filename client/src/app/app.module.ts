@@ -7,20 +7,12 @@ import { FormsModule }					from '@angular/forms';
 import { NgbModule }					from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule }		 		from 'ngx-mask';
 
-
 import { AppRoutingModule }				from './app-routing.module';
-import { SearchModule }					from './shared/search/search.module';
-
 import { AppComponent }					from './app.component';
-import { SiteModule }					from './site/site.module';
-import { UserGuard }					from './user.guard';
-import { UserAdminGuard }				from './user-admin.guard';
-import { AdminComponent }				from './admin/admin.component';
 
 @NgModule({
 	declarations: [
-		AppComponent,
-		AdminComponent
+		AppComponent
 	],
 	imports: [
 		BrowserModule,
@@ -28,15 +20,11 @@ import { AdminComponent }				from './admin/admin.component';
 		HttpClientModule,
 		FormsModule,
 		NgbModule,
-		NgxMaskModule.forRoot(),
-		SearchModule,
-		SiteModule
+		NgxMaskModule.forRoot()
 	],
 	providers: [
 		DatePipe,
-		CurrencyPipe,
-		UserGuard,
-		UserAdminGuard
+		CurrencyPipe
 	],
 	bootstrap: [AppComponent]
 })

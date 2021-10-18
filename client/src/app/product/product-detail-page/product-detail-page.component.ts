@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models';
-import { AlertService } from 'src/app/site/alert.service';
-import { ConfirmService } from 'src/app/site/confirm.service';
+import { AlertService } from 'src/app/admin/site/alert.service';
+import { ConfirmService } from 'src/app/admin/site/confirm.service';
 import { ProductService } from '../product.service';
 
 @Component({

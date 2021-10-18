@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService } from 'src/app/site/alert.service';
+import { AlertService } from 'src/app/admin/site/alert.service';
 import { User, UserService } from '../user.service';
 
 @Component({

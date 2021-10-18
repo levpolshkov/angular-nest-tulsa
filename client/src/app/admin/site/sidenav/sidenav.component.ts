@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } 		from '@angular/core';
 import { Router } 						from '@angular/router';
-import packageJson 						from '../../../../package.json';
-import { UserService, User } 			from 'src/app/user/user.service';
-import { UserChangeService } 			from 'src/app/user/user-change.service';
+import packageJson 						from '../../../../../package.json';
+import { UserService, User } 			from 'src/app/admin/user/user.service';
+import { UserChangeService } 			from 'src/app/admin/user/user-change.service';
 
 @Component({
 	selector: 'app-sidenav',

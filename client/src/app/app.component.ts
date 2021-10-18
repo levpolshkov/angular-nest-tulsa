@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { SidenavComponent } from './site/sidenav/sidenav.component';
 
 @Component({
 	selector: 'app-root',
@@ -7,7 +6,5 @@ import { SidenavComponent } from './site/sidenav/sidenav.component';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	@ViewChild('sidenav') sidenav:SidenavComponent;
-
 	constructor() {}
 }
