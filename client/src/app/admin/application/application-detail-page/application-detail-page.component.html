@@ -1,0 +1,27 @@
+<form #form="ngForm" *ngIf="application">
+	<div class="card bg-light mt-3 mb-3">
+		<div class="card-body">
+			<h2 class="card-title">Application Detail</h2>
+			<div class="row mb-3">
+				<!-- <div class="col-md-3">
+					<label class="form-label">Application SKU</label>
+					<input class="form-control" name="applicationSku" [(ngModel)]="application.sku" [disabled]="readonly" required>
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">Application Name</label>
+					<input class="form-control" name="applicationName" [(ngModel)]="application.name" [disabled]="readonly" required>
+				</div>
+				<div class="col-md-3">
+					<label class="form-label">Application Type</label>
+					<select class="form-select" name="applicationType" [(ngModel)]="application.type" required>
+						<option [value]="applicationType.id" *ngFor="let applicationType of applicationService.applicationTypes">{{applicationType.name}}</option>
+					</select>
+				</div> -->
+			</div>
+		</div>
+		<div class="card-footer d-flex justify-content-between">
+			<button class="btn btn-primary" (click)="onSaveBtn()" [disabled]="!form.valid || form.pristine">Save</button>
+			<button class="btn btn-danger" (click)="onDeleteBtn()" *ngIf="!isNew">Delete</button>
+		</div>
+	</div>
+</form>

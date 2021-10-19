@@ -1,24 +1,24 @@
-<h1 class="mt-2">Product Search</h1>
+<h1 class="mt-2">Application Search</h1>
 <hr>
 
 <div>
 	<form>
 		<div class="row">
-			<div class="col-md-3">
-				<label class="form-label">Product SKU</label>
+			<!-- <div class="col-md-3">
+				<label class="form-label">Application SKU</label>
 				<input type="text" class="form-control" name="sku" [(ngModel)]="searchTable.params.filter.sku" (ngModelChange)="searchTable.onFilterChange()">
-			</div>
+			</div> -->
 			<div class="col-md-3">
-				<label class="form-label">Product Name</label>
+				<label class="form-label">Application Name</label>
 				<input type="text" class="form-control" name="name" [(ngModel)]="searchTable.params.filter.name" (ngModelChange)="searchTable.onFilterChange()">
 			</div>
-			<div class="col-md-3">
-				<label class="form-label">Product Type</label>
+			<!-- <div class="col-md-3">
+				<label class="form-label">Application Type</label>
 				<select class="form-select" name="type" [(ngModel)]="searchTable.params.filter.type" (ngModelChange)="searchTable.onFilterChange(true)">
 					<option [ngValue]="null">ALL</option>
-					<option [value]="productType.id" *ngFor="let productType of productService.productTypes">{{productType.name}}</option>
+					<option [value]="applicationType.id" *ngFor="let applicationType of applicationService.applicationTypes">{{applicationType.name}}</option>
 				</select>
-			</div>
+			</div> -->
 		</div>
 	</form>
 </div>

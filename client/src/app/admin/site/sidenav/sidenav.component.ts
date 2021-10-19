@@ -1,8 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } 		from '@angular/core';
-import { Router } 						from '@angular/router';
-import packageJson 						from '../../../../../package.json';
-import { UserService, User } 			from 'src/app/admin/user/user.service';
-import { UserChangeService } 			from 'src/app/admin/user/user-change.service';
+import { Component, OnInit }		from '@angular/core';
+import { Router }					from '@angular/router';
+import packageJson					from '../../../../../package.json';
+import { UserService, User }		from 'src/app/admin/user/user.service';
+import { UserChangeService }		from 'src/app/admin/user/user-change.service';
 
 @Component({
 	selector: 'app-sidenav',
@@ -17,9 +17,8 @@ export class SidenavComponent implements OnInit {
 	isOpen = false;
 
 	menuItems = [
-		// {name:'Dashboard',		url:'/dashboard', 	icon:'fas fa-tachometer-alt'},
-		{name:'Products',			url:'/product', 	icon:'fas fa-list-alt'},
-		{name:'Users',				url:'/user',		icon:'fas fa-users'}
+		{name:'Applications',		url:'/admin/application',	icon:'fas fa-list-alt'},
+		{name:'Users',				url:'/admin/user',			icon:'fas fa-users'}
 	];
 
 	constructor(private userChangeService:UserChangeService, private userService:UserService, private router:Router) { }
