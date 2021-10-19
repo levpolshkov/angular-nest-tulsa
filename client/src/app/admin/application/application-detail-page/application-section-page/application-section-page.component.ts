@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Application } from 'src/app/models';
+import { Application, ApplicationPage, ApplicationSection } from '@server/application/application.interface';
 import { AlertService } from 'src/app/admin/site/alert.service';
 import { ConfirmService } from 'src/app/admin/site/confirm.service';
-import { AdminApplicationService } from '../application.service';
+import { AdminApplicationService } from '../../application.service';
 
 @Component({
-	selector: 'app-application-detail-page',
-	templateUrl: './application-detail-page.component.html',
-	styleUrls: ['./application-detail-page.component.scss']
+	selector: 'app-application-section-page',
+	templateUrl: './application-section-page.component.html',
+	styleUrls: ['./application-section-page.component.scss']
 })
-export class ApplicationDetailPageComponent implements OnInit {
+export class ApplicationSectionPageComponent implements OnInit {
 	application:Application;
+	section:ApplicationSection;
 	readonly = false;
 
 	constructor(public applicationService:AdminApplicationService, private route:ActivatedRoute, private router:Router, private alertService:AlertService, private confirmService:ConfirmService) { }
@@ -19,12 +20,14 @@ export class ApplicationDetailPageComponent implements OnInit {
 
 	async ngOnInit() {
 		const applicationId = this.route.snapshot.params.applicationId;
-		console.log('ApplicationDetailPageComponent: applicationId=%o', applicationId);
+		const sectionId = this.route.snapshot.params.sectionId;
+		console.log('ApplicationSectionPageComponent: applicationId=%o, sectionId=%o', applicationId, sectionId);
 
 		if(applicationId==='new') {
 			this.application = <Application>{};
 		} else {
 			this.application = await this.applicationService.getApplicationById(applicationId);
+			this.section = this.application.sections.find(s => s._id===sectionId);
 		}
 	}
 
@@ -49,10 +52,9 @@ export class ApplicationDetailPageComponent implements OnInit {
 		});
 	}
 
-	onSectionClick(section) {
-		console.log('onSectionClick: section=%o', section);
-		this.router.navigate(['/admin/application', this.application._id, 'section', section._id]);
+	onPageClick(page:ApplicationPage) {
+		console.log('onSectionClick: page=%o', page);
+		this.router.navigate(['/admin/application', this.application._id, 'section', this.section._id, 'page', page._id]);
 	}
-
 
 }

@@ -30,14 +30,14 @@ export class UserSearchPageComponent implements OnInit {
 		];
 		this.searchTable.onRowClick = this.onUserClick;
 		this.searchTable.params.filter = {type:null};
-		this.searchTable.addNewUrl = '/user/new';
+		this.searchTable.addNewUrl = '/admin/user/new';
 	}
 
 	onUserClick(user:User) {
-		this.router.navigate(['/user', user._id]);
+		this.router.navigate(['/admin/user', user._id]);
 	}
 
 	addNewUser() {
-		this.router.navigate(['user/new']);
+		this.router.navigate(['/admin/user/new']);
 	}
 }

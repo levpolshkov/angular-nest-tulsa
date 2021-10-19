@@ -1,27 +1,27 @@
-<h1 class="mt-2">Application Search</h1>
-<hr>
-
-<div>
-	<form>
-		<div class="row">
-			<!-- <div class="col-md-3">
-				<label class="form-label">Application SKU</label>
-				<input type="text" class="form-control" name="sku" [(ngModel)]="searchTable.params.filter.sku" (ngModelChange)="searchTable.onFilterChange()">
-			</div> -->
-			<div class="col-md-3">
-				<label class="form-label">Application Name</label>
-				<input type="text" class="form-control" name="name" [(ngModel)]="searchTable.params.filter.name" (ngModelChange)="searchTable.onFilterChange()">
+<form>
+	<div class="card bg-light mt-3 mb-3">
+		<div class="card-body">
+			<h2 class="card-title mb-3">Application Search</h2>
+			<div class="row">
+				<!-- <div class="col-md-3">
+					<label class="form-label">Application SKU</label>
+					<input type="text" class="form-control" name="sku" [(ngModel)]="searchTable.params.filter.sku" (ngModelChange)="searchTable.onFilterChange()">
+				</div> -->
+				<div class="col-md-3">
+					<label class="form-label">Application Name</label>
+					<input type="text" class="form-control" name="name" [(ngModel)]="searchTable.params.filter.name" (ngModelChange)="searchTable.onFilterChange()">
+				</div>
+				<!-- <div class="col-md-3">
+					<label class="form-label">Application Type</label>
+					<select class="form-select" name="type" [(ngModel)]="searchTable.params.filter.type" (ngModelChange)="searchTable.onFilterChange(true)">
+						<option [ngValue]="null">ALL</option>
+						<option [value]="applicationType.id" *ngFor="let applicationType of applicationService.applicationTypes">{{applicationType.name}}</option>
+					</select>
+				</div> -->
 			</div>
-			<!-- <div class="col-md-3">
-				<label class="form-label">Application Type</label>
-				<select class="form-select" name="type" [(ngModel)]="searchTable.params.filter.type" (ngModelChange)="searchTable.onFilterChange(true)">
-					<option [ngValue]="null">ALL</option>
-					<option [value]="applicationType.id" *ngFor="let applicationType of applicationService.applicationTypes">{{applicationType.name}}</option>
-				</select>
-			</div> -->
 		</div>
-	</form>
-</div>
+	</div>
+</form>
 
 
 

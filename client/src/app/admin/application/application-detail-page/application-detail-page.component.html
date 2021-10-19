@@ -3,25 +3,46 @@
 		<div class="card-body">
 			<h2 class="card-title">Application Detail</h2>
 			<div class="row mb-3">
-				<!-- <div class="col-md-3">
-					<label class="form-label">Application SKU</label>
-					<input class="form-control" name="applicationSku" [(ngModel)]="application.sku" [disabled]="readonly" required>
-				</div>
 				<div class="col-md-6">
 					<label class="form-label">Application Name</label>
 					<input class="form-control" name="applicationName" [(ngModel)]="application.name" [disabled]="readonly" required>
 				</div>
-				<div class="col-md-3">
-					<label class="form-label">Application Type</label>
-					<select class="form-select" name="applicationType" [(ngModel)]="application.type" required>
-						<option [value]="applicationType.id" *ngFor="let applicationType of applicationService.applicationTypes">{{applicationType.name}}</option>
-					</select>
+			</div>
+
+			<h3 class="mb-0">Sections</h3>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Pages</th>
+						<!-- <th>Questions</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="cursor-pointer" *ngFor="let section of application.sections; let sectionIndex=index" (click)="onSectionClick(section)">
+						<td>{{section.title}}</td>
+						<td>{{section.pages.length}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="section mb-3">
+				<!-- <h5>{{section.title}}</h5> -->
+				<!-- <div class="row">
+					<div class="col-md-6">
+						<label class="form-label">Section Name</label>
+						<input class="form-control" name="sectionName{{sectionIndex}}" [(ngModel)]="section.title" [disabled]="readonly" required>
+					</div>
+				</div>
+
+				<div class="page" *ngFor="let page of section.pages; let pageIndex=index">
+					<h6>Page {{page.name}}</h6>
 				</div> -->
+
 			</div>
 		</div>
 		<div class="card-footer d-flex justify-content-between">
 			<button class="btn btn-primary" (click)="onSaveBtn()" [disabled]="!form.valid || form.pristine">Save</button>
-			<button class="btn btn-danger" (click)="onDeleteBtn()" *ngIf="!isNew">Delete</button>
+			<button class="btn btn-danger" (click)="onDeleteBtn()" *ngIf="!isNew" disabled>Delete</button>
 		</div>
 	</div>
 </form>

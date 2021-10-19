@@ -1,0 +1,46 @@
+<form #form="ngForm" *ngIf="application && page">
+	<div class="card bg-light mt-3 mb-3">
+		<div class="card-body">
+			<h2 class="card-title">
+				<a routerLink="/admin/application/{{application._id}}">{{application.name}}</a>
+				&gt;
+				<a routerLink="/admin/application/{{application._id}}/section/{{section._id}}">{{section.title}}</a>
+				&gt;
+				{{page.title}}
+			</h2>
+			<div class="row mb-3">
+				<div class="col-md-3">
+					<label class="form-label">Page ID</label>
+					<input class="form-control" name="pageId" [(ngModel)]="page.name" [disabled]="readonly" required>
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">Page Name</label>
+					<input class="form-control" name="pageTitle" [(ngModel)]="page.title" [disabled]="readonly" required>
+				</div>
+				<div class="col-md-3">
+					<label class="form-label">Type</label>
+					<select class="form-select" name="pageType" [(ngModel)]="page.type">
+						<option [value]="null">ALL</option>
+						<option [value]="type.id" *ngFor="let type of pageTypes">{{type.name}}</option>
+					</select>
+				</div>
+			</div>
+
+			<h3 class="mb-0">Questions</h3>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Label</th>
+						<th>Type</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="cursor-pointer" *ngFor="let question of page.questions; let questionIndex=index" (click)="onQuestionClick(question)">
+						<td>{{question.label}}</td>
+						<td>{{question.type}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</form>

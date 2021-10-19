@@ -3,57 +3,59 @@ import { User } from '../user/user.interface';
 export type ApplicationQuestionType = 'label' | 'text' | 'phone' | 'email' | 'currency' | 'date' | 'number' | 'radio' | 'textarea' | 'url';
 export type ApplicationPageType = 'question' | 'hero' | 'single-question' | 'reject' | 'submit';
 export interface ApplicationQuestionOption {
-  value: string | number | boolean,
-  label: string,
-  helperText?: string,
-  nextPageName?: string			// Go to this page if option is selected
+	value: string | number | boolean,
+	label: string,
+	helperText?: string,
+	nextPageName?: string			// Go to this page if option is selected
 };
 
 export interface ApplicationQuestion {
-  order: number,
-  type: ApplicationQuestionType,
-  key: string,
-  bullhornKey?: string,
-  label: string,
-  options?: ApplicationQuestionOption[],
-  optional?: boolean
+	order: number,
+	type: ApplicationQuestionType,
+	key: string,
+	bullhornKey?: string,
+	label: string,
+	options?: ApplicationQuestionOption[],
+	optional?: boolean
 };
 
 
 
 export interface ApplicationPage {
-  order: number,
-  type: ApplicationPageType,
-  name: string,			// Internal name for easy reference / branching logic
+	_id?: any,
+	order: number,
+	type: ApplicationPageType,
+	name: string,			// Internal name for easy reference / branching logic
 
-  title: string,
-  questions: ApplicationQuestion[],
+	title: string,
+	questions: ApplicationQuestion[],
 
-  heroImage?: string,
-  heroHtml?: string,
+	heroImage?: string,
+	heroHtml?: string,
 
-  nextPageName?: string
+	nextPageName?: string
 };
 
 export interface ApplicationSection {
-  order: number,
-  title: string,
-  pages: ApplicationPage[]
+	_id?: any,
+	order: number,
+	title: string,
+	pages: ApplicationPage[]
 };
 
 export interface Application {
-  _id?: any,
+	_id?: any,
 
-  name: string,
+	name: string,
 
-  sections: ApplicationSection[],
+	sections: ApplicationSection[],
 
-  createDate?: Date,
-  updateDate?: Date,
-  createUser?: User,
-  updateUser?: User,
+	createDate?: Date,
+	updateDate?: Date,
+	createUser?: User,
+	updateUser?: User,
 
-  deleted?: boolean,
-  deleteDate?: Date,
-  deleteUser?: User
+	deleted?: boolean,
+	deleteDate?: Date,
+	deleteUser?: User
 };

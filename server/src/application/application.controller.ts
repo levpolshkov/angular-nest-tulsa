@@ -13,7 +13,8 @@ export class ApplicationController {
 		return this.applicationService.searchApplications(req.query);
 	}
 
-	// @Get('/:id')
+	@UseGuards(JwtAuthGuard)
+	@Get('/:id')
 	getApplicationById(@Param('id') applicationId:string) {
 		return this.applicationService.getApplicationById(applicationId);
 	}
