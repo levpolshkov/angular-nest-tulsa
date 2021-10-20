@@ -75,5 +75,9 @@ export class ApplicationPagePageComponent implements OnInit {
 		this.page.questions.splice(index,1);
 	}
 
+	onViewBtn() {
+		window.open(`/applicant/application?viewPage=${this.page._id}`, '_blank', '');
+	}
+
 }
 

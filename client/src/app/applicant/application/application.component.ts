@@ -27,13 +27,13 @@ export class ApplicationComponent implements OnInit {
 	answers: any = {};
 	response: ApplicationResponse;
 
-    inputReady: Boolean;
-    emptyFields: Boolean;
-    landingPage: Boolean;
+	inputReady: Boolean;
+	emptyFields: Boolean;
+	landingPage: Boolean;
 
 	bummerSubmitted = false;
 
-	constructor(public applicationService: ApplicationService, private responseService: ApplicationResponseService, private route: ActivatedRoute, private router: Router, private googleMapsService: GoogleMapsService) { }
+	constructor(public applicationService:ApplicationService, private responseService:ApplicationResponseService, private route:ActivatedRoute, private router:Router, private googleMapsService:GoogleMapsService) { }
 
 	async ngOnInit() {
 		this.application = await this.applicationService.searchApplications({ filter: {} }).then(r => r.records[0]);
@@ -63,6 +63,13 @@ export class ApplicationComponent implements OnInit {
 			};
 		} else {
 			this.application = this.response.application;		// To make sure we restore page.nextPageName for Back button functionality
+		}
+
+		if(this.route.snapshot.queryParams['viewPage']) {
+			const viewPageId = this.route.snapshot.queryParams['viewPage'];
+			const viewSection = this.response.application.sections.find(s => s.pages.find(p => p._id===viewPageId))
+			const viewPage = viewSection && viewSection.pages.find(p => p._id===viewPageId);
+			if(viewPage) this.response.lastPage = viewPage.name;
 		}
 
 		this.response.questionAnswers.forEach(qa => {
