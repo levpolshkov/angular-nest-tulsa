@@ -1,32 +1,6 @@
-X Save ApplicationResponses
-X Branch logic
-X Enter all questions
-X AWS deployment
-X Session statefulness
-X Reject based on zipcode
-X Bullhorn integration
-X Add section0
-X Fix next section logic
-- Back button logic
-- apply.tulsaremote.com
-
-
-- questions
-	- session abandon
-	- Wayfinder
-	- IRS codes
-
-- URL validation
-
-* BullHorn needs as a web response
-X Come in as a new candiate record
-- Status of web response (submission status?) of job 1183
-X For testing submit against job 65
-X Save response on bummer
-- Bummer screen is permanent
-X Add missing screens
-X Dump all answers as key-value csv as a 3rd note (or as a file attachment)
-X Note for full app?
-
-X Fix bummer pages
-- Make questions required
+- Auto-reconnect to MongoDB
+- Admin
+	- Add/delete sections
+	- Add/delete pages
+	- View link
+	- Next page logic

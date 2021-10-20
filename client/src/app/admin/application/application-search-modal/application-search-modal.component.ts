@@ -17,10 +17,10 @@ export class ApplicationSearchModalComponent implements OnInit {
 	ngOnInit() {
 		this.searchTable.searchUrl = '/application';
 		this.searchTable.columns = [
-			{field:'company.name',		header:'Company'},
-			{field:'sku',				header:'Application SKU'},
-			{field:'name',				header:'Application Name'},
-			{field:'type',				header:'Application Type',		hide:'sm',		renderer: application => this.applicationService.applicationTypeRenderer(application.type)},
+			// {field:'company.name',		header:'Company'},
+			// {field:'sku',				header:'Application SKU'},
+			// {field:'name',				header:'Application Name'},
+			// {field:'type',				header:'Application Type',		hide:'sm',		renderer: application => this.applicationService.applicationTypeRenderer(application.type)},
 		];
 		this.searchTable.onRowClick = p => this.onRowClick(p);
 		this.searchTable.noRouting = true;			// Disable SearchTable from changing the url

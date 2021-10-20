@@ -27,7 +27,7 @@
 					<tr class="cursor-pointer" *ngFor="let page of section.pages; let pageIndex=index" (click)="onPageClick(page)">
 						<td>{{page.name}}</td>
 						<td>{{page.title}}</td>
-						<td>{{page.type}}</td>
+						<td><span [innerHtml]="applicationService.pageTypeRenderer(page.type)"></span></td>
 						<td>{{page.questions.length}}</td>
 					</tr>
 				</tbody>

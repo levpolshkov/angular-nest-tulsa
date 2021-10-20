@@ -6,17 +6,33 @@ import { SearchService } from 'src/app/shared/search/search.service';
 import { ApplicationSearchModalComponent } from './application-search-modal/application-search-modal.component';
 export { Application };
 
-export const applicationTypes = [
-	{id:'kit',			name:'Kit',			class:''},
-	{id:'sample',		name:'Sample',		class:''},
-	{id:'report',		name:'Report',		class:''}
+export const pageTypes = [
+	{id:'question',				name:'Question Page',			class:''},
+	{id:'hero',					name:'Hero Page',				class:''},
+	{id:'single-question',		name:'Single Question Page',	class:''},
+	{id:'reject',				name:'Bummer Page',				class:''},
+	{id:'submit',				name:'Submit Page',				class:''}
+];
+
+export const questionTypes = [
+	{id:'label',				name:'Label Only',				class:''},
+	{id:'text',					name:'Text Input',				class:''},
+	{id:'textarea',				name:'Textarea Input',			class:''},
+	{id:'phone',				name:'Phone Input',				class:''},
+	{id:'email',				name:'Email Input',				class:''},
+	{id:'currency',				name:'Current Input',			class:''},
+	{id:'date',					name:'Date Input',				class:''},
+	{id:'number',				name:'Number Input',			class:''},
+	{id:'url',					name:'URL Input',				class:''},
+	{id:'radio',				name:'Radio Choices',			class:''}
 ];
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AdminApplicationService {
-	applicationTypes = applicationTypes;
+	pageTypes = pageTypes;
+	questionTypes = questionTypes;
 
 	constructor(private http:HttpService, private searchService:SearchService, private modalService:NgbModal) {}
 
@@ -37,19 +53,36 @@ export class AdminApplicationService {
 		return this.http.delete(`/application/${applicationId}`);
 	}
 
-	applicationTypeRenderer(id:string) {
-		const status = this.applicationTypes.find(s => s.id===id);
-		if(!status) return `${id}`;
+	pageTypeRenderer(id:string) {
+		const status = this.pageTypes.find(s => s.id===id);
+		if(!status) return `${id || ''}`;
 		return `<span class="${status.class}">${status.name}</span>`;
 	}
-	applicationTypeName(id:string) {
-		const status = this.applicationTypes.find(s => s.id===id);
-		if(!status) return `${id}`;
+	pageTypeName(id:string) {
+		const status = this.pageTypes.find(s => s.id===id);
+		if(!status) return `${id || ''}`;
 		return status.name;
 	}
-	applicationTypeClass(id:string) {
-		const status = this.applicationTypes.find(s => s.id===id);
-		if(!status) return `${id}`;
+	pageTypeClass(id:string) {
+		const status = this.pageTypes.find(s => s.id===id);
+		if(!status) return `${id || ''}`;
+		return status.class;
+	}
+
+
+	questionTypeRenderer(id:string) {
+		const status = this.questionTypes.find(s => s.id===id);
+		if(!status) return `${id || ''}`;
+		return `<span class="${status.class}">${status.name}</span>`;
+	}
+	questionTypeName(id:string) {
+		const status = this.questionTypes.find(s => s.id===id);
+		if(!status) return `${id || ''}`;
+		return status.name;
+	}
+	questionTypeClass(id:string) {
+		const status = this.questionTypes.find(s => s.id===id);
+		if(!status) return `${id || ''}`;
 		return status.class;
 	}
 

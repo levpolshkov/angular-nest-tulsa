@@ -5,26 +5,7 @@ import { AlertService } from 'src/app/admin/site/alert.service';
 import { ConfirmService } from 'src/app/admin/site/confirm.service';
 import { AdminApplicationService } from '../../application.service';
 
-const pageTypes = [
-	{id:'question',				name:'Question Page'},
-	{id:'hero',					name:'Hero Page'},
-	{id:'single-question',		name:'Single Question Page'},
-	{id:'reject',				name:'Bummer Page'},
-	{id:'submit',				name:'Submit Page'}
-];
 
-const questionTypes = [
-	{id:'label',				name:'Label Only'},
-	{id:'text',					name:'Text Input'},
-	{id:'textarea',				name:'Textarea Input'},
-	{id:'phone',				name:'Phone Input'},
-	{id:'email',				name:'Email Input'},
-	{id:'currency',				name:'Current Input'},
-	{id:'date',					name:'Date Input'},
-	{id:'number',				name:'Number Input'},
-	{id:'url',					name:'URL Input'},
-	{id:'radio',				name:'Radio Choices'}
-];
 
 @Component({
 	selector: 'app-application-page-page',
@@ -37,8 +18,8 @@ export class ApplicationPagePageComponent implements OnInit {
 	page:ApplicationPage;
 	readonly = false;
 
-	pageTypes = pageTypes;
-	questionTypes = questionTypes;
+	pageTypes = this.applicationService.pageTypes;
+	questionTypes = this.applicationService.questionTypes;
 
 	constructor(public applicationService:AdminApplicationService, private route:ActivatedRoute, private router:Router, private alertService:AlertService, private confirmService:ConfirmService) { }
 
