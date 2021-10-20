@@ -19,28 +19,70 @@
 				</div>
 				<div class="col-md-3">
 					<label class="form-label">Type</label>
-					<select class="form-select" name="pageType" [(ngModel)]="page.type">
-						<option [value]="null">ALL</option>
+					<select class="form-select" name="pageType" [(ngModel)]="page.type" required>
 						<option [value]="type.id" *ngFor="let type of pageTypes">{{type.name}}</option>
 					</select>
 				</div>
 			</div>
 
-			<h3 class="mb-0">Questions</h3>
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>Label</th>
-						<th>Type</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="cursor-pointer" *ngFor="let question of page.questions; let questionIndex=index" (click)="onQuestionClick(question)">
-						<td>{{question.label}}</td>
-						<td>{{question.type}}</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="float-end cursor-pointer text-primary mt-2" (click)="addQuestion()">
+				<i class="fas fa-plus"></i>
+			</div>
+			<h3 class="mb-1">Questions</h3>
+			
+			<div *ngFor="let question of page.questions; let questionIndex=index">
+				<hr>
+				<div class="float-end cursor-pointer text-danger mt-2" (click)="removeQuestion(question)">
+					<i class="fas fa-minus"></i>
+				</div>
+				<div class="row">
+					<div class="col-2">
+						<label class="form-label">Question Type</label>
+						<select class="form-select" name="questionType{{questionIndex}}" [(ngModel)]="question.type" required>
+							<option [value]="type.id" *ngFor="let type of questionTypes">{{type.name}}</option>
+						</select>
+					</div>
+					<div class="col-2">
+						<label class="form-label">Question Key</label>
+						<input class="form-control" name="questionKey{{questionIndex}}" [(ngModel)]="question.key" [disabled]="readonly || question.type==='label'" required>
+					</div>
+					<div class="col-6">
+						<label class="form-label">Question Label</label>
+						<input class="form-control" name="questionLabel{{questionIndex}}" [(ngModel)]="question.label" [disabled]="readonly" required>
+					</div>
+					<div class="col-2">
+						<div class="form-check">
+							<label class=" form-check-label" for="questionOptional{{questionIndex}}">Optional</label><br>
+							<input class="ms-0 form-check-input" type="checkbox" id="questionOptional{{questionIndex}}" name="questionOptional{{questionIndex}}" [(ngModel)]="question.optional" [disabled]="readonly || question.type==='label'">
+						</div>
+					</div>
+				</div>
+				<div *ngIf="question.type==='radio'">
+					<table class="table table-sm">
+						<thead>
+							<tr>
+								<th>Option Label</th>
+								<th>Option Value</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let option of question.options; let optionIndex=index">
+								<td>
+									<input class="form-control" name="optionLabel{{questionIndex}}_{{optionIndex}}" [(ngModel)]="option.label" [disabled]="readonly" required>
+								</td>
+								<td>
+									<input class="form-control" name="optionValue{{questionIndex}}_{{optionIndex}}" [(ngModel)]="option.value" [disabled]="readonly" required>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-footer d-flex justify-content-between">
+			<button class="btn btn-primary" (click)="onSaveBtn()" [disabled]="!form.valid || form.pristine">Save</button>
+			<button class="btn btn-danger" (click)="onDeleteBtn()" *ngIf="!isNew" disabled>Delete</button>
 		</div>
 	</div>
 </form>

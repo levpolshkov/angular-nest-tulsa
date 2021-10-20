@@ -13,6 +13,18 @@ const pageTypes = [
 	{id:'submit',				name:'Submit Page'}
 ];
 
+const questionTypes = [
+	{id:'label',				name:'Label Only'},
+	{id:'text',					name:'Text Input'},
+	{id:'textarea',				name:'Textarea Input'},
+	{id:'phone',				name:'Phone Input'},
+	{id:'email',				name:'Email Input'},
+	{id:'currency',				name:'Current Input'},
+	{id:'date',					name:'Date Input'},
+	{id:'number',				name:'Number Input'},
+	{id:'url',					name:'URL Input'},
+	{id:'radio',				name:'Radio Choices'}
+];
 
 @Component({
 	selector: 'app-application-page-page',
@@ -26,6 +38,7 @@ export class ApplicationPagePageComponent implements OnInit {
 	readonly = false;
 
 	pageTypes = pageTypes;
+	questionTypes = questionTypes;
 
 	constructor(public applicationService:AdminApplicationService, private route:ActivatedRoute, private router:Router, private alertService:AlertService, private confirmService:ConfirmService) { }
 
@@ -51,8 +64,8 @@ export class ApplicationPagePageComponent implements OnInit {
 
 	async onSaveBtn() {
 		this.application = await this.applicationService.saveApplication(this.application);
-		this.alertService.info('Application saved.');
-		this.router.navigate(['/admin/application/search']);
+		this.alertService.info('Application Page saved.');
+		this.router.navigate(['/admin/application',  this.application._id, 'section', this.section._id]);
 	}
 
 	async onDeleteBtn() {
@@ -66,9 +79,19 @@ export class ApplicationPagePageComponent implements OnInit {
 		});
 	}
 
-	onQuestionClick(question:ApplicationQuestion) {
-		console.log('onQuestionClick: page=%o', question);
-		// this.router.navigate(['/admin/application', this.application._id, 'section', this.page._id]);
+	addQuestion() {
+		this.page.questions.push({
+			order: 0,
+			key: 'new',
+			type: 'label',
+			label: 'New Question'
+		});
+	}
+
+	removeQuestion(question:ApplicationQuestion) {
+		const index = this.page.questions.indexOf(question);
+		if(index===-1) return;
+		this.page.questions.splice(index,1);
 	}
 
 }

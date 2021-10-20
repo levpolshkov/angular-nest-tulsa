@@ -37,8 +37,8 @@ export class ApplicationSectionPageComponent implements OnInit {
 
 	async onSaveBtn() {
 		this.application = await this.applicationService.saveApplication(this.application);
-		this.alertService.info('Application saved.');
-		this.router.navigate(['/admin/application/search']);
+		this.alertService.info('Application Section saved.');
+		this.router.navigate(['/admin/application', this.application._id]);
 	}
 
 	async onDeleteBtn() {

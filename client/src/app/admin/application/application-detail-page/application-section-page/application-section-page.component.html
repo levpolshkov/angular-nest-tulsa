@@ -33,5 +33,10 @@
 				</tbody>
 			</table>
 		</div>
+
+		<div class="card-footer d-flex justify-content-between">
+			<button class="btn btn-primary" (click)="onSaveBtn()" [disabled]="!form.valid || form.pristine">Save</button>
+			<button class="btn btn-danger" (click)="onDeleteBtn()" *ngIf="!isNew" disabled>Delete</button>
+		</div>
 	</div>
 </form>
