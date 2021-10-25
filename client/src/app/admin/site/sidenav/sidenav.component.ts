@@ -27,9 +27,10 @@ export class SidenavComponent implements OnInit {
 		this.userChangeService.subscribe(user => {
 			console.log('SidenavComponent: user=%o', user);
 			this.user = user;
+		});
+		this.userService.getCurrentUser().then(user => {
 			if(!user) this.router.navigate(['/admin/user/login']);
 		});
-		this.userService.getCurrentUser();
 
 		window.onresize = () => this.onResize();
 		this.onResize();
