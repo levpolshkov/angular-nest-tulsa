@@ -55,8 +55,7 @@ export class ApplicationDetailPageComponent implements OnInit {
 	}
 
 	addSection() {
-		
+		console.log('addSection()');
+		this.router.navigate(['/admin/application', this.application._id, 'section', 'new']);
 	}
-
-
 }

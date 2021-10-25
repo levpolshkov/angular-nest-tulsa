@@ -23,10 +23,13 @@ export class ApplicationSectionPageComponent implements OnInit {
 		const sectionId = this.route.snapshot.params.sectionId;
 		console.log('ApplicationSectionPageComponent: applicationId=%o, sectionId=%o', applicationId, sectionId);
 
-		if(applicationId==='new') {
-			this.application = <Application>{};
+		this.application = await this.applicationService.getApplicationById(applicationId);
+		if(sectionId==='new') {
+			this.section = <ApplicationSection>{
+				pages: []
+			};
+			this.application.sections.push(this.section);
 		} else {
-			this.application = await this.applicationService.getApplicationById(applicationId);
 			this.section = this.application.sections.find(s => s._id===sectionId);
 		}
 	}
@@ -52,6 +55,11 @@ export class ApplicationSectionPageComponent implements OnInit {
 	onPageClick(page:ApplicationPage) {
 		console.log('onSectionClick: page=%o', page);
 		this.router.navigate(['/admin/application', this.application._id, 'section', this.section._id, 'page', page._id]);
+	}
+
+	addPage() {
+		console.log('addPage()');
+		this.router.navigate(['/admin/application', this.application._id, 'section',  this.section._id, 'page', 'new']);
 	}
 
 }

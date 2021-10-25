@@ -30,11 +30,14 @@ export class ApplicationPagePageComponent implements OnInit {
 		const pageId = this.route.snapshot.params.pageId;
 		console.log('ApplicationPagePageComponent: applicationId=%o, sectionId=%o, pageId=%o', applicationId, sectionId, pageId);
 
-		if(applicationId==='new') {
-			this.application = <Application>{};
+		this.application = await this.applicationService.getApplicationById(applicationId);
+		this.section = this.application.sections.find(s => s._id===sectionId);
+		if(pageId==='new') {
+			this.page = <ApplicationPage>{
+				questions: []
+			};
+			this.section.pages.push(this.page);
 		} else {
-			this.application = await this.applicationService.getApplicationById(applicationId);
-			this.section = this.application.sections.find(s => s._id===sectionId);
 			this.page = this.section.pages.find(p => p._id===pageId);
 		}
 	}
