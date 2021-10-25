@@ -5,6 +5,7 @@ import { DocumentService, mongoose }						from '@app/database';
 import { SearchParams, SearchResult, SearchService }		from '@app/search';
 import { User }												from '../user/user.interface';
 import { Application, ApplicationDocument }					from './application.schema';
+import { ApplicationPage } from '.';
 export { Application, ApplicationDocument };
 
 @Injectable()
@@ -52,6 +53,18 @@ export class ApplicationService {
 		application.deleted = true;
 		application.deleteUser = deletingUser;
 		application.deleteDate = new Date();
+		return application.save();
+	}
+
+	async deleteApplicationPageById(applicationId:string, pageId:string, deletingUser:User) {
+		const application = await this.getApplicationById(applicationId);
+		if(!application) throw new HttpException({message:'Application not found.', applicationId}, 404);
+
+		const section = application.sections.find(s => s.pages.find(p => p._id.equals(pageId)));
+		if(!section) throw new HttpException({message:'Page not found.', applicationId, pageId}, 404);
+
+		(section.pages as mongoose.Types.DocumentArray<any>).id(pageId).remove();
+
 		return application.save();
 	}
 }

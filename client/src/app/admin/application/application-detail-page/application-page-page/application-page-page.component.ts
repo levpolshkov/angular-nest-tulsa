@@ -46,18 +46,15 @@ export class ApplicationPagePageComponent implements OnInit {
 	async onSaveBtn() {
 		this.application = await this.applicationService.saveApplication(this.application);
 		this.alertService.info('Application Page saved.');
-		this.router.navigate(['/admin/application',  this.application._id, 'section', this.section._id]);
+		this.router.navigate(['/admin/application', this.application._id, 'section', this.section._id]);
 	}
 
 	async onDeleteBtn() {
-		this.confirmService.confirm({
-			text: 'Are you sure you want to delete this application?'
-		}).then(async answer => {
-			if(!answer) return;
-			await this.applicationService.deleteApplicationById(this.application._id);
-			this.alertService.warning('Application deleted.');
-			this.router.navigate(['/admin/application/search']);
-		});
+		const ans = await this.confirmService.confirm({text:'Are you sure you want to delete this page?  This cannot be undone.'});
+		if(!ans) return;
+		await this.applicationService.deleteApplicationPageById(this.application._id, this.page._id);
+		this.alertService.warning('Application Page deleted.');
+		this.router.navigate(['/admin/application', this.application._id, 'section', this.section._id]);
 	}
 
 	addQuestion() {
@@ -69,7 +66,9 @@ export class ApplicationPagePageComponent implements OnInit {
 		});
 	}
 
-	removeQuestion(question:ApplicationQuestion) {
+	async removeQuestion(question:ApplicationQuestion) {
+		const ans = await this.confirmService.confirm({text:'Are you sure you want to delete this question?'});
+		if(!ans) return;
 		const index = this.page.questions.indexOf(question);
 		if(index===-1) return;
 		this.page.questions.splice(index,1);

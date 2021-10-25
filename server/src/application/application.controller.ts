@@ -14,8 +14,8 @@ export class ApplicationController {
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Get('/:id')
-	getApplicationById(@Param('id') applicationId:string) {
+	@Get('/:applicationId')
+	getApplicationById(@Param('applicationId') applicationId:string) {
 		return this.applicationService.getApplicationById(applicationId);
 	}
 
@@ -26,8 +26,14 @@ export class ApplicationController {
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Delete('/:id')
-	deleteApplicationById(@Param('id') applicationId:string, @Request() req) {
+	@Delete('/:applicationId')
+	deleteApplicationById(@Param('applicationId') applicationId:string, @Request() req) {
 		return this.applicationService.deleteApplicationById(applicationId, req.user);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Delete('/:applicationId/page/:pageId')
+	deleteApplicationPageById(@Param('applicationId') applicationId:string, @Param('pageId') pageId:string, @Request() req) {
+		return this.applicationService.deleteApplicationPageById(applicationId, pageId, req.user);
 	}
 }

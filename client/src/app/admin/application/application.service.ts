@@ -52,6 +52,9 @@ export class AdminApplicationService {
 	deleteApplicationById(applicationId:string) {
 		return this.http.delete(`/application/${applicationId}`);
 	}
+	deleteApplicationPageById(applicationId:string, pageId:string) {
+		return this.http.delete(`/application/${applicationId}/page/${pageId}`);
+	}
 
 	pageTypeRenderer(id:string) {
 		const status = this.pageTypes.find(s => s.id===id);
