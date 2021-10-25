@@ -35,7 +35,7 @@ export class UserLoginPageComponent implements OnInit {
 		this.userService.login(this.creds).then(user => {
 			console.log('login: user=%o', user);
 			this.alertService.info(`Successfully logged in as <b>${user.fullName}</b>`);
-			this.router.navigate(['/dashboard']);
+			this.router.navigate(['/admin/application/search']);
 		}, err => {
 			console.log('login err=%o', err);
 			this.alertService.error(err.message || 'There was a login error');

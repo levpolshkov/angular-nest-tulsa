@@ -27,6 +27,7 @@ export class SidenavComponent implements OnInit {
 		this.userChangeService.subscribe(user => {
 			console.log('SidenavComponent: user=%o', user);
 			this.user = user;
+			if(!user) this.router.navigate(['/admin/user/login']);
 		});
 		this.userService.getCurrentUser();
 
