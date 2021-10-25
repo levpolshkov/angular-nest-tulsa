@@ -63,7 +63,16 @@ export class ApplicationService {
 		const section = application.sections.find(s => s.pages.find(p => p._id.equals(pageId)));
 		if(!section) throw new HttpException({message:'Page not found.', applicationId, pageId}, 404);
 
-		(section.pages as mongoose.Types.DocumentArray<any>).id(pageId).remove();
+		(section.pages as mongoose.Types.DocumentArray<any>).id(pageId)?.remove();
+
+		return application.save();
+	}
+
+	async deleteApplicationSectionById(applicationId:string, sectionId:string, deletingUser:User) {
+		const application = await this.getApplicationById(applicationId);
+		if(!application) throw new HttpException({message:'Application not found.', applicationId}, 404);
+
+		(application.sections as mongoose.Types.DocumentArray<any>).id(sectionId)?.remove();
 
 		return application.save();
 	}

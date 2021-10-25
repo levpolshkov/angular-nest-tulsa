@@ -42,14 +42,11 @@ export class ApplicationSectionPageComponent implements OnInit {
 	}
 
 	async onDeleteBtn() {
-		this.confirmService.confirm({
-			text: 'Are you sure you want to delete this application?'
-		}).then(async answer => {
-			if(!answer) return;
-			await this.applicationService.deleteApplicationById(this.application._id);
-			this.alertService.warning('Application deleted.');
-			this.router.navigate(['/admin/application/search']);
-		});
+		const ans = await this.confirmService.confirm({text:'Are you sure you want to delete this section?  This cannot be undone.'});
+		if(!ans) return;
+		await this.applicationService.deleteApplicationSectionById(this.application._id, this.section._id);
+		this.alertService.warning('Application Section deleted.');
+		this.router.navigate(['/admin/application', this.application._id]);
 	}
 
 	onPageClick(page:ApplicationPage) {

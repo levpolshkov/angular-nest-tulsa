@@ -36,4 +36,10 @@ export class ApplicationController {
 	deleteApplicationPageById(@Param('applicationId') applicationId:string, @Param('pageId') pageId:string, @Request() req) {
 		return this.applicationService.deleteApplicationPageById(applicationId, pageId, req.user);
 	}
+
+	@UseGuards(JwtAuthGuard)
+	@Delete('/:applicationId/section/:sectionId')
+	deleteApplicationSectionyId(@Param('applicationId') applicationId:string, @Param('sectionId') sectionId:string, @Request() req) {
+		return this.applicationService.deleteApplicationSectionById(applicationId, sectionId, req.user);
+	}
 }

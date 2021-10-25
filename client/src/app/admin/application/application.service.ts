@@ -52,6 +52,9 @@ export class AdminApplicationService {
 	deleteApplicationById(applicationId:string) {
 		return this.http.delete(`/application/${applicationId}`);
 	}
+	deleteApplicationSectionById(applicationId:string, section:string) {
+		return this.http.delete(`/application/${applicationId}/section/${section}`);
+	}
 	deleteApplicationPageById(applicationId:string, pageId:string) {
 		return this.http.delete(`/application/${applicationId}/page/${pageId}`);
 	}
