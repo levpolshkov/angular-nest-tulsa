@@ -7,6 +7,7 @@ export interface ApplicationQuestionOption {
 	label: string,
 	helperText?: string,
 	nextPageName?: string			// Go to this page if option is selected
+	nextPageId?: string
 };
 
 export interface ApplicationQuestion {
@@ -33,7 +34,8 @@ export interface ApplicationPage {
 	heroImage?: string,
 	heroHtml?: string,
 
-	nextPageName?: string
+	nextPageName?: string,
+	nextPageId?: string
 };
 
 export interface ApplicationSection {

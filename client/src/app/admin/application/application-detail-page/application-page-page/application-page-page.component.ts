@@ -5,7 +5,10 @@ import { AlertService } from 'src/app/admin/site/alert.service';
 import { ConfirmService } from 'src/app/admin/site/confirm.service';
 import { AdminApplicationService } from '../../application.service';
 
-
+interface NextPage {
+	label: string,
+	pageId: string
+};
 
 @Component({
 	selector: 'app-application-page-page',
@@ -20,6 +23,8 @@ export class ApplicationPagePageComponent implements OnInit {
 
 	pageTypes = this.applicationService.pageTypes;
 	questionTypes = this.applicationService.questionTypes;
+
+	nextPages:NextPage[] = [];
 
 	constructor(public applicationService:AdminApplicationService, private route:ActivatedRoute, private router:Router, private alertService:AlertService, private confirmService:ConfirmService) { }
 
@@ -40,6 +45,15 @@ export class ApplicationPagePageComponent implements OnInit {
 		} else {
 			this.page = this.section.pages.find(p => p._id===pageId);
 		}
+
+		this.nextPages = this.application.sections.map(section => {
+			return section.pages.map(page => {
+				return {
+					label: page.name,
+					pageId: page._id
+				};
+			});
+		}).reduce((a,b) => a.concat(b), []);
 	}
 
 	get isNew() {

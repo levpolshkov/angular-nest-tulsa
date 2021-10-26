@@ -13,7 +13,7 @@
 					<label class="form-label">Page ID</label>
 					<input class="form-control" name="pageId" [(ngModel)]="page.name" [disabled]="readonly" required>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-3">
 					<label class="form-label">Page Name</label>
 					<input class="form-control" name="pageTitle" [(ngModel)]="page.title" [disabled]="readonly" required>
 				</div>
@@ -21,6 +21,12 @@
 					<label class="form-label">Type</label>
 					<select class="form-select" name="pageType" [(ngModel)]="page.type" required>
 						<option [value]="type.id" *ngFor="let type of pageTypes">{{type.name}}</option>
+					</select>
+				</div>
+				<div class="col-md-3">
+					<label class="form-label">Next Page</label>
+					<select class="form-select" name="nextPageId" [(ngModel)]="page.nextPageId" required>
+						<option [value]="nextPage.pageId" *ngFor="let nextPage of nextPages">{{nextPage.label}}</option>
 					</select>
 				</div>
 			</div>
@@ -63,6 +69,7 @@
 							<tr>
 								<th>Option Label</th>
 								<th>Option Value</th>
+								<th>Next Page</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -72,6 +79,11 @@
 								</td>
 								<td>
 									<input class="form-control" name="optionValue{{questionIndex}}_{{optionIndex}}" [(ngModel)]="option.value" [disabled]="readonly" required>
+								</td>
+								<td>
+									<select class="form-select" name="{{questionIndex}}_{{optionIndex}}_nextPage" [(ngModel)]="option.nextPageId" required>
+										<option [value]="nextPage.pageId" *ngFor="let nextPage of nextPages">{{nextPage.label}}</option>
+									</select>
 								</td>
 							</tr>
 						</tbody>
