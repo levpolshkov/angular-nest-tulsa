@@ -3,6 +3,6 @@
 	X Add/delete sections
 	X Add/delete pages
 	X View link
-	- Next page logic
+	X Next page logic
 	- Sort pages/sections
 

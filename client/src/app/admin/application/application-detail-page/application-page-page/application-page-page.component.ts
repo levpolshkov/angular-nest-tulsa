@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Application, ApplicationSection, ApplicationPage, ApplicationQuestion } from '@server/application/application.interface';
+import { Application, ApplicationSection, ApplicationPage, ApplicationQuestion, ApplicationQuestionOption } from '@server/application/application.interface';
 import { AlertService } from 'src/app/admin/site/alert.service';
 import { ConfirmService } from 'src/app/admin/site/confirm.service';
 import { AdminApplicationService } from '../../application.service';
@@ -82,7 +82,6 @@ export class ApplicationPagePageComponent implements OnInit {
 			label: 'New Question'
 		});
 	}
-
 	async removeQuestion(question:ApplicationQuestion) {
 		const ans = await this.confirmService.confirm({text:'Are you sure you want to delete this question?'});
 		if(!ans) return;
@@ -93,6 +92,21 @@ export class ApplicationPagePageComponent implements OnInit {
 
 	onViewBtn() {
 		window.open(`/applicant/application?viewPage=${this.page._id}`, '_blank', '');
+	}
+
+
+	addQuestionOption(question:ApplicationQuestion) {
+		question.options.push({
+			label: 'New Option',
+			value: 'New Value'
+		});
+	}
+	async removeQuestionOption(question:ApplicationQuestion, option:ApplicationQuestionOption) {
+		const ans = await this.confirmService.confirm({text:'Are you sure you want to delete this option?'});
+		if(!ans) return;
+		const index = question.options.indexOf(option);
+		if(index===-1) return;
+		question.options.splice(index,1);
 	}
 
 }
