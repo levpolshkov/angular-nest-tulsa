@@ -24,12 +24,14 @@ export const applicationSchema = new mongoose.Schema({
 					value: mongoose.Schema.Types.Mixed,
 					label: String,
 					helperText: String,
-					nextPageName: String
+					nextPageName: String,
+					nextPageId: ObjectId
 				}]
 			}],
 			heroImage: String,
 			heroHtml: String,
-			nextPageName: String
+			nextPageName: String,
+			nextPageId: ObjectId
 		}]
 	}],
 

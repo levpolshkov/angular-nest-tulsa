@@ -126,6 +126,12 @@ export class ApplicationComponent implements OnInit {
 		this.loadPage(sectionIndex,pageIndex);
 	}
 
+	loadPageById(pageId:string) {
+		const sectionIndex = this.findSectionIndexByPageId(pageId);
+		const pageIndex = this.findPageIndexByPageId(pageId);
+		this.loadPage(sectionIndex,pageIndex);
+	}
+
 	async loadPage(sectionIndex:number, pageIndex:number) {
 		this.sectionIndex = sectionIndex;
 		this.pageIndex = pageIndex;
@@ -187,17 +193,6 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	async onNextBtn() {
-		// let nextPageIndex = this.pageIndex + 1;
-		// let nextSectionIndex = this.sectionIndex;
-
-		// if (this.page.nextPageName) {
-		// 	nextSectionIndex = this.findSectionIndexByPageName(this.page.nextPageName);
-		// 	if (nextSectionIndex === -1) nextSectionIndex = this.sectionIndex;
-		// 	nextPageIndex = this.findPageIndexByPageName(this.page.nextPageName);
-		// 	console.log('onNextBtn: nextPageName=%o, nextSectionIndex=%o, nextPageIndex=%o', this.page.nextPageName, nextSectionIndex, nextPageIndex);
-		// 	if (nextPageIndex === -1) nextPageIndex = this.pageIndex + 1;
-		// }
-
 		if (this.page.name === '5a.1') {
 			if (this.answers['primaryIncomeSourceFromCompany'] === "Yes") {
 				this.answers['employmentType'] = "Full Time Employee";
@@ -209,12 +204,6 @@ export class ApplicationComponent implements OnInit {
 		console.log('onNextBtn: nextPageName=%o', this.page.nextPageName);
 
 		this.loadPageByName(this.page.nextPageName)
-		// if (nextPageIndex > this.lastPageIndex) {
-		// 	nextSectionIndex++;
-		// 	if (this.sectionIndex < this.lastSectionIndex) this.gotoPage(nextSectionIndex, 0);
-		// } else {
-		// 	this.gotoPage(nextSectionIndex, nextPageIndex);
-		// }
 	}
 	onPrevBtn() {
 		const currentPageName = this.page.name;
@@ -247,16 +236,29 @@ export class ApplicationComponent implements OnInit {
         }
     }
 
-	findSectionIndexByPageName(pageName: string) {
+	findSectionIndexByPageName(pageName:string) {
 		return this.application.sections.findIndex(s => s.pages.find(p => p.name === pageName));
 	}
+	findSectionIndexByPageId(pageId:string) {
+		return this.application.sections.findIndex(s => s.pages.find(p => p._id === pageId));
+	}
 
-	findPageIndexByPageName(pageName: string) {
+	findPageIndexByPageName(pageName:string) {
 		const sectionIndex = this.findSectionIndexByPageName(pageName);
 		if (sectionIndex === -1) return -1;
 		const pageIndex = this.application.sections[sectionIndex].pages.findIndex(p => p.name === pageName);
-		// console.log('findPageIndexByName: pageName=%o, section=%o, pageIndex=%o', pageName, section, pageIndex);
 		return pageIndex;
+	}
+	findPageIndexByPageId(pageId:string) {
+		const sectionIndex = this.findSectionIndexByPageId(pageId);
+		if (sectionIndex === -1) return -1;
+		const pageIndex = this.application.sections[sectionIndex].pages.findIndex(p => p._id === pageId);
+		return pageIndex;
+	}
+	findPageByPageId(pageId:string) {
+		const sectionIndex = this.findSectionIndexByPageId(pageId);
+		if (sectionIndex === -1) return null;
+		return this.application.sections[sectionIndex].pages.find(p => p._id === pageId);
 	}
 
 	isActiveSection(section) {
@@ -265,8 +267,16 @@ export class ApplicationComponent implements OnInit {
 
 	selectQuestionOption(question: ApplicationQuestion, option: ApplicationQuestionOption) {
 		this.answers[question.key] = option.value || option.label;
-		// console.log('logging', this.answers[question.key]);
-		if (option.nextPageName) this.page.nextPageName = option.nextPageName;
+		console.log('selectQuestionOption: question=%o, option=%o', question, option);
+		if(option.nextPageId) {
+			this.page.nextPageId = option.nextPageId;
+			if(this.page.nextPageId) {
+				const nextPage = this.findPageByPageId(this.page.nextPageId);
+				console.log('getSelectedQuestionValue: nextPage=%o', nextPage);
+				this.page.nextPageName = nextPage?.name;
+			}
+		}
+		
 	}
 
 	isQuestionOptionSelected(question: ApplicationQuestion, option: ApplicationQuestionOption) {
@@ -275,9 +285,15 @@ export class ApplicationComponent implements OnInit {
 
 	getSelectedQuestionValue(question: ApplicationQuestion) {
 		if (question.type == 'radio') {
-			let selectedOpt = question.options.find(el => el.value == this.answers[question.key]);
-			this.page.nextPageName = selectedOpt.nextPageName;
-			console.log(this.page.nextPageName);
+			let option = question.options.find(el => el.value == this.answers[question.key]);
+			if(option) {
+				this.page.nextPageId = option.nextPageId;
+				if(this.page.nextPageId) {
+					const nextPage = this.findPageByPageId(this.page.nextPageId);
+					console.log('getSelectedQuestionValue: nextPage=%o', nextPage);
+					this.page.nextPageName = nextPage?.name;
+				}
+			}
 		}
 		else if (question.type == 'text') {
 			this.onQuestionAnswer(question);
