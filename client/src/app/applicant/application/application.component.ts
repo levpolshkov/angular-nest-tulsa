@@ -133,6 +133,7 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	async loadPage(sectionIndex:number, pageIndex:number) {
+		console.log('loadPage: sectionIndex=%o, pageIndex=%o', sectionIndex, pageIndex);
 		this.sectionIndex = sectionIndex;
 		this.pageIndex = pageIndex;
 
@@ -201,9 +202,12 @@ export class ApplicationComponent implements OnInit {
 
 		await this.saveResponse();
 
+		if(!this.page.nextPageName && this.page.nextPageId) {
+			const nextPage = this.findPageByPageId(this.page.nextPageId);
+			this.page.nextPageName = nextPage?.name;
+		}
 		console.log('onNextBtn: nextPageName=%o', this.page.nextPageName);
-
-		this.loadPageByName(this.page.nextPageName)
+		this.loadPageByName(this.page.nextPageName);
 	}
 	onPrevBtn() {
 		const currentPageName = this.page.name;
