@@ -21,6 +21,7 @@ export const applicationSchema = new mongoose.Schema({
 				bullhornKey: String,
 				optional: Boolean,
 				options: [{
+					order: Number,
 					value: mongoose.Schema.Types.Mixed,
 					label: String,
 					helperText: String,

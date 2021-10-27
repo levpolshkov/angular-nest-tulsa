@@ -61,6 +61,9 @@ export class ApplicationPagePageComponent implements OnInit {
 	}
 
 	async onSaveBtn() {
+		this.page.questions.forEach(question => {
+			question.options.sort((a,b) => a.order-b.order);
+		});
 		this.page.questions.sort((a,b) => a.order-b.order);
 		this.section.pages.sort((a,b) => a.order-b.order);
 		this.application = await this.applicationService.saveApplication(this.application);

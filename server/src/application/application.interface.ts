@@ -3,6 +3,7 @@ import { User } from '../user/user.interface';
 export type ApplicationQuestionType = 'label' | 'text' | 'phone' | 'email' | 'currency' | 'date' | 'number' | 'radio' | 'textarea' | 'url';
 export type ApplicationPageType = 'question' | 'hero' | 'single-question' | 'reject' | 'submit';
 export interface ApplicationQuestionOption {
+	order?: number,
 	value: string | number | boolean,
 	label: string,
 	helperText?: string,

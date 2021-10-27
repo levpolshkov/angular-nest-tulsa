@@ -104,12 +104,12 @@
 										<input class="form-control" name="optionValue{{questionIndex}}_{{optionIndex}}" [(ngModel)]="option.value" [disabled]="readonly" required>
 									</td>
 									<td>
-										<select class="form-select" name="{{questionIndex}}_{{optionIndex}}_nextPage" [(ngModel)]="option.nextPageId" required>
+										<select class="form-select" name="nextPage_{{questionIndex}}_{{optionIndex}}" [(ngModel)]="option.nextPageId" required>
 											<option [value]="nextPage.pageId" *ngFor="let nextPage of nextPages">{{nextPage.label}}</option>
 										</select>
 									</td>
 									<td>
-										<input class="form-control" name="optionOrder{{questionIndex}}_{{optionIndex}}" [(ngModel)]="option.value" [disabled]="readonly" required>
+										<input type="number" class="form-control" name="optionOrder{{questionIndex}}_{{optionIndex}}" min="0" max="999" [(ngModel)]="option.order" [disabled]="readonly" required>
 									</td>
 									<td>
 										<div class="float-end cursor-pointer text-danger mt-2" (click)="removeQuestionOption(question,option)">
