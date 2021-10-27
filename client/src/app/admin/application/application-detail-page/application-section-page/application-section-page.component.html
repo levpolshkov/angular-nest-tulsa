@@ -7,9 +7,13 @@
 				{{section.title}}
 			</h2>
 			<div class="row mb-3">
-				<div class="col-md-6">
+				<div class="col-md-9">
 					<label class="form-label">Section Name</label>
 					<input class="form-control" name="sectionTitle" [(ngModel)]="section.title" [disabled]="readonly" required>
+				</div>
+				<div class="col-md-3">
+					<label class="form-label">Section Order</label>
+					<input type="number" class="form-control" name="sectionOrder" min="0" max="999" [(ngModel)]="section.order" [disabled]="readonly" required>
 				</div>
 			</div>
 
@@ -24,6 +28,7 @@
 						<th>Name</th>
 						<th>Type</th>
 						<th>Questions</th>
+						<th>Order</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,6 +37,7 @@
 						<td>{{page.title}}</td>
 						<td><span [innerHtml]="applicationService.pageTypeRenderer(page.type)"></span></td>
 						<td>{{page.questions.length}}</td>
+						<td>{{page.order}}</td>
 					</tr>
 				</tbody>
 			</table>

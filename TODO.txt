@@ -6,5 +6,5 @@
 	X Next page logic
 	X Current Input
 	X Hero Page image
-	- Section/Page/Question sorting
+	X Section/Page/Question sorting
 

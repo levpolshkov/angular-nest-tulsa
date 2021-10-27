@@ -61,6 +61,8 @@ export class ApplicationPagePageComponent implements OnInit {
 	}
 
 	async onSaveBtn() {
+		this.page.questions.sort((a,b) => a.order-b.order);
+		this.section.pages.sort((a,b) => a.order-b.order);
 		this.application = await this.applicationService.saveApplication(this.application);
 		this.alertService.info('Application Page saved.');
 		this.router.navigate(['/admin/application', this.application._id, 'section', this.section._id]);

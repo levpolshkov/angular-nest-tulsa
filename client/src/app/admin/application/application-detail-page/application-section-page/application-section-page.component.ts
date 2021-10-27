@@ -39,6 +39,7 @@ export class ApplicationSectionPageComponent implements OnInit {
 	}
 
 	async onSaveBtn() {
+		this.application.sections.sort((a,b) => a.order-b.order);
 		this.application = await this.applicationService.saveApplication(this.application);
 		this.alertService.info('Application Section saved.');
 		this.router.navigate(['/admin/application', this.application._id]);

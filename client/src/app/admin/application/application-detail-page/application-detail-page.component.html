@@ -18,13 +18,14 @@
 					<tr>
 						<th>Name</th>
 						<th>Pages</th>
-						<!-- <th>Questions</th> -->
+						<th>Order</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="cursor-pointer" *ngFor="let section of application.sections; let sectionIndex=index" (click)="onSectionClick(section)">
 						<td>{{section.title}}</td>
 						<td>{{section.pages.length}}</td>
+						<td>{{section.order}}</td>
 					</tr>
 				</tbody>
 			</table>
