@@ -4,5 +4,7 @@
 	X Add/delete pages
 	X View link
 	X Next page logic
-	- Sort pages/sections
+	X Current Input
+	X Hero Page image
+	- Section/Page/Question sorting
 

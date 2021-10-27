@@ -20,7 +20,7 @@ export const questionTypes = [
 	{id:'textarea',				name:'Textarea Input',			class:''},
 	{id:'phone',				name:'Phone Input',				class:''},
 	{id:'email',				name:'Email Input',				class:''},
-	{id:'currency',				name:'Current Input',			class:''},
+	// {id:'currency',				name:'Currency Input',			class:''},
 	{id:'date',					name:'Date Input',				class:''},
 	{id:'number',				name:'Number Input',			class:''},
 	{id:'url',					name:'URL Input',				class:''},

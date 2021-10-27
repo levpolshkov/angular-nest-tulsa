@@ -23,7 +23,7 @@ export class ApplicationSearchPageComponent implements OnInit {
 		];
 		this.searchTable.onRowClick = p => this.onRowClick(p);
 		this.searchTable.defaultFilter = {type:null};
-		this.searchTable.addNewUrl = '/admin/application/new';
+		// this.searchTable.addNewUrl = '/admin/application/new';
 	}
 
 	onRowClick(application:Application) {
