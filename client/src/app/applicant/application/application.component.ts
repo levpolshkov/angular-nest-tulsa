@@ -52,6 +52,23 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	async loadResponse() {
+		if(this.route.snapshot.queryParams['viewPage']) {
+			const viewPageId = this.route.snapshot.queryParams['viewPage'];
+			const viewSection = this.application.sections.find(s => s.pages.find(p => p._id===viewPageId))
+			const viewPage = viewSection && viewSection.pages.find(p => p._id===viewPageId);
+			if(viewPage) {
+				this.response = {
+					status: 'pending',
+					application: this.application,
+					questionAnswers: [],
+					createDate: new Date(),
+					lastPage: viewPage.name
+				};
+				this.applicationService.debugMode = true;
+				await this.responseService.saveResponseLocal(this.response);
+			}
+		}
+
 		this.response = await this.responseService.loadResponseLocal();
 		if(!this.response) {
 			this.response = {
@@ -65,12 +82,7 @@ export class ApplicationComponent implements OnInit {
 			this.application = this.response.application;		// To make sure we restore page.nextPageName for Back button functionality
 		}
 
-		if(this.route.snapshot.queryParams['viewPage']) {
-			const viewPageId = this.route.snapshot.queryParams['viewPage'];
-			const viewSection = this.response.application.sections.find(s => s.pages.find(p => p._id===viewPageId))
-			const viewPage = viewSection && viewSection.pages.find(p => p._id===viewPageId);
-			if(viewPage) this.response.lastPage = viewPage.name;
-		}
+		
 
 		this.response.questionAnswers.forEach(qa => {
 			this.answers[qa.questionKey] = qa.answer;

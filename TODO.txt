@@ -3,7 +3,7 @@ X Bummer copy
 X Bummer image
 - Add option bug
 - Add page subtext
-- Add debug flag
+X Add debug flag
 - Add Reponses admin module
 - Add helper text for bullhornKey for note.application and note.partner
 - Collapse singleQuestion into question type
