@@ -33,7 +33,7 @@ export class UserDetailPageComponent implements OnInit {
 	async onSaveBtn() {
 		const user = await this.userService.saveUser(this.user);
 		this.alertService.info(`Successfully saved user`);
-		this.router.navigate(['/users']);
+		this.router.navigate(['/admin/users']);
 	}
 
 	async onDeleteBtn() {
@@ -44,7 +44,7 @@ export class UserDetailPageComponent implements OnInit {
 			if(!answer) return;
 			await this.userService.deleteUserById(this.user._id);
 			this.alertService.info('User deleted.');
-			this.router.navigate(['/users']);
+			this.router.navigate(['/admin/users']);
 		});
 	}
 
@@ -55,7 +55,7 @@ export class UserDetailPageComponent implements OnInit {
 			if(!answer) return;
 			await this.userService.resetPassword({username:this.user.email, reason:'reset'});
 			this.alertService.info('User password email sent.');
-			this.router.navigate(['/users']);
+			this.router.navigate(['/admin/users']);
 		});
 	}
 }

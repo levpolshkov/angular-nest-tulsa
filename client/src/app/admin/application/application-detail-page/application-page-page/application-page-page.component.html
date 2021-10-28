@@ -40,6 +40,21 @@
 					<label class="form-label">Hero Image URL</label>
 					<input class="form-control" name="heroImage" [(ngModel)]="page.heroImage" [disabled]="readonly" required>
 				</div>
+				<div class="col-md-12">
+					<label class="form-label">Hero HTML</label>
+					<textarea class="form-control" name="heroHtml" rows="5" [(ngModel)]="page.heroHtml" [disabled]="readonly" required></textarea>
+				</div>
+			</div>
+
+			<div class="row mb-3" *ngIf="page.type==='reject'">
+				<div class="col-md-12">
+					<label class="form-label">Bummer Image URL</label>
+					<input class="form-control" name="heroImage" [(ngModel)]="page.heroImage" [disabled]="readonly" required>
+				</div>
+				<div class="col-md-12">
+					<label class="form-label">Bummer HTML</label>
+					<textarea class="form-control" name="heroHtml" rows="5" [(ngModel)]="page.heroHtml" [disabled]="readonly" required></textarea>
+				</div>
 			</div>
 
 

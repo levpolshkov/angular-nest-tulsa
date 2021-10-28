@@ -1,3 +1,16 @@
+X Add question bug
+X Bummer copy
+X Bummer image
+- Add option bug
+- Add page subtext
+- Add debug flag
+- Add Reponses admin module
+- Add helper text for bullhornKey for note.application and note.partner
+- Collapse singleQuestion into question type
+- Pages without a nextPage
+- Enable Wayfinder hrefs/links
+
+
 - Auto-reconnect to MongoDB
 - Admin
 	X Add/delete sections
@@ -7,4 +20,7 @@
 	X Current Input
 	X Hero Page image
 	X Section/Page/Question sorting
+	- Password Reset Email
+	- Change Brand to Tulsa Remote
+
 
