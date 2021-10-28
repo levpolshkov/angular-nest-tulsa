@@ -13,6 +13,7 @@ export const applicationSchema = new mongoose.Schema({
 			order: Number,
 			name: String,
 			title: String,
+			subTitle: String,
 			questions: [{
 				order: Number,
 				type: {type: String},

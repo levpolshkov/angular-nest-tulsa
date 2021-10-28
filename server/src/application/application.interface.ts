@@ -30,6 +30,7 @@ export interface ApplicationPage {
 	name: string,			// Internal name for easy reference / branching logic
 
 	title: string,
+	subTitle?: string,
 	questions: ApplicationQuestion[],
 
 	heroImage?: string,

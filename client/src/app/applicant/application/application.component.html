@@ -1,19 +1,20 @@
 <div class="row vh-100" *ngIf="application && page">
 	<div class="col side1">
-        <div class="fixed-height">
-            <h3><img src="/assets/raw/TRlogo-white.svg" alt="Tulsa Remote" /></h3>
-            <div class="hero-image" style="background-image: url({{page.heroImage}})" *ngIf="page.heroImage">
-                <h3><img src="/assets/raw/TRlogo.svg" alt="Tulsa Remote" /></h3>
-            </div>
-            <div class="page-title">
-                <h3>{{page.title}}</h3>
-                <div *ngIf="applicationService.debugMode && page.name">[{{page.name}}]</div>
-            </div>
-            <div class="version">{{version}}</div>
-        </div>
+		<div class="fixed-height">
+			<h3><img src="/assets/raw/TRlogo-white.svg" alt="Tulsa Remote" /></h3>
+			<div class="hero-image" style="background-image: url({{page.heroImage}})" *ngIf="page.heroImage">
+				<h3><img src="/assets/raw/TRlogo.svg" alt="Tulsa Remote" /></h3>
+			</div>
+			<div class="page-title">
+				<h3>{{page.title}}</h3>
+				<h4>{{page.subTitle}}</h4>
+				<div *ngIf="applicationService.debugMode && page.name">[{{page.name}}]</div>
+			</div>
+			<div class="version">{{version}}</div>
+		</div>
 	</div>
 	<div class="col side2" [class.hero-page-content]="page.heroImage">
-        
+		
 		<div class="wayfinder text-center" *ngIf="!page.heroImage">
 			<wayfinder [sections]="application.sections" [sectionIndex]="sectionIndex" [pageIndex]="pageIndex"></wayfinder>
 		</div>
@@ -80,21 +81,21 @@
 			<small class="helperText">If you feel we’ve made an error, please contact us at <a class="text-light" href="mailto:info@tulsaremote.com" target="_blank">info@tulsaremote.com</a></small>
 		</div>
 
-        <div *ngIf="page.type==='submit'" class="exit-meta">
-            <div class="return-link"><a class="btn --plain-link --reverse" href="https://tulsaremote.com">Return to website</a></div>
-            <ul class="social-media">
-                <li><a class="facebook" href="https://www.facebook.com/tulsaremote"><span class="visually-hidden">Facebook</span></a></li>
-                <li><a class="twitter" href="https://twitter.com/tulsaremote"><span class="visually-hidden">Twitter</span></a></li>
-                <li><a class="linkedin" href="https://www.linkedin.com/company/tulsaremote/"><span class="visually-hidden">LinkedIn</span></a></li>
-            </ul>
-        </div>
+		<div *ngIf="page.type==='submit'" class="exit-meta">
+			<div class="return-link"><a class="btn --plain-link --reverse" href="https://tulsaremote.com">Return to website</a></div>
+			<ul class="social-media">
+				<li><a class="facebook" href="https://www.facebook.com/tulsaremote"><span class="visually-hidden">Facebook</span></a></li>
+				<li><a class="twitter" href="https://twitter.com/tulsaremote"><span class="visually-hidden">Twitter</span></a></li>
+				<li><a class="linkedin" href="https://www.linkedin.com/company/tulsaremote/"><span class="visually-hidden">LinkedIn</span></a></li>
+			</ul>
+		</div>
 
 		<div class="buttons px-4" *ngIf="page.type!=='reject' && page.type!=='submit' && page.name!=='welcome'">
 			<button class="btn --plain-link" (click)="onPrevBtn()">Back</button>
-            <button class="btn --next" (click)="onNextBtn()" [disabled]="!canNext || !inputReady">
-                Next
-                <span *ngIf="applicationService.debugMode && page.nextPageName">[{{page.nextPageName}}]</span>
-            </button>
+			<button class="btn --next" (click)="onNextBtn()" [disabled]="!canNext || !inputReady">
+				Next
+				<span *ngIf="applicationService.debugMode && page.nextPageName">[{{page.nextPageName}}]</span>
+			</button>
 		</div>
 
 		<div class="buttons --dark px-4 text-right" *ngIf="page.name==='welcome'">

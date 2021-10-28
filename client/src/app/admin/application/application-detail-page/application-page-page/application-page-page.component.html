@@ -9,15 +9,19 @@
 				{{page.title || 'Unnamed Page'}}
 			</h2>
 			<div class="row mb-3">
-				<div class="col-md-2">
+				<div class="col-md-1">
 					<label class="form-label">Page ID</label>
 					<input class="form-control" name="pageId" [(ngModel)]="page.name" [disabled]="readonly" required>
 				</div>
 				<div class="col-md-3">
-					<label class="form-label">Page Name</label>
+					<label class="form-label">Page Title</label>
 					<input class="form-control" name="pageTitle" [(ngModel)]="page.title" [disabled]="readonly" required>
 				</div>
 				<div class="col-md-3">
+					<label class="form-label">Sub Title</label>
+					<input class="form-control" name="pageSubTitle" [(ngModel)]="page.subTitle" [disabled]="readonly">
+				</div>
+				<div class="col-md-2">
 					<label class="form-label">Type</label>
 					<select class="form-select" name="pageType" [(ngModel)]="page.type" required>
 						<option [value]="type.id" *ngFor="let type of pageTypes">{{type.name}}</option>
@@ -29,7 +33,7 @@
 						<option [value]="nextPage.pageId" *ngFor="let nextPage of nextPages">{{nextPage.label}}</option>
 					</select>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-1">
 					<label class="form-label">Page Order</label>
 					<input type="number" class="form-control" name="order" min="0" max="999" [(ngModel)]="page.order" [disabled]="readonly" required>
 				</div>
