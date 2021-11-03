@@ -4,7 +4,7 @@ X Bummer image
 X Add option bug
 X Add page subtext
 X Add debug flag
-- Add Reponses admin module
+X Add Reponses admin module
 X Add helper text for bullhornKey for note.application and note.partner
 - Collapse singleQuestion into question type
 - Pages without a nextPage
@@ -22,5 +22,4 @@ X Add helper text for bullhornKey for note.application and note.partner
 	X Section/Page/Question sorting
 	- Password Reset Email
 	- Change Brand to Tulsa Remote
-
 

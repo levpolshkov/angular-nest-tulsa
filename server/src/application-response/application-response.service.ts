@@ -27,6 +27,35 @@ export class ApplicationResponseService {
 		
 	}
 
+
+	searchResponses(queryParams:object):Promise<SearchResult<ApplicationResponseDocument>> {
+		return this.searchService.searchModelFromQueryParams<ApplicationResponseDocument>(this.responseModel, queryParams, {
+			filterFunction: async (params:SearchParams) => {
+				const query:any = {deleted:{$ne:true}};
+				if(!params.filter) return query;
+				if(params.filter.name) {
+					query['$or'] = [{
+						'questionAnswers': {$elemMatch: {
+							questionKey: 'firstName',
+							answer: this.searchService.regexMatch(params.filter.name)
+						}}
+					},{
+						'questionAnswers': {$elemMatch: {
+							questionKey: 'lastName',
+							answer: this.searchService.regexMatch(params.filter.name)
+						}}
+					}];
+				}
+				return query;
+			},
+			lean: true
+		});
+	}
+
+	getResponseById(responseId:string):Promise<ApplicationResponseDocument> {
+		return this.responseModel.findById(responseId).populate('company').exec();
+	}
+	
 	onFailedBullhornSubmission(response:ApplicationResponse, responseNote:string, error:any) {
 		const to = this.configService.get('FAILED_BULLHORN_EMAIL');
 		if(!to) return;

@@ -156,7 +156,7 @@ export class UserService {
 				resetLink
 			},
 			to: user.email,
-			subject: 'Welcome to Brand!'
+			subject: 'Welcome to Tulsa Remote Admin!'
 		});
 	}
 

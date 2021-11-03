@@ -36,8 +36,8 @@ Run `npm start` in both the `client` and `server` directories.
 
 # Rename files/contents
 ```
-find . -type f -exec rename 's/product/application/' {} \;
-find . -type f -exec sed -i 's/product/application/g' {} \;
-find . -type f -exec sed -i 's/Product/Application/g' {} \;
+find . -type f -exec rename 's/product/application-response/' {} \;
+find . -type f -exec sed -i 's/product/applicationResponse/g' {} \;
+find . -type f -exec sed -i 's/Product/ApplicationResponse/g' {} \;
 ```
 

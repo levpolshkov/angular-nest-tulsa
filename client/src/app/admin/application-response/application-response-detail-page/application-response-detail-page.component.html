@@ -1,0 +1,38 @@
+<form #form="ngForm" *ngIf="response">
+	<div class="card bg-light mt-3 mb-3">
+		<div class="card-body">
+			<h2 class="card-title">ApplicationResponse Detail</h2>
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<label class="form-label">Applicant Name</label>
+					<input class="form-control" name="applicationResponseName" [(ngModel)]="fullName" disabled required>
+				</div>
+				<div class="col-md-3">
+					<label class="form-label">Status</label>
+					<select class="form-select" name="applicationResponseStatus" [(ngModel)]="response.status" required>
+						<option [value]="applicationResponseStatus.id" *ngFor="let applicationResponseStatus of responseService.applicationResponseStatuses">{{applicationResponseStatus.name}}</option>
+					</select>
+				</div>
+			</div>
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Key</th>
+						<th>Answer</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let questionAnswer of response.questionAnswers">
+						<td>{{questionAnswer.questionKey}}</td>
+						<td>{{questionAnswer.answer}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- <div class="card-footer d-flex justify-content-between">
+			<button class="btn btn-primary" (click)="onSaveBtn()" [disabled]="!form.valid || form.pristine">Save</button>
+			<button class="btn btn-danger" (click)="onDeleteBtn()" *ngIf="!isNew">Delete</button>
+		</div> -->
+	</div>
+</form>
