@@ -3,15 +3,23 @@
 		<div class="card-body">
 			<h2 class="card-title">ApplicationResponse Detail</h2>
 			<div class="row mb-3">
-				<div class="col-md-6">
+				<div class="col-md-3">
 					<label class="form-label">Applicant Name</label>
-					<input class="form-control" name="applicationResponseName" [(ngModel)]="fullName" disabled required>
+					<input class="form-control" name="fullName" [value]="fullName" disabled required>
 				</div>
 				<div class="col-md-3">
 					<label class="form-label">Status</label>
-					<select class="form-select" name="applicationResponseStatus" [(ngModel)]="response.status" required>
+					<select class="form-select" name="status" [(ngModel)]="response.status" disabled required>
 						<option [value]="applicationResponseStatus.id" *ngFor="let applicationResponseStatus of responseService.applicationResponseStatuses">{{applicationResponseStatus.name}}</option>
 					</select>
+				</div>
+				<div class="col-md-3">
+					<label class="form-label">Create Date</label>
+					<input class="form-control" name="createDate" [value]="response.createDate | date:'short'" disabled required>
+				</div>
+				<div class="col-md-3">
+					<label class="form-label">Bullhorn Candidate ID</label>
+					<input class="form-control" name="bullhornCandidateId" [value]="response.bullhornCandidateId || ''" disabled required>
 				</div>
 			</div>
 
