@@ -27,7 +27,7 @@ export class UserLoginPageComponent implements OnInit {
 		console.log('UserResetComponent: userJwt=%o', userJwt);
 		const user = await this.userService.loginWithUserJwt(userJwt);
 		if(user) {
-			this.router.navigate(['/user/profile'], {queryParams:{changePassword:true}})
+			this.router.navigate(['/admin/user/profile'], {queryParams:{changePassword:true}})
 		}
 	}
 

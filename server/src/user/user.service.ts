@@ -116,7 +116,7 @@ export class UserService {
 		if(!user) throw new HttpException({message:'Username not found.  Please contact support.', email:username, type:'user'}, 400);
 		if(!user.active) throw new HttpException({message:'User is disabled. Please contact support.', email:username, type:'disabled'}, 400);
 		const resetCode = this.authService.hashPassword(username + Date.now() + Math.random());
-		const link = `${this.configService.get('FRONTEND_URL')}/users/reset/${resetCode}`;
+		const link = `${this.configService.get('FRONTEND_URL')}/admin/user/login?resetCode=${resetCode}`;
 
 		console.log('resetPasswordStart: link=%o', link);
 		user.resetCode = resetCode;

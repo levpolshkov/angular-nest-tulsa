@@ -23,7 +23,7 @@ export class UserProfilePageComponent implements OnInit {
 	async onSaveBtn() {
 		const user = await this.userService.saveUser(this.user);
 		this.alertService.info(`Successfully saved user profile`);
-		this.router.navigate(['/']);
+		this.router.navigate(['/admin/user']);
 	}
 
 	async onChangePasswordBtn() {

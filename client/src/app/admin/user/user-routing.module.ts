@@ -14,6 +14,7 @@ const routes:Routes = [
 	{path:'profile',			canActivate:[UserGuard],	component:UserProfilePageComponent},
 	{path:'search',				canActivate:[UserGuard],	component:UserSearchPageComponent},
 	{path:':userId',			canActivate:[UserGuard],	component:UserDetailPageComponent},
+	
 ];
 
 @NgModule({
