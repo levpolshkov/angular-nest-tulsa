@@ -20,12 +20,12 @@ export class ApplicationResponseSearchPageComponent implements OnInit {
 			{field:'name',				header:'Applicant Name',		renderer: r => this.renderName(r)},
 			{field:'status',			header:'Status',				hide:'sm', renderer: r => this.responseService.applicationResponseStatusRenderer(r.status)},
 			{field:'createDate',		header:'Create Date',			renderer:'date:short'},
+			{field:'ipAddress',			header:'IP Address',			hide:'sm'},
 		];
 		this.searchTable.onRowClick = p => this.onRowClick(p);
 		this.searchTable.defaultFilter = {type:null};
 		// this.searchTable.addNewUrl = '/application-response/new';
 	}
-
 
 
 	renderName(response:ApplicationResponse) {
