@@ -33,6 +33,8 @@ export class ApplicationComponent implements OnInit {
 
 	bummerSubmitted = false;
 
+	nextPageLoading = false;
+
 	constructor(public applicationService:ApplicationService, private responseService:ApplicationResponseService, private route:ActivatedRoute, private router:Router, private googleMapsService:GoogleMapsService) { }
 
 	async ngOnInit() {
@@ -212,7 +214,9 @@ export class ApplicationComponent implements OnInit {
 			}
 		}
 
+		this.nextPageLoading = true;
 		await this.saveResponse();
+		this.nextPageLoading = false;
 
 		if(!this.page.nextPageName && this.page.nextPageId) {
 			const nextPage = this.findPageByPageId(this.page.nextPageId);
