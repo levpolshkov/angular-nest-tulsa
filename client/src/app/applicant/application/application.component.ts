@@ -25,6 +25,7 @@ export class ApplicationComponent implements OnInit {
 	sectionIndex: number = 0;
 
 	answers: any = {};
+	answerLabels: any = {};
 	response: ApplicationResponse;
 
 	inputReady: Boolean;
@@ -108,7 +109,8 @@ export class ApplicationComponent implements OnInit {
 		this.response.questionAnswers = Object.keys(this.answers).map(questionKey => {
 			return {
 				questionKey,
-				answer: this.answers[questionKey]
+				answer: this.answers[questionKey],
+				answerLabel: this.answerLabels[questionKey]
 			};
 		});
 		this.response.application = this.application;
@@ -287,6 +289,7 @@ export class ApplicationComponent implements OnInit {
 
 	selectQuestionOption(question: ApplicationQuestion, option: ApplicationQuestionOption) {
 		this.answers[question.key] = option.value || option.label;
+		this.answerLabels[question.key] = option.label || option.value;
 		console.log('selectQuestionOption: question=%o, option=%o', question, option);
 		if(option.nextPageId) {
 			this.page.nextPageId = option.nextPageId;

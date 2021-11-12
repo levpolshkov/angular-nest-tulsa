@@ -3,7 +3,8 @@ import { User } from '../user/user.interface';
 
 export interface ApplicationResponseQuestionAnswer {
 	questionKey: string,
-	answer: any
+	answer: any,
+	answerLabel?: string
 };
 
 export type ApplicationResponseStatus = 'rejected' | 'submitted' | 'pending';

@@ -13,7 +13,8 @@ export const applicationResponseSchema = new mongoose.Schema({
 	application: applicationSchema,
 	questionAnswers: [{
 		questionKey: String,
-		answer: mongoose.Schema.Types.Mixed
+		answer: mongoose.Schema.Types.Mixed,
+		answerLabel: String
 	}],
 
 	bullhornCandidateId: Number,

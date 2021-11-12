@@ -111,7 +111,7 @@ export class ApplicationResponseService {
 			// console.log('submitResponseToBullhorn: qa=%o, bullhornKey=%o', qa, bullhornKey);
 
 			if(!bullhornKey) return;
-			const noteLine = `<b>${question.label || question.key}</b><br>${qa.answer}`;
+			const noteLine = `<b>${question.label || question.key}</b><br>${qa.answerLabel || qa.answer}`;
 			responseNoteLines.push(noteLine);
 			switch(bullhornKey) {
 				case 'dateOfBirth':
