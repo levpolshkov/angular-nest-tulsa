@@ -366,6 +366,7 @@ export class ApplicationComponent implements OnInit {
 					this.answers['address.state'] = info.stateName;
 					this.answers['address.zipcode'] = info.zipcode;
 				}
+				if (info.state === 'OK') this.page.nextPageName = '8a.1';
 			}
 		}
 	}
