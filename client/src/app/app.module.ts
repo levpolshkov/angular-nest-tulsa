@@ -6,6 +6,7 @@ import { FormsModule }					from '@angular/forms';
 
 import { NgbModule }					from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule }		 		from 'ngx-mask';
+import { GoogleTagManagerModule } 		from 'angular-google-tag-manager';
 
 import { AppRoutingModule }				from './app-routing.module';
 import { AppComponent }					from './app.component';
@@ -20,7 +21,10 @@ import { AppComponent }					from './app.component';
 		HttpClientModule,
 		FormsModule,
 		NgbModule,
-		NgxMaskModule.forRoot()
+		NgxMaskModule.forRoot(),
+		GoogleTagManagerModule.forRoot({
+			id: 'GTM-5PLRRM9',
+		})
 	],
 	providers: [
 		DatePipe,

@@ -4,11 +4,10 @@ import { ApplicationPage, ApplicationQuestion, ApplicationQuestionOption, Applic
 import { Application, ApplicationService } from './application.service';
 import { DateTime } from 'luxon';
 import { GoogleMapsService } from 'src/app/shared/google-maps.service';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { ApplicationResponse } from '@server/application-response/application-response.interface';
 import { ApplicationResponseService } from './application-response.service';
 import packageJson					from '../../../../package.json';
-
-declare const gtag;
 
 @Component({
 	selector: 'app-application',
@@ -36,7 +35,7 @@ export class ApplicationComponent implements OnInit {
 
 	nextPageLoading = false;
 
-	constructor(public applicationService:ApplicationService, private responseService:ApplicationResponseService, private route:ActivatedRoute, private router:Router, private googleMapsService:GoogleMapsService) { }
+	constructor(public applicationService:ApplicationService, private responseService:ApplicationResponseService, private route:ActivatedRoute, private router:Router, private googleMapsService:GoogleMapsService, private googleTagManagerService: GoogleTagManagerService) { }
 
 	async ngOnInit() {
 		this.application = await this.applicationService.searchApplications({ filter: {} }).then(r => r.records[0]);
@@ -189,12 +188,11 @@ export class ApplicationComponent implements OnInit {
 			console.log('Employment: At 14.5a: employmentType=%o, nextPageName=%o', this.answers['employmentType'], this.page.nextPageName);
 		}
 
-		if(gtag) {
-			console.log('Sending GA event');
-			gtag('event', 'loadPage', {
-				pageName: this.page.name
-			});
-		}
+		const gtmTag = {
+			event: 'loadPage',
+			pageName: this.page.name
+		};
+		this.googleTagManagerService.pushTag(gtmTag);
 
 		if(this.page.type==='submit') await this.submitResponse();
 		if(this.page.type==='reject') await this.rejectResponse();
@@ -387,11 +385,11 @@ export class ApplicationComponent implements OnInit {
 		this.response = await this.responseService.submitResponse(this.response);
 		console.log('rejectResponse: response=%o', this.response);
 		this.saveResponse();
-		if(gtag) {
-			gtag('event', 'bummer', {
+		const gtmTag = {
+			event: 'bummer',
 			pageName: this.page.name
-		});
-	}
+		};
+		this.googleTagManagerService.pushTag(gtmTag);
 	}
 
 	async submitResponse() {
@@ -404,11 +402,11 @@ export class ApplicationComponent implements OnInit {
 		this.response = await this.responseService.submitResponse(this.response);
 		console.log('submitResponse: response=%o', this.response);
 		await this.saveResponse();
-		if(gtag) {
-				gtag('event', 'submit', {
-				pageName: this.page.name
-			});
-		}
+		const gtmTag = {
+			event: 'submit',
+			pageName: this.page.name
+		};
+		this.googleTagManagerService.pushTag(gtmTag);
 	}
 
 	get canNext() {
