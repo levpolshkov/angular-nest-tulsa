@@ -54,7 +54,7 @@
                             "key" : "phone",
                             "bullhornKey" : "phone",
                             "options" : []
-                        },
+                        }, 
                         {
                             "_id" : ObjectId("6196acc07d2525c57157402a"),
                             "order" : 6,
