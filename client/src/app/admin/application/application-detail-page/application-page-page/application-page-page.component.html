@@ -15,7 +15,7 @@
 				</div>
 				<div class="col-md-3">
 					<label class="form-label">Page Title</label>
-					<input class="form-control" name="pageTitle" [(ngModel)]="page.title" [disabled]="readonly" required>
+					<input class="form-control" name="pageTitle" [(ngModel)]="page.title" [disabled]="readonly" [required]="page.type!=='hero' && page.type!=='reject'">
 				</div>
 				<div class="col-md-3">
 					<label class="form-label">Sub Title</label>
@@ -29,7 +29,7 @@
 				</div>
 				<div class="col-md-2">
 					<label class="form-label">Next Page</label>
-					<select class="form-select" name="nextPageId" [(ngModel)]="page.nextPageId" required>
+					<select class="form-select" name="nextPageId" [(ngModel)]="page.nextPageId" [required]="!multipleNextPages && page.type!=='reject'">
 						<option [value]="nextPage.pageId" *ngFor="let nextPage of nextPages">{{nextPage.label}}</option>
 					</select>
 				</div>
@@ -84,15 +84,19 @@
 							<label class="form-label">Question Key</label>
 							<input class="form-control" name="questionKey{{questionIndex}}" [(ngModel)]="question.key" [disabled]="readonly || question.type==='label'" required>
 						</div>
+						<div class="col-2">
+							<label class="form-label">Bullhorn Key</label>
+							<input class="form-control" name="questionBullhornKey{{questionIndex}}" [(ngModel)]="question.bullhornKey" [disabled]="readonly || question.type==='label'">
+						</div>
 						<div class="col-4">
 							<label class="form-label">Question Label</label>
 							<input class="form-control" name="questionLabel{{questionIndex}}" [(ngModel)]="question.label" [disabled]="readonly" required>
 						</div>
-						<div class="col-2">
+						<div class="col-1">
 							<label class="form-label">Question Order</label>
 							<input type="number" class="form-control" name="questionOrder{{questionIndex}}" min="0" max="999" [(ngModel)]="question.order" [disabled]="readonly" required>
 						</div>
-						<div class="col-2">
+						<div class="col-1">
 							<div class="form-check">
 								<label class=" form-check-label" for="questionOptional{{questionIndex}}">Optional</label><br>
 								<input class="ms-0 form-check-input" type="checkbox" id="questionOptional{{questionIndex}}" name="questionOptional{{questionIndex}}" [(ngModel)]="question.optional" [disabled]="readonly || question.type==='label'">
@@ -123,7 +127,7 @@
 										<input class="form-control" name="optionValue{{questionIndex}}_{{optionIndex}}" [(ngModel)]="option.value" [disabled]="readonly" required>
 									</td>
 									<td>
-										<select class="form-select" name="nextPage_{{questionIndex}}_{{optionIndex}}" [(ngModel)]="option.nextPageId" required>
+										<select class="form-select" name="nextPage_{{questionIndex}}_{{optionIndex}}" [(ngModel)]="option.nextPageId" [required]="!page.nextPageId">
 											<option [value]="nextPage.pageId" *ngFor="let nextPage of nextPages">{{nextPage.label}}</option>
 										</select>
 									</td>
@@ -144,7 +148,7 @@
 		</div>
 
 		<div class="card-footer d-flex justify-content-between">
-			<button class="btn btn-primary" (click)="onSaveBtn()" [disabled]="!form.valid">Save</button>
+			<button class="btn btn-primary" (click)="onSaveBtn()" [disabled]="!form.valid || form.pristine">Save</button>
 			<button class="btn btn-success" (click)="onViewBtn()" [disabled]="!form.valid">View</button>
 			<button class="btn btn-danger" (click)="onDeleteBtn()" *ngIf="!isNew">Delete</button>
 		</div>

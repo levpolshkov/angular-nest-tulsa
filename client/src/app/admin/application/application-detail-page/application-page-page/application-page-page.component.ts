@@ -28,6 +28,9 @@ export class ApplicationPagePageComponent implements OnInit {
 
 	constructor(public applicationService:AdminApplicationService, private route:ActivatedRoute, private router:Router, private alertService:AlertService, private confirmService:ConfirmService) { }
 
+	get multipleNextPages(): boolean {
+		return this.page?.questions.some(question => question.type === 'radio');
+	}
 
 	async ngOnInit() {
 		const applicationId = this.route.snapshot.params.applicationId;
