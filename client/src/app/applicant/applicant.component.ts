@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApplicantComponent implements OnInit {
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit() {
+		if(window['gtag']) window['gtag']('config', 'AW-10781414996');
+	}
 
 }
