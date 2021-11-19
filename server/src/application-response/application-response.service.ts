@@ -1,10 +1,12 @@
 import { BadRequestException, HttpException, Injectable }		from '@nestjs/common';
 import { InjectModel }											from '@nestjs/mongoose';
+import { Cron }													from '@nestjs/schedule';
+
 import { DateTime }												from 'luxon';
 
 import { DocumentService, mongoose }							from '@app/database';
 import { SearchParams, SearchResult, SearchService }			from '@app/search';
-import { LoggerService, PostmarkService }						from '@app/utility';
+import { LoggerService, PostmarkService, serialPromise }		from '@app/utility';
 import { ApplicationResponse, ApplicationResponseDocument }		from './application-response.schema';
 import { BullhornService } from 'src/bullhorn/bullhorn.service';
 import { Application } from 'src/application';
@@ -24,7 +26,19 @@ export class ApplicationResponseService {
 		private configService:ConfigService,
 		private postmarkService:PostmarkService
 	) {
-		
+		setTimeout(() => this.resubmitResponses(), 5000);
+	}
+
+	@Cron('0 3 * * * *')
+	async resubmitResponses() {
+		const responses = await this.responseModel.find({status:'submitted', bullhornCandidateId:{$exists:false}});
+		this.logger.log('resubmitResponses: responses=%o', responses.length);
+		return serialPromise(responses, (response:ApplicationResponseDocument) => {
+			return this.submitResponseToBullhorn(response).catch(err => {
+				this.logger.error('resubmitResponses: submitResponseToBullhorn err=%o', err);
+				return null;
+			});
+		});
 	}
 
 
