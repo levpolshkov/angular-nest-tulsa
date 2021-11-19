@@ -1,3 +1,11 @@
+<!-- Event snippet for application submitted page -->
+<script *ngIf="page.type === 'submit'">
+	gtag('event', 'conversion', {'send_to': 'AW-10781414996/TxfPCL2QxIMDENSs_ZQo',
+		'value': 1.0,
+		'currency': 'USD'
+	});
+	fbq('track', 'SubmitApplication');
+</script>
 <div class="row vh-100" *ngIf="application && page">
 	<div class="col side1">
 		<div class="fixed-height">
