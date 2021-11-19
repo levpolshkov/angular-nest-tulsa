@@ -214,10 +214,6 @@ export class ApplicationComponent implements OnInit {
 			}
 		}
 
-		if (this.page.name === '33a') {
-			window['lintrk']('track', { conversion_id: 5582972 });
-		}
-
 		this.nextPageLoading = true;
 		await this.saveResponse();
 		this.nextPageLoading = false;
@@ -389,11 +385,11 @@ export class ApplicationComponent implements OnInit {
 		this.response = await this.responseService.submitResponse(this.response);
 		console.log('rejectResponse: response=%o', this.response);
 		this.saveResponse();
-		const gtmTag = {
+
+		this.googleTagManagerService.pushTag({
 			event: 'bummer',
 			pageName: this.page.name
-		};
-		this.googleTagManagerService.pushTag(gtmTag);
+		});
 	}
 
 	async submitResponse() {
@@ -406,11 +402,31 @@ export class ApplicationComponent implements OnInit {
 		this.response = await this.responseService.submitResponse(this.response);
 		console.log('submitResponse: response=%o', this.response);
 		await this.saveResponse();
-		const gtmTag = {
-			event: 'submit',
-			pageName: this.page.name
-		};
-		this.googleTagManagerService.pushTag(gtmTag);
+
+		try {
+			this.googleTagManagerService.pushTag({
+				event: 'submit',
+				pageName: this.page.name
+			});
+
+			if(window['gtag']) {
+				window['gtag']('event', 'conversion', {
+					'send_to': 'AW-10781414996/TxfPCL2QxIMDENSs_ZQo',
+					'value': 1.0,
+					'currency': 'USD'
+				});
+			}
+
+			if(window['lintrk']) {
+				window['lintrk']('track', {conversion_id:5582972});
+			}
+
+			if(window['fbq']) {
+				window['fbq']('track', 'SubmitApplication');
+			}
+		} catch(err) {
+			console.error('submitResponse: tracker threw error: %o', err);
+		}
 	}
 
 	get canNext() {
