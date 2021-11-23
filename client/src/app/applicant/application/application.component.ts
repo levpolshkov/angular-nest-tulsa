@@ -465,10 +465,6 @@ export class ApplicationComponent implements OnInit {
 	isBirthDateValid(birthDate:string) {
 		const birthDateObject = new Date(birthDate);
 		birthDateObject.setUTCHours(this.today.getUTCHours(), this.today.getUTCMinutes(), this.today.getUTCSeconds());
-
-		console.log('birthDateObject :>> ', birthDateObject);
-		console.log('this.today :>> ', this.today);
-
 		const isFutureDate = birthDateObject > this.today;
 
 		return birthDate.startsWith('19') || (birthDate.startsWith('2') && !isFutureDate);
