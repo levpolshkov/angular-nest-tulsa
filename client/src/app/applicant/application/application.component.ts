@@ -35,6 +35,8 @@ export class ApplicationComponent implements OnInit {
 
 	nextPageLoading = false;
 
+    today = new Date();
+
 	constructor(public applicationService:ApplicationService, private responseService:ApplicationResponseService, private route:ActivatedRoute, private router:Router, private googleMapsService:GoogleMapsService, private googleTagManagerService: GoogleTagManagerService) { }
 
 	async ngOnInit() {
@@ -436,6 +438,7 @@ export class ApplicationComponent implements OnInit {
 	isQuestionValid(question:ApplicationQuestion) {
 		const value = this.answers[question.key];
 		if(question.optional && !value) return true;
+		if(question.key === 'birthDate') return this.isBirthDateValid(value);
 		switch(question.type) {
 			case 'label':	return true;
 			case 'radio':
@@ -458,5 +461,16 @@ export class ApplicationComponent implements OnInit {
 	}
 	isUrlValid(url:string) {
 		return !!(url && url.match(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/));
+	}
+	isBirthDateValid(birthDate:string) {
+		const birthDateObject = new Date(birthDate);
+		birthDateObject.setUTCHours(this.today.getUTCHours(), this.today.getUTCMinutes(), this.today.getUTCSeconds());
+
+		console.log('birthDateObject :>> ', birthDateObject);
+		console.log('this.today :>> ', this.today);
+
+		const isFutureDate = birthDateObject > this.today;
+
+		return birthDate.startsWith('19') || (birthDate.startsWith('2') && !isFutureDate);
 	}
 }
