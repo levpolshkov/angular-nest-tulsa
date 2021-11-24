@@ -464,9 +464,9 @@ export class ApplicationComponent implements OnInit {
 	}
 	isBirthDateValid(birthDate:string) {
 		const birthDateObject = new Date(birthDate);
-		birthDateObject.setUTCHours(this.today.getUTCHours(), this.today.getUTCMinutes(), this.today.getUTCSeconds());
+		birthDateObject?.setUTCHours(this.today.getUTCHours(), this.today.getUTCMinutes(), this.today.getUTCSeconds());
 		const isFutureDate = birthDateObject > this.today;
 
-		return birthDate.startsWith('19') || (birthDate.startsWith('2') && !isFutureDate);
+		return birthDate?.startsWith('19') || (birthDate?.startsWith('2') && !isFutureDate);
 	}
 }
