@@ -5,7 +5,7 @@ import Bullhorn				from 'bullhorn-api';
 
 export type CandidateStatus = 'Active';
 export type CandidateGender = 'F' | 'M' | 'U';
-export type CandidateNoteType = 'Application Note' | 'Partner Note' | 'Entire Application';
+export type CandidateNoteType = 'Application Note' | 'Partner Note' | 'UTM Note' | 'Entire Application';
 
 export interface Candidate {
 	status: CandidateStatus,

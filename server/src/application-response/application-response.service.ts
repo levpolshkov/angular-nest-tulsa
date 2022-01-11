@@ -86,13 +86,13 @@ export class ApplicationResponseService {
 		});
 	}
 
-	saveResponse(response:ApplicationResponse) {
-		return this.documentService.saveDocument<ApplicationResponseDocument>(this.responseModel, response, {
+    saveResponse(response: ApplicationResponse) {
+        return this.documentService.saveDocument<ApplicationResponseDocument>(this.responseModel, response, {
 			afterSave: (newDoc:ApplicationResponseDocument,oldDoc:ApplicationResponseDocument) => this.afterSave(newDoc,oldDoc)
 		});
 	}
 
-	async afterSave(newDoc:ApplicationResponseDocument,oldDoc:ApplicationResponseDocument) {
+    async afterSave(newDoc: ApplicationResponseDocument, oldDoc: ApplicationResponseDocument) {
 		this.logger.log('saveResponse: %o', {
 			...newDoc.toObject(),
 			application:undefined,
@@ -110,7 +110,7 @@ export class ApplicationResponseService {
 		const candidate:any = {
 			status: 'New Applicant'
 		};
-		const appNoteLines = [];
+        const appNoteLines = [];
 		const partnerNoteLines = [];
 		const responseNoteLines = [];
 		
@@ -152,11 +152,14 @@ export class ApplicationResponseService {
 				default:
 					candidate[bullhornKey] = qa.answer;
 			}
-		});
+        });
+
+        const utmNote = JSON.stringify(response.utmCodes);
 
 		const appNote = appNoteLines.join('<br><br>');
 		const partnerNote = partnerNoteLines.join('<br><br>');
-		const responseNote = responseNoteLines.join('<br><br>');
+        const responseNote = responseNoteLines.join('<br><br>');
+        console.log("utm note", utmNote);
 		// console.log('submitResponseToBullhorn: candidate=%o', candidate);
 		// console.log('submitResponseToBullhorn: appNote=%s', appNote);
 		// console.log('submitResponseToBullhorn: partnerNote=%s', partnerNote);
@@ -173,7 +176,13 @@ export class ApplicationResponseService {
 				if(partnerNote) {
 					const partnerNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Partner Note', partnerNote);
 					this.logger.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
-				}
+                }
+                
+                if(utmNote) {
+					const utmNoteId = await this.bullhornService.addCandidateNote(candidateId, 'UTM Note', utmNote);
+					this.logger.log('submitResponseToBullhorn: utmNoteId=%o', utmNoteId);
+                }
+                
 				const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Entire Application', responseNote);
 				this.logger.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
 

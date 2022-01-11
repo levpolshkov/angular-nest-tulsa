@@ -51,7 +51,7 @@ export interface Application {
 	_id?: any,
 
 	name: string,
-
+    
 	sections: ApplicationSection[],
 
 	createDate?: Date,

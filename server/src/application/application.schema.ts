@@ -4,7 +4,6 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 export const applicationSchema = new mongoose.Schema({
 	name: String,
-
 	sections: [{
 		order: Number,
 		title: String,

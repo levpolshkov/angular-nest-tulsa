@@ -5,7 +5,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 export const applicationResponseSchema = new mongoose.Schema({
 	name: String,
-
+    utmCodes: Object,
 	status: String,
 	lastPage: String,
 	ipAddress: String,

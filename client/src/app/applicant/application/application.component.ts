@@ -22,7 +22,7 @@ export class ApplicationComponent implements OnInit {
 
 	pageIndex: number = 0;
 	sectionIndex: number = 0;
-
+    utm_codes = {};
 	answers: any = {};
 	answerLabels: any = {};
 	response: ApplicationResponse;
@@ -53,6 +53,14 @@ export class ApplicationComponent implements OnInit {
 		// 	console.log('ApplicationComponent: queryParams subscribe: sectionIndex=%o, pageIndex=%o', sectionIndex,pageIndex);
 		// 	this.loadPage(sectionIndex, pageIndex);
 		// });
+
+        // sanitize for only utm params
+        this.route.queryParams.subscribe(queryParams => {
+            this.utm_codes['utm_source'] = queryParams['utm_source'];
+            this.utm_codes['utm_medium'] = queryParams['utm_medium'];
+            this.utm_codes['utm_content'] = queryParams['utm_content'];
+            this.utm_codes['utm_campaign'] = queryParams['utm_campaign'];
+        });
 	}
 
 	async loadResponse() {
@@ -62,7 +70,8 @@ export class ApplicationComponent implements OnInit {
 			const viewPage = viewSection && viewSection.pages.find(p => p._id===viewPageId);
 			if(viewPage) {
 				this.response = {
-					status: 'pending',
+                    status: 'pending',
+                    utmCodes: this.utm_codes,
 					application: this.application,
 					questionAnswers: [],
 					createDate: new Date(),
@@ -76,7 +85,8 @@ export class ApplicationComponent implements OnInit {
 		this.response = await this.responseService.loadResponseLocal();
 		if(!this.response) {
 			this.response = {
-				status: 'pending',
+                status: 'pending',
+                utmCodes: this.utm_codes,
 				application: this.application,
 				questionAnswers: [],
 				createDate: new Date(),
@@ -90,7 +100,8 @@ export class ApplicationComponent implements OnInit {
 
 		this.response.questionAnswers.forEach(qa => {
 			this.answers[qa.questionKey] = qa.answer;
-		});
+        });
+        this.response.utmCodes = this.utm_codes;
 		console.log('ApplicationComponent.loadResponse: response=%o', this.response);
 		
 		if(this.response.lastPage) {
@@ -113,7 +124,8 @@ export class ApplicationComponent implements OnInit {
 				answer: this.answers[questionKey],
 				answerLabel: this.answerLabels[questionKey]
 			};
-		});
+        });
+        this.response.utmCodes = this.utm_codes;
 		this.response.application = this.application;
 		this.response.lastPage = this.page.name;
 		this.response.updateDate = new Date();

@@ -12,7 +12,8 @@ export type ApplicationResponseStatus = 'rejected' | 'submitted' | 'pending';
 export interface ApplicationResponse {
 	_id?: any,
 
-	status: ApplicationResponseStatus,
+    status: ApplicationResponseStatus,
+    utmCodes: object,
 	lastPage?: string,
 	ipAddress?: string,
 
