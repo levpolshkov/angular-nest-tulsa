@@ -42,6 +42,7 @@ export class ApplicationComponent implements OnInit {
 	async ngOnInit() {
 		this.application = await this.applicationService.searchApplications({ filter: {} }).then(r => r.records[0]);
 		await this.loadResponse();
+		console.log('get utm codes from service', this.applicationService.utm_codes);
 
 		// const sectionIndex = +this.route.snapshot.queryParams['section'] || 0;
 		// const pageIndex = +this.route.snapshot.queryParams['page'] || 0;
@@ -53,14 +54,6 @@ export class ApplicationComponent implements OnInit {
 		// 	console.log('ApplicationComponent: queryParams subscribe: sectionIndex=%o, pageIndex=%o', sectionIndex,pageIndex);
 		// 	this.loadPage(sectionIndex, pageIndex);
 		// });
-
-        // sanitize for only utm params
-        this.route.queryParams.subscribe(queryParams => {
-            this.utm_codes['utm_source'] = queryParams['utm_source'];
-            this.utm_codes['utm_medium'] = queryParams['utm_medium'];
-            this.utm_codes['utm_content'] = queryParams['utm_content'];
-            this.utm_codes['utm_campaign'] = queryParams['utm_campaign'];
-        });
 	}
 
 	async loadResponse() {

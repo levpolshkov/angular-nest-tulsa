@@ -13,6 +13,7 @@ export { Application, ApplicationSection, ApplicationPage, ApplicationQuestion }
 
 export class ApplicationService {
 	debugMode = !environment.production;
+	utm_codes = {};
 
 	constructor(private http: HttpService, private searchService: SearchService, private storageService: StorageService) { }
 
