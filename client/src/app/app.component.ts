@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { Component, ViewChild } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+=======
+import { Component } from '@angular/core';
+import { Location } from '@angular/common';
+>>>>>>> 99afa4a3f8ed270181d26716b14b55bc9ae97d16
 import {ApplicationService} from "./applicant/application/application.service";
 
 @Component({
@@ -8,6 +13,7 @@ import {ApplicationService} from "./applicant/application/application.service";
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+<<<<<<< HEAD
 
 	constructor(private route: ActivatedRoute, private applicationService: ApplicationService) {
 	}
@@ -17,5 +23,19 @@ export class AppComponent {
 		this.applicationService.utm_codes['utm_medium'] = this.route.snapshot.params['utm_medium'];
 		this.applicationService.utm_codes['utm_content'] = this.route.snapshot.params['utm_content'];
 		this.applicationService.utm_codes['utm_campaign'] = this.route.snapshot.params['utm_campaign'];
+=======
+	private queryParams = {};
+
+	constructor(private applicationService: ApplicationService, private location: Location) {
+	}
+
+	ngOnInit() {
+		this.queryParams = this.location.path().slice(1).split('&').map(p => p.split('=')).map(p => ({[p[0]]:p[1]})).reduce((a,b) => Object.assign(a,b), {});
+		// sanitize for only utm query params
+		this.queryParams['utm_source'] ? this.applicationService.utm_codes['utm_source'] = this.queryParams['utm_source'] : '';
+		this.queryParams['utm_medium'] ? this.applicationService.utm_codes['utm_medium'] = this.queryParams['utm_medium'] : '';
+		this.queryParams['utm_content'] ? this.applicationService.utm_codes['utm_content'] = this.queryParams['utm_content'] : '';
+		this.queryParams['utm_campaign'] ? this.applicationService.utm_codes['utm_campaign'] = this.queryParams['utm_campaign'] : '';
+>>>>>>> 99afa4a3f8ed270181d26716b14b55bc9ae97d16
 	}
 }
