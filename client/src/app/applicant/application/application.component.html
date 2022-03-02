@@ -93,7 +93,10 @@
 		<div class="buttons px-4" *ngIf="page.type!=='reject' && page.type!=='submit' && page.name!=='welcome'">
 			<button class="btn --plain-link" (click)="onPrevBtn()">Back</button>
 			<button class="btn --next" (click)="onNextBtn()" [disabled]="!canNext || !inputReady || nextPageLoading">
-				Next
+				<span *ngIf="page.name=='33a' else next">Submit</span>
+                <ng-template #next>      
+                   Next
+                </ng-template>
 				<span *ngIf="applicationService.debugMode && page.nextPageName">[{{page.nextPageName}}]</span>
 			</button>
 		</div>
