@@ -19,6 +19,7 @@ export class AppComponent {
 		this.queryParams['utm_source'] ? this.applicationService.utm_codes['utm_source'] = this.queryParams['utm_source'] : '';
 		this.queryParams['utm_medium'] ? this.applicationService.utm_codes['utm_medium'] = this.queryParams['utm_medium'] : '';
 		this.queryParams['utm_content'] ? this.applicationService.utm_codes['utm_content'] = this.queryParams['utm_content'] : '';
-		this.queryParams['utm_campaign'] ? this.applicationService.utm_codes['utm_campaign'] = this.queryParams['utm_campaign'] : '';
+        this.queryParams['utm_campaign'] ? this.applicationService.utm_codes['utm_campaign'] = this.queryParams['utm_campaign'] : '';
+        this.queryParams['utm_term'] ? this.applicationService.utm_codes['utm_term'] = this.queryParams['utm_term'] : '';
 	}
 }

@@ -54,7 +54,7 @@ Production Build
 
 Production Deployment
 ---------------------
-From the AWS server (`ssh apply.tulsaremote.com`):
+From the AWS server (`ssh tr.gitwit.com`):
 - `cd /apps/tulsa-remote-live`			# Probably should deploy to staging first
 - `git pull`
 - `pm2 list`
