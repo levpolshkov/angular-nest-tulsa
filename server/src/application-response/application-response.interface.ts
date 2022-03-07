@@ -2,32 +2,32 @@ import { Application } from '../application/application.interface';
 import { User } from '../user/user.interface';
 
 export interface ApplicationResponseQuestionAnswer {
-	questionKey: string,
-	answer: any,
-	answerLabel?: string
-};
+	questionKey: string;
+	answer: any;
+	answerLabel?: string;
+}
 
 export type ApplicationResponseStatus = 'rejected' | 'submitted' | 'pending';
 
 export interface ApplicationResponse {
-	_id?: any,
+	_id?: any;
 
-    status: ApplicationResponseStatus,
-    utmCodes: object,
-	lastPage?: string,
-	ipAddress?: string,
+	status: ApplicationResponseStatus;
+	utmCodes: object;
+	lastPage?: string;
+	ipAddress?: string;
 
-	application: Application,
-	questionAnswers: ApplicationResponseQuestionAnswer[],
+	application: Application;
+	questionAnswers: ApplicationResponseQuestionAnswer[];
 
-	bullhornCandidateId?: number,
+	bullhornCandidateId?: number;
 
-	bummerEmail?: string,		// If the user bummered out and left an email
+	bummerEmail?: string; // If the user bummered out and left an email
 
-	createDate?: Date,
-	updateDate?: Date,
+	createDate?: Date;
+	updateDate?: Date;
 
-	deleted?: boolean,
-	deleteDate?: Date,
-	deleteUser?: User
-};
+	deleted?: boolean;
+	deleteDate?: Date;
+	deleteUser?: User;
+}

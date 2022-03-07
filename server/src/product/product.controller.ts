@@ -5,7 +5,7 @@ import { ProductService } from './product.service';
 
 @Controller('product')
 export class ProductController {
-	constructor(private readonly productService:ProductService) {}
+	constructor(private readonly productService: ProductService) {}
 
 	@UseGuards(JwtAuthGuard)
 	@Get('/')
@@ -14,7 +14,7 @@ export class ProductController {
 	}
 
 	@Get('/:id')
-	getProductById(@Param('id') productId:string) {
+	getProductById(@Param('id') productId: string) {
 		return this.productService.getProductById(productId);
 	}
 
@@ -26,7 +26,7 @@ export class ProductController {
 
 	@UseGuards(JwtAuthGuard)
 	@Delete('/:id')
-	deleteProductById(@Param('id') productId:string, @Request() req) {
+	deleteProductById(@Param('id') productId: string, @Request() req) {
 		return this.productService.deleteProductById(productId, req.user);
 	}
 }

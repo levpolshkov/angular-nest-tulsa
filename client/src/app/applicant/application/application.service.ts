@@ -10,12 +10,11 @@ export { Application, ApplicationSection, ApplicationPage, ApplicationQuestion }
 @Injectable({
 	providedIn: 'root'
 })
-
 export class ApplicationService {
 	debugMode = !environment.production;
 	utm_codes = {};
 
-	constructor(private http: HttpService, private searchService: SearchService, private storageService: StorageService) { }
+	constructor(private http: HttpService, private searchService: SearchService, private storageService: StorageService) {}
 
 	searchApplications(params: SearchParams): Promise<SearchResult<Application>> {
 		return this.searchService.search<Application>('/application', params);

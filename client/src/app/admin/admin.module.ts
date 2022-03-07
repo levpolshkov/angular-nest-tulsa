@@ -8,22 +8,9 @@ import { SiteModule } from './site/site.module';
 import { SearchModule } from '../shared/search/search.module';
 import { SharedModule } from '../shared/shared.module';
 
-
-
 @NgModule({
-	declarations: [
-		AdminComponent
-	],
-	imports: [
-		CommonModule,
-		AdminRoutingModule,
-		SiteModule,
-		SearchModule,
-		SharedModule
-	],
-	providers: [
-		UserGuard,
-		UserAdminGuard
-	]
+	declarations: [AdminComponent],
+	imports: [CommonModule, AdminRoutingModule, SiteModule, SearchModule, SharedModule],
+	providers: [UserGuard, UserAdminGuard]
 })
-export class AdminModule { }
+export class AdminModule {}

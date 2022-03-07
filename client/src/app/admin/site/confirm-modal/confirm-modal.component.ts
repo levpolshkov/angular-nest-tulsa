@@ -1,5 +1,5 @@
-import { Component }	from '@angular/core';
-import {NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component } from '@angular/core';
+import { NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-confirm-modal',
@@ -13,7 +13,7 @@ export class ConfirmModalComponent {
 	yesLabel = 'Yes';
 	noLabel = 'Cancel';
 
-	constructor(private modalRef:NgbActiveModal) { }
+	constructor(private modalRef: NgbActiveModal) {}
 
 	no() {
 		this.modalRef.close(false);
@@ -22,5 +22,4 @@ export class ConfirmModalComponent {
 	yes() {
 		this.modalRef.close(true);
 	}
-
 }

@@ -10,20 +10,8 @@ import { SearchModule } from '../../shared/search/search.module';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UserPasswordModalComponent } from './user-password-modal/user-password-modal.component';
 
-
 @NgModule({
-	declarations: [
-		UserLoginPageComponent,
-		UserSearchPageComponent,
-		UserDetailPageComponent,
-		UserProfilePageComponent,
-		UserPasswordModalComponent
-	],
-	imports: [
-		CommonModule,
-		FormsModule,
-		UserRoutingModule,
-		SearchModule
-	]
+	declarations: [UserLoginPageComponent, UserSearchPageComponent, UserDetailPageComponent, UserProfilePageComponent, UserPasswordModalComponent],
+	imports: [CommonModule, FormsModule, UserRoutingModule, SearchModule]
 })
-export class UserModule { }
+export class UserModule {}

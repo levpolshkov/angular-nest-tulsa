@@ -1,8 +1,8 @@
-import { Component, OnInit }		from '@angular/core';
-import { ActivatedRoute, Router }	from '@angular/router';
-import { User }						from 'src/app/models';
-import { UserService }				from '../user.service';
-import { AlertService }				from 'src/app/admin/site/alert.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models';
+import { UserService } from '../user.service';
+import { AlertService } from 'src/app/admin/site/alert.service';
 
 @Component({
 	selector: 'app-user-profile-page',
@@ -10,14 +10,14 @@ import { AlertService }				from 'src/app/admin/site/alert.service';
 	styleUrls: ['./user-profile-page.component.scss']
 })
 export class UserProfilePageComponent implements OnInit {
-	user:User;
+	user: User;
 
-	constructor(private router:Router, private route:ActivatedRoute, public userService:UserService, private alertService:AlertService) { }
+	constructor(private router: Router, private route: ActivatedRoute, public userService: UserService, private alertService: AlertService) {}
 
 	async ngOnInit() {
 		this.user = await this.userService.getCurrentUser();
 		console.log('UserProfilePageComponent: user=%o', this.user);
-		if(this.route.snapshot.queryParams.changePassword) this.onChangePasswordBtn();
+		if (this.route.snapshot.queryParams.changePassword) this.onChangePasswordBtn();
 	}
 
 	async onSaveBtn() {
@@ -29,5 +29,4 @@ export class UserProfilePageComponent implements OnInit {
 	async onChangePasswordBtn() {
 		this.userService.openPasswordModal(this.user);
 	}
-
 }

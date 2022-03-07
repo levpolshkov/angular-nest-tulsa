@@ -7,15 +7,15 @@ import { Alert, AlertService } from '../alert.service';
 	styleUrls: ['./alert-container.component.scss']
 })
 export class AlertContainerComponent implements OnInit {
-	alerts:Alert[] = [];
+	alerts: Alert[] = [];
 
-	constructor(private alertService:AlertService) { }
+	constructor(private alertService: AlertService) {}
 
 	ngOnInit() {
 		this.alerts = this.alertService.alerts;
 	}
 
-	onClose(alert:Alert) {
+	onClose(alert: Alert) {
 		this.alertService.onClose(alert);
 	}
 }

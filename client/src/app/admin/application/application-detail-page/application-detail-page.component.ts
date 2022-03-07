@@ -11,17 +11,22 @@ import { AdminApplicationService } from '../application.service';
 	styleUrls: ['./application-detail-page.component.scss']
 })
 export class ApplicationDetailPageComponent implements OnInit {
-	application:Application;
+	application: Application;
 	readonly = false;
 
-	constructor(public applicationService:AdminApplicationService, private route:ActivatedRoute, private router:Router, private alertService:AlertService, private confirmService:ConfirmService) { }
-
+	constructor(
+		public applicationService: AdminApplicationService,
+		private route: ActivatedRoute,
+		private router: Router,
+		private alertService: AlertService,
+		private confirmService: ConfirmService
+	) {}
 
 	async ngOnInit() {
 		const applicationId = this.route.snapshot.params.applicationId;
 		console.log('ApplicationDetailPageComponent: applicationId=%o', applicationId);
 
-		if(applicationId==='new') {
+		if (applicationId === 'new') {
 			this.application = <Application>{};
 		} else {
 			this.application = await this.applicationService.getApplicationById(applicationId);
@@ -39,14 +44,16 @@ export class ApplicationDetailPageComponent implements OnInit {
 	}
 
 	async onDeleteBtn() {
-		this.confirmService.confirm({
-			text: 'Are you sure you want to delete this application?'
-		}).then(async answer => {
-			if(!answer) return;
-			await this.applicationService.deleteApplicationById(this.application._id);
-			this.alertService.warning('Application deleted.');
-			this.router.navigate(['/admin/application/search']);
-		});
+		this.confirmService
+			.confirm({
+				text: 'Are you sure you want to delete this application?'
+			})
+			.then(async (answer) => {
+				if (!answer) return;
+				await this.applicationService.deleteApplicationById(this.application._id);
+				this.alertService.warning('Application deleted.');
+				this.router.navigate(['/admin/application/search']);
+			});
 	}
 
 	onSectionClick(section) {

@@ -1,8 +1,8 @@
-import { NestFactory }						from '@nestjs/core';
-import { json }								from 'body-parser';
-import { AppModule }						from './app.module';
-import { ConfigModule, ConfigService }		from '@nestjs/config';
-import { LoggerService }					from '@app/utility';
+import { NestFactory } from '@nestjs/core';
+import { json } from 'body-parser';
+import { AppModule } from './app.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { LoggerService } from '@app/utility';
 
 const logger = new LoggerService('Main');
 
@@ -10,7 +10,7 @@ async function bootstrap() {
 	const app = await NestFactory.create(AppModule, {
 		logger
 	});
-	app.use(json({limit:'16MB'}));
+	app.use(json({ limit: '16MB' }));
 	app.enableCors();
 	app.setGlobalPrefix('/api');
 

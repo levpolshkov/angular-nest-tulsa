@@ -10,9 +10,9 @@ import { AdminApplicationService } from '../application.service';
 	styleUrls: ['./application-search-modal.component.scss']
 })
 export class ApplicationSearchModalComponent implements OnInit {
-	@ViewChild('searchTable', {static:true}) searchTable:SearchTableComponent;
+	@ViewChild('searchTable', { static: true }) searchTable: SearchTableComponent;
 
-	constructor(public applicationService:AdminApplicationService, private modalRef:NgbActiveModal) { }
+	constructor(public applicationService: AdminApplicationService, private modalRef: NgbActiveModal) {}
 
 	ngOnInit() {
 		this.searchTable.searchUrl = '/application';
@@ -22,12 +22,12 @@ export class ApplicationSearchModalComponent implements OnInit {
 			// {field:'name',				header:'Application Name'},
 			// {field:'type',				header:'Application Type',		hide:'sm',		renderer: application => this.applicationService.applicationTypeRenderer(application.type)},
 		];
-		this.searchTable.onRowClick = p => this.onRowClick(p);
-		this.searchTable.noRouting = true;			// Disable SearchTable from changing the url
-		this.searchTable.defaultFilter = {type:null};
+		this.searchTable.onRowClick = (p) => this.onRowClick(p);
+		this.searchTable.noRouting = true; // Disable SearchTable from changing the url
+		this.searchTable.defaultFilter = { type: null };
 	}
 
-	onRowClick(application:Application) {
+	onRowClick(application: Application) {
 		this.modalRef.close(application);
 	}
 	onCancelBtn() {

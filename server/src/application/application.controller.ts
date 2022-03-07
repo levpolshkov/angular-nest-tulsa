@@ -5,7 +5,7 @@ import { ApplicationService } from './application.service';
 
 @Controller('application')
 export class ApplicationController {
-	constructor(private readonly applicationService:ApplicationService) {}
+	constructor(private readonly applicationService: ApplicationService) {}
 
 	// @UseGuards(JwtAuthGuard)
 	@Get('/')
@@ -15,7 +15,7 @@ export class ApplicationController {
 
 	@UseGuards(JwtAuthGuard)
 	@Get('/:applicationId')
-	getApplicationById(@Param('applicationId') applicationId:string) {
+	getApplicationById(@Param('applicationId') applicationId: string) {
 		return this.applicationService.getApplicationById(applicationId);
 	}
 
@@ -27,19 +27,19 @@ export class ApplicationController {
 
 	@UseGuards(JwtAuthGuard)
 	@Delete('/:applicationId')
-	deleteApplicationById(@Param('applicationId') applicationId:string, @Request() req) {
+	deleteApplicationById(@Param('applicationId') applicationId: string, @Request() req) {
 		return this.applicationService.deleteApplicationById(applicationId, req.user);
 	}
 
 	@UseGuards(JwtAuthGuard)
 	@Delete('/:applicationId/page/:pageId')
-	deleteApplicationPageById(@Param('applicationId') applicationId:string, @Param('pageId') pageId:string, @Request() req) {
+	deleteApplicationPageById(@Param('applicationId') applicationId: string, @Param('pageId') pageId: string, @Request() req) {
 		return this.applicationService.deleteApplicationPageById(applicationId, pageId, req.user);
 	}
 
 	@UseGuards(JwtAuthGuard)
 	@Delete('/:applicationId/section/:sectionId')
-	deleteApplicationSectionyId(@Param('applicationId') applicationId:string, @Param('sectionId') sectionId:string, @Request() req) {
+	deleteApplicationSectionyId(@Param('applicationId') applicationId: string, @Param('sectionId') sectionId: string, @Request() req) {
 		return this.applicationService.deleteApplicationSectionById(applicationId, sectionId, req.user);
 	}
 }

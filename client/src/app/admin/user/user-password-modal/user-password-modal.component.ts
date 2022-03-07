@@ -9,25 +9,27 @@ import { User, UserService } from '../user.service';
 	styleUrls: ['./user-password-modal.component.scss']
 })
 export class UserPasswordModalComponent implements OnInit {
-	@Input() user:User;
+	@Input() user: User;
 	password1 = '';
 	password2 = '';
 
-	constructor(private userService:UserService, private alertService:AlertService, private modalRef:NgbActiveModal) { }
+	constructor(private userService: UserService, private alertService: AlertService, private modalRef: NgbActiveModal) {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	onChangePasswordBtn() {
 		const payload = <User>{
 			_id: this.user._id,
 			password: this.password1
 		};
-		this.userService.saveUser(payload).then(user => {
-			this.alertService.info('Password changed successfully.');
-		}, err => {
-			this.alertService.error(err.message || 'There was an error.  Please contact support.');
-		});
+		this.userService.saveUser(payload).then(
+			(user) => {
+				this.alertService.info('Password changed successfully.');
+			},
+			(err) => {
+				this.alertService.error(err.message || 'There was an error.  Please contact support.');
+			}
+		);
 		this.modalRef.close(true);
 	}
 
@@ -36,6 +38,6 @@ export class UserPasswordModalComponent implements OnInit {
 	}
 
 	get canChangePassword() {
-		return this.password1 && this.password2 && this.password1===this.password2 && this.password1.length>=4;
+		return this.password1 && this.password2 && this.password1 === this.password2 && this.password1.length >= 4;
 	}
 }

@@ -1,8 +1,8 @@
-import { Component, OnInit }		from '@angular/core';
-import { Router }					from '@angular/router';
-import packageJson					from '../../../../../package.json';
-import { UserService, User }		from 'src/app/admin/user/user.service';
-import { UserChangeService }		from 'src/app/admin/user/user-change.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import packageJson from '../../../../../package.json';
+import { UserService, User } from 'src/app/admin/user/user.service';
+import { UserChangeService } from 'src/app/admin/user/user-change.service';
 
 @Component({
 	selector: 'app-sidenav',
@@ -11,26 +11,26 @@ import { UserChangeService }		from 'src/app/admin/user/user-change.service';
 })
 export class SidenavComponent implements OnInit {
 	version = `v${packageJson.version}`;
-	user:User;
+	user: User;
 
 	private minWidth = 1280;
 	isOpen = false;
 
 	menuItems = [
-		{name:'Applications',			url:'/admin/application',			icon:'fas fa-list-alt'},
-		{name:'Application Responses',	url:'/admin/application-response',	icon:'fas fa-list-alt'},
-		{name:'Users',					url:'/admin/user',					icon:'fas fa-users'}
+		{ name: 'Applications', url: '/admin/application', icon: 'fas fa-list-alt' },
+		{ name: 'Application Responses', url: '/admin/application-response', icon: 'fas fa-list-alt' },
+		{ name: 'Users', url: '/admin/user', icon: 'fas fa-users' }
 	];
 
-	constructor(private userChangeService:UserChangeService, private userService:UserService, private router:Router) { }
+	constructor(private userChangeService: UserChangeService, private userService: UserService, private router: Router) {}
 
 	ngOnInit() {
-		this.userChangeService.subscribe(user => {
+		this.userChangeService.subscribe((user) => {
 			console.log('SidenavComponent: user=%o', user);
 			this.user = user;
 		});
-		this.userService.getCurrentUser().then(user => {
-			if(!user) this.router.navigate(['/admin/user/login']);
+		this.userService.getCurrentUser().then((user) => {
+			if (!user) this.router.navigate(['/admin/user/login']);
 		});
 
 		window.onresize = () => this.onResize();
@@ -38,7 +38,7 @@ export class SidenavComponent implements OnInit {
 	}
 
 	private onResize() {
-		const windowWith = window.innerWidth;		// To avoid doing a ngZone
+		const windowWith = window.innerWidth; // To avoid doing a ngZone
 	}
 
 	logout() {

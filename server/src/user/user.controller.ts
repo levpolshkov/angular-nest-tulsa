@@ -5,7 +5,7 @@ import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
-	constructor(private userService:UserService, private authService:AuthService) {}
+	constructor(private userService: UserService, private authService: AuthService) {}
 
 	@UseGuards(JwtAuthGuard)
 	@Get('/')
@@ -20,7 +20,7 @@ export class UserController {
 
 	@UseGuards(JwtAuthGuard)
 	@Get('/:id')
-	getUserById(@Param('id') id:string) {
+	getUserById(@Param('id') id: string) {
 		return this.userService.getUserById(id);
 	}
 
@@ -32,12 +32,12 @@ export class UserController {
 
 	@UseGuards(JwtAuthGuard)
 	@Delete('/:id')
-	deleteUserById(@Param('id') id:string, @Request() req) {
+	deleteUserById(@Param('id') id: string, @Request() req) {
 		return this.userService.deleteUserById(id, req.user);
 	}
 
 	@Get('/resetCode/:resetCode')
-	async getUserByResetCode(@Param('resetCode') resetCode:string) {
+	async getUserByResetCode(@Param('resetCode') resetCode: string) {
 		let user = await this.userService.getUserByResetCode(resetCode);
 		return this.authService.login(user);
 	}

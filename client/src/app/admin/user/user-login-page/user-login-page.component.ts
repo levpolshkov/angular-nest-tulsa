@@ -9,51 +9,56 @@ import { UserService } from '../user.service';
 	styleUrls: ['./user-login-page.component.scss']
 })
 export class UserLoginPageComponent implements OnInit {
-	creds = {username:'', password:''};
+	creds = { username: '', password: '' };
 	ForgotPasswordEnabled = false;
 	forgotPasswordBusy = false;
 	forgotPasswordDone = false;
 
-	constructor(private userService:UserService, private alertService:AlertService, private router:Router, private route:ActivatedRoute) { }
+	constructor(private userService: UserService, private alertService: AlertService, private router: Router, private route: ActivatedRoute) {}
 
 	ngOnInit() {
 		console.log('UserLoginPageComponent.ngOnInit()');
-		if(this.route.snapshot.queryParams.resetCode) this.loginWithResetCode(this.route.snapshot.queryParams.resetCode);
+		if (this.route.snapshot.queryParams.resetCode) this.loginWithResetCode(this.route.snapshot.queryParams.resetCode);
 	}
 
-	async loginWithResetCode(resetCode:string) {
+	async loginWithResetCode(resetCode: string) {
 		console.log('UserResetComponent: resetCode=%o', resetCode);
 		const userJwt = await this.userService.getUserJwtByResetCode(resetCode);
 		console.log('UserResetComponent: userJwt=%o', userJwt);
 		const user = await this.userService.loginWithUserJwt(userJwt);
-		if(user) {
-			this.router.navigate(['/admin/user/profile'], {queryParams:{changePassword:true}})
+		if (user) {
+			this.router.navigate(['/admin/user/profile'], { queryParams: { changePassword: true } });
 		}
 	}
 
 	async onLoginBtn() {
-		this.userService.login(this.creds).then(user => {
-			console.log('login: user=%o', user);
-			this.alertService.info(`Successfully logged in as <b>${user.fullName}</b>`);
-			this.router.navigate(['/admin/application/search']);
-		}, err => {
-			console.log('login err=%o', err);
-			this.alertService.error(err.message || 'There was a login error');
-			this.ForgotPasswordEnabled = true;
-		});
+		this.userService.login(this.creds).then(
+			(user) => {
+				console.log('login: user=%o', user);
+				this.alertService.info(`Successfully logged in as <b>${user.fullName}</b>`);
+				this.router.navigate(['/admin/application/search']);
+			},
+			(err) => {
+				console.log('login err=%o', err);
+				this.alertService.error(err.message || 'There was a login error');
+				this.ForgotPasswordEnabled = true;
+			}
+		);
 	}
 
 	onForgotPasswordBtn() {
 		this.forgotPasswordBusy = true;
-		this.userService.resetPassword({username:this.creds.username, reason:'forgot'}).then(result => {
-			this.alertService.info('Reset email was sent.  Please check your inbox.');
-			console.log('UserLoginComponent.forgotPassword: result=%o', result);
-			this.forgotPasswordDone = true;
-			this.forgotPasswordBusy = false;
-		}).catch(err => {
-			this.alertService.error(err.message || 'There was an error.');
-			this.forgotPasswordBusy = false;
-		});
+		this.userService
+			.resetPassword({ username: this.creds.username, reason: 'forgot' })
+			.then((result) => {
+				this.alertService.info('Reset email was sent.  Please check your inbox.');
+				console.log('UserLoginComponent.forgotPassword: result=%o', result);
+				this.forgotPasswordDone = true;
+				this.forgotPasswordBusy = false;
+			})
+			.catch((err) => {
+				this.alertService.error(err.message || 'There was an error.');
+				this.forgotPasswordBusy = false;
+			});
 	}
 }
-

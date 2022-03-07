@@ -7,24 +7,24 @@ import { ApplicationSearchModalComponent } from './application-search-modal/appl
 export { Application };
 
 export const pageTypes = [
-	{id:'question',				name:'Question Page',			class:''},
-	{id:'hero',					name:'Hero Page',				class:''},
-	{id:'single-question',		name:'Single Question Page',	class:''},
-	{id:'reject',				name:'Bummer Page',				class:''},
-	{id:'submit',				name:'Submit Page',				class:''}
+	{ id: 'question', name: 'Question Page', class: '' },
+	{ id: 'hero', name: 'Hero Page', class: '' },
+	{ id: 'single-question', name: 'Single Question Page', class: '' },
+	{ id: 'reject', name: 'Bummer Page', class: '' },
+	{ id: 'submit', name: 'Submit Page', class: '' }
 ];
 
 export const questionTypes = [
-	{id:'label',				name:'Label Only',				class:''},
-	{id:'text',					name:'Text Input',				class:''},
-	{id:'textarea',				name:'Textarea Input',			class:''},
-	{id:'phone',				name:'Phone Input',				class:''},
-	{id:'email',				name:'Email Input',				class:''},
+	{ id: 'label', name: 'Label Only', class: '' },
+	{ id: 'text', name: 'Text Input', class: '' },
+	{ id: 'textarea', name: 'Textarea Input', class: '' },
+	{ id: 'phone', name: 'Phone Input', class: '' },
+	{ id: 'email', name: 'Email Input', class: '' },
 	// {id:'currency',				name:'Currency Input',			class:''},
-	{id:'date',					name:'Date Input',				class:''},
-	{id:'number',				name:'Number Input',			class:''},
-	{id:'url',					name:'URL Input',				class:''},
-	{id:'radio',				name:'Radio Choices',			class:''}
+	{ id: 'date', name: 'Date Input', class: '' },
+	{ id: 'number', name: 'Number Input', class: '' },
+	{ id: 'url', name: 'URL Input', class: '' },
+	{ id: 'radio', name: 'Radio Choices', class: '' }
 ];
 
 @Injectable({
@@ -34,70 +34,68 @@ export class AdminApplicationService {
 	pageTypes = pageTypes;
 	questionTypes = questionTypes;
 
-	constructor(private http:HttpService, private searchService:SearchService, private modalService:NgbModal) {}
+	constructor(private http: HttpService, private searchService: SearchService, private modalService: NgbModal) {}
 
-
-	searchApplications(params:SearchParams):Promise<SearchResult<Application>> {
+	searchApplications(params: SearchParams): Promise<SearchResult<Application>> {
 		return this.searchService.search<Application>('/application', params);
 	}
 
-	getApplicationById(applicationId:string):Promise<Application> {
+	getApplicationById(applicationId: string): Promise<Application> {
 		return this.http.get(`/application/${applicationId}`);
 	}
 
-	saveApplication(application:Application) {
+	saveApplication(application: Application) {
 		return this.http.post('/application', application);
 	}
 
-	deleteApplicationById(applicationId:string) {
+	deleteApplicationById(applicationId: string) {
 		return this.http.delete(`/application/${applicationId}`);
 	}
-	deleteApplicationSectionById(applicationId:string, section:string) {
+	deleteApplicationSectionById(applicationId: string, section: string) {
 		return this.http.delete(`/application/${applicationId}/section/${section}`);
 	}
-	deleteApplicationPageById(applicationId:string, pageId:string) {
+	deleteApplicationPageById(applicationId: string, pageId: string) {
 		return this.http.delete(`/application/${applicationId}/page/${pageId}`);
 	}
 
-	pageTypeRenderer(id:string) {
-		const status = this.pageTypes.find(s => s.id===id);
-		if(!status) return `${id || ''}`;
+	pageTypeRenderer(id: string) {
+		const status = this.pageTypes.find((s) => s.id === id);
+		if (!status) return `${id || ''}`;
 		return `<span class="${status.class}">${status.name}</span>`;
 	}
-	pageTypeName(id:string) {
-		const status = this.pageTypes.find(s => s.id===id);
-		if(!status) return `${id || ''}`;
+	pageTypeName(id: string) {
+		const status = this.pageTypes.find((s) => s.id === id);
+		if (!status) return `${id || ''}`;
 		return status.name;
 	}
-	pageTypeClass(id:string) {
-		const status = this.pageTypes.find(s => s.id===id);
-		if(!status) return `${id || ''}`;
+	pageTypeClass(id: string) {
+		const status = this.pageTypes.find((s) => s.id === id);
+		if (!status) return `${id || ''}`;
 		return status.class;
 	}
 
-
-	questionTypeRenderer(id:string) {
-		const status = this.questionTypes.find(s => s.id===id);
-		if(!status) return `${id || ''}`;
+	questionTypeRenderer(id: string) {
+		const status = this.questionTypes.find((s) => s.id === id);
+		if (!status) return `${id || ''}`;
 		return `<span class="${status.class}">${status.name}</span>`;
 	}
-	questionTypeName(id:string) {
-		const status = this.questionTypes.find(s => s.id===id);
-		if(!status) return `${id || ''}`;
+	questionTypeName(id: string) {
+		const status = this.questionTypes.find((s) => s.id === id);
+		if (!status) return `${id || ''}`;
 		return status.name;
 	}
-	questionTypeClass(id:string) {
-		const status = this.questionTypes.find(s => s.id===id);
-		if(!status) return `${id || ''}`;
+	questionTypeClass(id: string) {
+		const status = this.questionTypes.find((s) => s.id === id);
+		if (!status) return `${id || ''}`;
 		return status.class;
 	}
 
-	openApplicationSearchModal(defaultParams:any={}):Promise<Application> {
+	openApplicationSearchModal(defaultParams: any = {}): Promise<Application> {
 		let sub = null;
-		return new Promise((resolve,reject) => {
-			const modalRef = this.modalService.open(ApplicationSearchModalComponent, {size:'lg'});
+		return new Promise((resolve, reject) => {
+			const modalRef = this.modalService.open(ApplicationSearchModalComponent, { size: 'lg' });
 			modalRef.componentInstance.defaultParams = defaultParams;
-			sub = modalRef.closed.subscribe(reason => {
+			sub = modalRef.closed.subscribe((reason) => {
 				sub.unsubscribe();
 				resolve(reason);
 			});

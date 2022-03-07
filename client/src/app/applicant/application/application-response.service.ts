@@ -11,13 +11,12 @@ export { Application, ApplicationSection, ApplicationPage, ApplicationQuestion }
 export class ApplicationResponseService {
 	debugMode = true;
 
-	constructor(public http:HttpService, private searchService:SearchService, private storageService:StorageService) { }
+	constructor(public http: HttpService, private searchService: SearchService, private storageService: StorageService) {}
 
-
-	saveResponseLocal(response:ApplicationResponse) {
+	saveResponseLocal(response: ApplicationResponse) {
 		return this.storageService.set('tuslaRemoteApplicationResponse', response);
 	}
-	loadResponseLocal():Promise<ApplicationResponse> {
+	loadResponseLocal(): Promise<ApplicationResponse> {
 		return this.storageService.get('tuslaRemoteApplicationResponse');
 	}
 
@@ -29,7 +28,7 @@ export class ApplicationResponseService {
 	// 	return this.http.get(`/application/${applicationId}`);
 	// }
 
-	submitResponse(response:ApplicationResponse):Promise<ApplicationResponse> {
+	submitResponse(response: ApplicationResponse): Promise<ApplicationResponse> {
 		return this.http.post('/response', response);
 	}
 

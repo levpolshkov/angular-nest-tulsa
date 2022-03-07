@@ -7,21 +7,16 @@ import { UserLoginPageComponent } from './user-login-page/user-login-page.compon
 import { UserSearchPageComponent } from './user-search-page/user-search-page.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 
-
-const routes:Routes = [
-	{path:'',					redirectTo:'search'},
-	{path:'login',											component:UserLoginPageComponent},
-	{path:'profile',			canActivate:[UserGuard],	component:UserProfilePageComponent},
-	{path:'search',				canActivate:[UserGuard],	component:UserSearchPageComponent},
-	{path:':userId',			canActivate:[UserGuard],	component:UserDetailPageComponent},
-	
+const routes: Routes = [
+	{ path: '', redirectTo: 'search' },
+	{ path: 'login', component: UserLoginPageComponent },
+	{ path: 'profile', canActivate: [UserGuard], component: UserProfilePageComponent },
+	{ path: 'search', canActivate: [UserGuard], component: UserSearchPageComponent },
+	{ path: ':userId', canActivate: [UserGuard], component: UserDetailPageComponent }
 ];
 
 @NgModule({
-	imports: [
-		RouterModule.forChild(routes),
-		SearchModule
-	],
+	imports: [RouterModule.forChild(routes), SearchModule],
 	exports: [RouterModule]
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {}

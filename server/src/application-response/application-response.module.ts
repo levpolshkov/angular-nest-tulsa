@@ -9,15 +9,7 @@ import { BullhornModule } from 'src/bullhorn/bullhorn.module';
 import { UtilityModule } from '@app/utility';
 
 @Module({
-	imports: [
-		DatabaseModule,
-		MongooseModule.forFeature([
-			{name:'ApplicationResponse', schema:applicationResponseSchema}
-		]),
-		SearchModule,
-		BullhornModule,
-		UtilityModule
-	],
+	imports: [DatabaseModule, MongooseModule.forFeature([{ name: 'ApplicationResponse', schema: applicationResponseSchema }]), SearchModule, BullhornModule, UtilityModule],
 	controllers: [ApplicationResponseController],
 	providers: [ApplicationResponseService],
 	exports: [ApplicationResponseService]

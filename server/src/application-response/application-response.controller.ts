@@ -4,7 +4,7 @@ import { ApplicationResponseService } from './application-response.service';
 
 @Controller('response')
 export class ApplicationResponseController {
-	constructor(private readonly responseService:ApplicationResponseService) {}
+	constructor(private readonly responseService: ApplicationResponseService) {}
 
 	// @UseGuards(JwtAuthGuard)
 	@Post('/')
@@ -19,7 +19,7 @@ export class ApplicationResponseController {
 
 	@UseGuards(JwtAuthGuard)
 	@Get('/:applicationId')
-	getApplicationById(@Param('applicationId') applicationId:string) {
+	getApplicationById(@Param('applicationId') applicationId: string) {
 		return this.responseService.getResponseById(applicationId);
 	}
 }

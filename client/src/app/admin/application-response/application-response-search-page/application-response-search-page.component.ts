@@ -10,32 +10,30 @@ import { AdminApplicationResponseService } from '../application-response.service
 	styleUrls: ['./application-response-search-page.component.scss']
 })
 export class ApplicationResponseSearchPageComponent implements OnInit {
-	@ViewChild('searchTable', {static:true}) searchTable:SearchTableComponent;
+	@ViewChild('searchTable', { static: true }) searchTable: SearchTableComponent;
 
-	constructor(private router:Router, public responseService:AdminApplicationResponseService) { }
+	constructor(private router: Router, public responseService: AdminApplicationResponseService) {}
 
 	ngOnInit() {
 		this.searchTable.searchUrl = '/response';
 		this.searchTable.columns = [
-			{field:'name',				header:'Applicant Name',		renderer: r => this.renderName(r)},
-			{field:'status',			header:'Status',				hide:'sm', renderer: r => this.responseService.applicationResponseStatusRenderer(r.status)},
-			{field:'createDate',		header:'Create Date',			renderer:'date:short'},
-			{field:'ipAddress',			header:'IP Address',			hide:'sm'},
+			{ field: 'name', header: 'Applicant Name', renderer: (r) => this.renderName(r) },
+			{ field: 'status', header: 'Status', hide: 'sm', renderer: (r) => this.responseService.applicationResponseStatusRenderer(r.status) },
+			{ field: 'createDate', header: 'Create Date', renderer: 'date:short' },
+			{ field: 'ipAddress', header: 'IP Address', hide: 'sm' }
 		];
-		this.searchTable.onRowClick = p => this.onRowClick(p);
-		this.searchTable.defaultFilter = {type:null};
+		this.searchTable.onRowClick = (p) => this.onRowClick(p);
+		this.searchTable.defaultFilter = { type: null };
 		// this.searchTable.addNewUrl = '/application-response/new';
 	}
 
-
-	renderName(response:ApplicationResponse) {
-		const firstName = this.responseService.getResponseQuestionAnswer(response,'firstName');
-		const lastName = this.responseService.getResponseQuestionAnswer(response,'lastName');
+	renderName(response: ApplicationResponse) {
+		const firstName = this.responseService.getResponseQuestionAnswer(response, 'firstName');
+		const lastName = this.responseService.getResponseQuestionAnswer(response, 'lastName');
 		return `${firstName} ${lastName}`;
 	}
 
-
-	onRowClick(applicationResponse:ApplicationResponse) {
+	onRowClick(applicationResponse: ApplicationResponse) {
 		this.router.navigate(['/admin/application-response', applicationResponse._id]);
 	}
 }

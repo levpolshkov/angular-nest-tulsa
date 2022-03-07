@@ -7,24 +7,24 @@ export { User };
 })
 export class UserChangeService {
 	private event = new EventEmitter<User>();
-	private user:User;
+	private user: User;
 
 	constructor() {}
 
-	onChange(user:User, force=false) {
-		if(!user && !this.user) return;
-		if(!this.user || !user || user._id!==this.user._id || force) {
+	onChange(user: User, force = false) {
+		if (!user && !this.user) return;
+		if (!this.user || !user || user._id !== this.user._id || force) {
 			this.user = user;
 			this.event.emit(this.user);
 			// console.log('UserChangeService.onChange()\tuser=%o', user);
 		}
 	}
 
-	getUser():User {
+	getUser(): User {
 		return this.user;
 	}
 
-	subscribe(handler:Function) {
+	subscribe(handler: Function) {
 		const sub = this.event.subscribe(handler);
 		handler(this.user);
 		return sub;

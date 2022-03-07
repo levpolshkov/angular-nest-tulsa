@@ -7,7 +7,7 @@ import { GoogleMapsService } from 'src/app/shared/google-maps.service';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { ApplicationResponse } from '@server/application-response/application-response.interface';
 import { ApplicationResponseService } from './application-response.service';
-import packageJson					from '../../../../package.json';
+import packageJson from '../../../../package.json';
 
 @Component({
 	selector: 'app-application',
@@ -34,12 +34,19 @@ export class ApplicationComponent implements OnInit {
 
 	nextPageLoading = false;
 
-    today = new Date();
+	today = new Date();
 
-	constructor(public applicationService:ApplicationService, private responseService:ApplicationResponseService, private route:ActivatedRoute, private router:Router, private googleMapsService:GoogleMapsService, private googleTagManagerService: GoogleTagManagerService) { }
+	constructor(
+		public applicationService: ApplicationService,
+		private responseService: ApplicationResponseService,
+		private route: ActivatedRoute,
+		private router: Router,
+		private googleMapsService: GoogleMapsService,
+		private googleTagManagerService: GoogleTagManagerService
+	) {}
 
 	async ngOnInit() {
-		this.application = await this.applicationService.searchApplications({ filter: {} }).then(r => r.records[0]);
+		this.application = await this.applicationService.searchApplications({ filter: {} }).then((r) => r.records[0]);
 		await this.loadResponse();
 		console.log('get utm codes from service', this.applicationService.utm_codes);
 
@@ -56,14 +63,14 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	async loadResponse() {
-		if(this.route.snapshot.queryParams['viewPage']) {
+		if (this.route.snapshot.queryParams['viewPage']) {
 			const viewPageId = this.route.snapshot.queryParams['viewPage'];
-			const viewSection = this.application.sections.find(s => s.pages.find(p => p._id===viewPageId))
-			const viewPage = viewSection && viewSection.pages.find(p => p._id===viewPageId);
-			if(viewPage) {
+			const viewSection = this.application.sections.find((s) => s.pages.find((p) => p._id === viewPageId));
+			const viewPage = viewSection && viewSection.pages.find((p) => p._id === viewPageId);
+			if (viewPage) {
 				this.response = {
-                    status: 'pending',
-                    utmCodes: this.applicationService.utm_codes,
+					status: 'pending',
+					utmCodes: this.applicationService.utm_codes,
 					application: this.application,
 					questionAnswers: [],
 					createDate: new Date(),
@@ -75,28 +82,26 @@ export class ApplicationComponent implements OnInit {
 		}
 
 		this.response = await this.responseService.loadResponseLocal();
-		if(!this.response) {
+		if (!this.response) {
 			this.response = {
-                status: 'pending',
-                utmCodes: this.applicationService.utm_codes,
+				status: 'pending',
+				utmCodes: this.applicationService.utm_codes,
 				application: this.application,
 				questionAnswers: [],
 				createDate: new Date(),
 				lastPage: '1a'
 			};
 		} else {
-			this.application = this.response.application;		// To make sure we restore page.nextPageName for Back button functionality
+			this.application = this.response.application; // To make sure we restore page.nextPageName for Back button functionality
 		}
 
-		
-
-		this.response.questionAnswers.forEach(qa => {
+		this.response.questionAnswers.forEach((qa) => {
 			this.answers[qa.questionKey] = qa.answer;
-        });
-        this.response.utmCodes = this.applicationService.utm_codes;
+		});
+		this.response.utmCodes = this.applicationService.utm_codes;
 		console.log('ApplicationComponent.loadResponse: response=%o', this.response);
-		
-		if(this.response.lastPage) {
+
+		if (this.response.lastPage) {
 			// const sectionIndex = this.findSectionIndexByPageName(this.response.lastPage);
 			// const pageIndex = this.findPageIndexByPageName(this.response.lastPage);
 			// this.gotoPage(sectionIndex, pageIndex);
@@ -104,20 +109,23 @@ export class ApplicationComponent implements OnInit {
 			this.loadPageByName(this.response.lastPage);
 		}
 
-		this.responseService.http.getPublicIpAddress().then(ipAddress => {
-			console.log('Got ipAddress=%o', ipAddress);
-			this.response.ipAddress = ipAddress;
-		}, err => console.error('Failed to get ipAddress: %o', err));
+		this.responseService.http.getPublicIpAddress().then(
+			(ipAddress) => {
+				console.log('Got ipAddress=%o', ipAddress);
+				this.response.ipAddress = ipAddress;
+			},
+			(err) => console.error('Failed to get ipAddress: %o', err)
+		);
 	}
 	async saveResponse() {
-		this.response.questionAnswers = Object.keys(this.answers).map(questionKey => {
+		this.response.questionAnswers = Object.keys(this.answers).map((questionKey) => {
 			return {
 				questionKey,
 				answer: this.answers[questionKey],
 				answerLabel: this.answerLabels[questionKey]
 			};
-        });
-        this.response.utmCodes = this.applicationService.utm_codes;
+		});
+		this.response.utmCodes = this.applicationService.utm_codes;
 		this.response.application = this.application;
 		this.response.lastPage = this.page.name;
 		this.response.updateDate = new Date();
@@ -125,7 +133,6 @@ export class ApplicationComponent implements OnInit {
 		this.response = await this.responseService.submitResponse(this.response);
 		await this.responseService.saveResponseLocal(this.response);
 	}
-
 
 	// gotoPage(sectionIndex:number, pageIndex:number) {
 	// 	console.log('gotoPage: sectionIndex=%o, pageIndex=%o', sectionIndex,pageIndex);
@@ -139,21 +146,19 @@ export class ApplicationComponent implements OnInit {
 	// 	});
 	// }
 
-
-
-	loadPageByName(pageName:string) {
+	loadPageByName(pageName: string) {
 		const sectionIndex = this.findSectionIndexByPageName(pageName);
 		const pageIndex = this.findPageIndexByPageName(pageName);
-		this.loadPage(sectionIndex,pageIndex);
+		this.loadPage(sectionIndex, pageIndex);
 	}
 
-	loadPageById(pageId:string) {
+	loadPageById(pageId: string) {
 		const sectionIndex = this.findSectionIndexByPageId(pageId);
 		const pageIndex = this.findPageIndexByPageId(pageId);
-		this.loadPage(sectionIndex,pageIndex);
+		this.loadPage(sectionIndex, pageIndex);
 	}
 
-	async loadPage(sectionIndex:number, pageIndex:number) {
+	async loadPage(sectionIndex: number, pageIndex: number) {
 		console.log('loadPage: sectionIndex=%o, pageIndex=%o', sectionIndex, pageIndex);
 		this.sectionIndex = sectionIndex;
 		this.pageIndex = pageIndex;
@@ -161,7 +166,7 @@ export class ApplicationComponent implements OnInit {
 		this.section = this.application.sections[sectionIndex];
 		this.page = this.section.pages[pageIndex];
 
-		if(this.page.type==='reject') {
+		if (this.page.type === 'reject') {
 			this.response.bummerEmail = this.answers.email;
 		}
 
@@ -175,21 +180,25 @@ export class ApplicationComponent implements OnInit {
 			}
 		});
 
-        this.inputReady = true;
-        this.emptyFields = false;
-		this.page.questions.filter(q => q.key==='zipcode' || q.key==='address').forEach(q => this.onQuestionAnswer(q));
+		this.inputReady = true;
+		this.emptyFields = false;
+		this.page.questions.filter((q) => q.key === 'zipcode' || q.key === 'address').forEach((q) => this.onQuestionAnswer(q));
 
 		if (this.page.name === '14.5a') {
-			console.log("employment type=%o", this.answers);
+			console.log('employment type=%o', this.answers);
 			switch (this.answers['employmentType']) {
 				case 'Full Time Employee':
-					this.page.nextPageName = '15FE.1'; break;
+					this.page.nextPageName = '15FE.1';
+					break;
 				case 'Business Owner':
-					this.page.nextPageName = '15BO.1'; break;
+					this.page.nextPageName = '15BO.1';
+					break;
 				case 'Independent Contractor':
-					this.page.nextPageName = '15IC.1'; break;
+					this.page.nextPageName = '15IC.1';
+					break;
 				default:
-					this.page.nextPageName = '16a'; break;
+					this.page.nextPageName = '16a';
+					break;
 			}
 			console.log('Employment: At 14.5a: employmentType=%o, nextPageName=%o', this.answers['employmentType'], this.page.nextPageName);
 		}
@@ -200,8 +209,8 @@ export class ApplicationComponent implements OnInit {
 		};
 		this.googleTagManagerService.pushTag(gtmTag);
 
-		if(this.page.type==='submit') await this.submitResponse();
-		if(this.page.type==='reject') await this.rejectResponse();
+		if (this.page.type === 'submit') await this.submitResponse();
+		if (this.page.type === 'reject') await this.rejectResponse();
 	}
 
 	get lastPageIndex() {
@@ -215,8 +224,8 @@ export class ApplicationComponent implements OnInit {
 
 	async onNextBtn() {
 		if (this.page.name === '5a.1') {
-			if (this.answers['primaryIncomeSourceFromCompany'] === "Yes") {
-				this.answers['employmentType'] = "Full Time Employee";
+			if (this.answers['primaryIncomeSourceFromCompany'] === 'Yes') {
+				this.answers['employmentType'] = 'Full Time Employee';
 			}
 		}
 
@@ -224,7 +233,7 @@ export class ApplicationComponent implements OnInit {
 		await this.saveResponse();
 		this.nextPageLoading = false;
 
-		if(!this.page.nextPageName && this.page.nextPageId) {
+		if (!this.page.nextPageName && this.page.nextPageId) {
 			const nextPage = this.findPageByPageId(this.page.nextPageId);
 			this.page.nextPageName = nextPage?.name;
 		}
@@ -235,8 +244,8 @@ export class ApplicationComponent implements OnInit {
 		const currentPageName = this.page.name;
 		if (!currentPageName) return;
 
-		const allPages = this.application.sections.map(s => s.pages).reduce((a, b) => a.concat(b), []);
-		const prevPage = allPages.find(p => p.nextPageName === currentPageName);
+		const allPages = this.application.sections.map((s) => s.pages).reduce((a, b) => a.concat(b), []);
+		const prevPage = allPages.find((p) => p.nextPageName === currentPageName);
 		const prevPageName = prevPage?.name;
 
 		console.log('onPrevBtn: sectionIndex=%o, pageIndex=%o, currentPageName=%o, prevPageName=%o', this.sectionIndex, this.pageIndex, currentPageName, prevPageName);
@@ -247,44 +256,42 @@ export class ApplicationComponent implements OnInit {
 			// this.gotoPage(sectionIndex, pageIndex);
 			this.loadPageByName(prevPageName);
 		}
-
-    }
-
-    async onEnter(question:ApplicationQuestion) {
-        console.log('you pressed enter');
-        await this.onQuestionAnswer(question);
-        if (this.inputReady && this.page.questions.every(q => this.isQuestionValid(q))) {
-            this.onNextBtn();
-        }
-        else if (!this.page.questions.every(q => this.isQuestionValid(q))) {
-            this.emptyFields = true;
-            console.log('please fill out all the fields');
-        }
-    }
-
-	findSectionIndexByPageName(pageName:string) {
-		return this.application.sections.findIndex(s => s.pages.find(p => p.name === pageName));
-	}
-	findSectionIndexByPageId(pageId:string) {
-		return this.application.sections.findIndex(s => s.pages.find(p => p._id === pageId));
 	}
 
-	findPageIndexByPageName(pageName:string) {
+	async onEnter(question: ApplicationQuestion) {
+		console.log('you pressed enter');
+		await this.onQuestionAnswer(question);
+		if (this.inputReady && this.page.questions.every((q) => this.isQuestionValid(q))) {
+			this.onNextBtn();
+		} else if (!this.page.questions.every((q) => this.isQuestionValid(q))) {
+			this.emptyFields = true;
+			console.log('please fill out all the fields');
+		}
+	}
+
+	findSectionIndexByPageName(pageName: string) {
+		return this.application.sections.findIndex((s) => s.pages.find((p) => p.name === pageName));
+	}
+	findSectionIndexByPageId(pageId: string) {
+		return this.application.sections.findIndex((s) => s.pages.find((p) => p._id === pageId));
+	}
+
+	findPageIndexByPageName(pageName: string) {
 		const sectionIndex = this.findSectionIndexByPageName(pageName);
 		if (sectionIndex === -1) return -1;
-		const pageIndex = this.application.sections[sectionIndex].pages.findIndex(p => p.name === pageName);
+		const pageIndex = this.application.sections[sectionIndex].pages.findIndex((p) => p.name === pageName);
 		return pageIndex;
 	}
-	findPageIndexByPageId(pageId:string) {
+	findPageIndexByPageId(pageId: string) {
 		const sectionIndex = this.findSectionIndexByPageId(pageId);
 		if (sectionIndex === -1) return -1;
-		const pageIndex = this.application.sections[sectionIndex].pages.findIndex(p => p._id === pageId);
+		const pageIndex = this.application.sections[sectionIndex].pages.findIndex((p) => p._id === pageId);
 		return pageIndex;
 	}
-	findPageByPageId(pageId:string) {
+	findPageByPageId(pageId: string) {
 		const sectionIndex = this.findSectionIndexByPageId(pageId);
 		if (sectionIndex === -1) return null;
-		return this.application.sections[sectionIndex].pages.find(p => p._id === pageId);
+		return this.application.sections[sectionIndex].pages.find((p) => p._id === pageId);
 	}
 
 	isActiveSection(section) {
@@ -295,15 +302,14 @@ export class ApplicationComponent implements OnInit {
 		this.answers[question.key] = option.value || option.label;
 		this.answerLabels[question.key] = option.label || option.value;
 		console.log('selectQuestionOption: question=%o, option=%o', question, option);
-		if(option.nextPageId) {
+		if (option.nextPageId) {
 			this.page.nextPageId = option.nextPageId;
-			if(this.page.nextPageId) {
+			if (this.page.nextPageId) {
 				const nextPage = this.findPageByPageId(this.page.nextPageId);
 				console.log('getSelectedQuestionValue: nextPage=%o', nextPage);
 				this.page.nextPageName = nextPage?.name;
 			}
 		}
-		
 	}
 
 	isQuestionOptionSelected(question: ApplicationQuestion, option: ApplicationQuestionOption) {
@@ -312,43 +318,44 @@ export class ApplicationComponent implements OnInit {
 
 	getSelectedQuestionValue(question: ApplicationQuestion) {
 		if (question.type == 'radio') {
-			let option = question.options.find(el => el.value == this.answers[question.key]);
-			if(option) {
+			let option = question.options.find((el) => el.value == this.answers[question.key]);
+			if (option) {
 				this.page.nextPageId = option.nextPageId;
-				if(this.page.nextPageId) {
+				if (this.page.nextPageId) {
 					const nextPage = this.findPageByPageId(this.page.nextPageId);
 					console.log('getSelectedQuestionValue: nextPage=%o', nextPage);
 					this.page.nextPageName = nextPage?.name;
 				}
 			}
-		}
-		else if (question.type == 'text') {
+		} else if (question.type == 'text') {
 			this.onQuestionAnswer(question);
 		}
 	}
 
-	async onQuestionAnswer(question:ApplicationQuestion) {
+	async onQuestionAnswer(question: ApplicationQuestion) {
 		const value = this.answers[question.key];
-		if (question.key === 'birthDate') {		// Check and reject if they are under 18
+		if (question.key === 'birthDate') {
+			// Check and reject if they are under 18
 			const duration = DateTime.fromISO(value).diffNow('years');
 			const age = -duration.years;
 
 			if (age < 18) {
-				this.page.nextPageName = '6a.1';		// Bummer
+				this.page.nextPageName = '6a.1'; // Bummer
 			} else {
 				this.page.nextPageName = '7a';
 			}
 			console.log('dateOfBirth=%o, age=%o, nextPageName=%o', value, age, this.page.nextPageName);
 		}
 
-		if (question.key === 'zipcode' && value) {		// Check and reject if they are inside of Oklahoma
+		if (question.key === 'zipcode' && value) {
+			// Check and reject if they are inside of Oklahoma
 			this.inputReady = false;
 			const info = await this.googleMapsService.lookupZipcode(value);
 			console.log('lookupZipcode: %o', info);
 			if (!info) {
 				//  TODO: Handle if they enter something invalid
 			} else {
-				this.inputReady = true;  // show the button
+				this.inputReady = true; // show the button
 				if (info.state === 'OK') {
 					this.page.nextPageName = '8a.1';
 				} else {
@@ -384,7 +391,6 @@ export class ApplicationComponent implements OnInit {
 		this.saveResponse();
 	}
 
-
 	async rejectResponse() {
 		this.response.status = 'rejected';
 		this.response.lastPage = this.page.name;
@@ -399,7 +405,7 @@ export class ApplicationComponent implements OnInit {
 	}
 
 	async submitResponse() {
-		if(this.response.status==='submitted') {
+		if (this.response.status === 'submitted') {
 			console.warn('submitResponse: Response status already submitted, bailing.');
 			return;
 		}
@@ -415,58 +421,65 @@ export class ApplicationComponent implements OnInit {
 				pageName: this.page.name
 			});
 
-			if(window['gtag']) {
+			if (window['gtag']) {
 				window['gtag']('event', 'conversion', {
-					'send_to': 'AW-10781414996/TxfPCL2QxIMDENSs_ZQo',
-					'value': 1.0,
-					'currency': 'USD'
+					send_to: 'AW-10781414996/TxfPCL2QxIMDENSs_ZQo',
+					value: 1.0,
+					currency: 'USD'
 				});
 			}
 
-			if(window['lintrk']) {
-				window['lintrk']('track', {conversion_id:5582972});
+			if (window['lintrk']) {
+				window['lintrk']('track', { conversion_id: 5582972 });
 			}
 
-			if(window['fbq']) {
+			if (window['fbq']) {
 				window['fbq']('track', 'SubmitApplication');
 			}
-		} catch(err) {
+		} catch (err) {
 			console.error('submitResponse: tracker threw error: %o', err);
 		}
 	}
 
 	get canNext() {
-		return this.page.questions.every(q => this.isQuestionValid(q));
+		return this.page.questions.every((q) => this.isQuestionValid(q));
 	}
 
-	isQuestionValid(question:ApplicationQuestion) {
+	isQuestionValid(question: ApplicationQuestion) {
 		const value = this.answers[question.key];
-		if(question.optional && !value) return true;
-		if(question.key === 'birthDate') return this.isBirthDateValid(value);
-		switch(question.type) {
-			case 'label':	return true;
+		if (question.optional && !value) return true;
+		if (question.key === 'birthDate') return this.isBirthDateValid(value);
+		switch (question.type) {
+			case 'label':
+				return true;
 			case 'radio':
 			case 'text':
 			case 'textarea':
 			case 'date':
 				return !!value;
-			case 'email':	return this.isEmailValid(value);
-			case 'phone':	return this.isPhoneValid(value);
-			case 'url':		return this.isUrlValid(value);
+			case 'email':
+				return this.isEmailValid(value);
+			case 'phone':
+				return this.isPhoneValid(value);
+			case 'url':
+				return this.isUrlValid(value);
 		}
 		return false;
 	}
 
-	isPhoneValid(phone:string) {
+	isPhoneValid(phone: string) {
 		return !!(phone && phone.match(/^[\d-\(\)\+\s]+$/g) && phone.replace(/[^\d]/g, '').match(/^[0-9]{10,12}$/));
 	}
-	isEmailValid(email:string) {
-		return !!(email && email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/));
+	isEmailValid(email: string) {
+		return !!(
+			email &&
+			email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+		);
 	}
-	isUrlValid(url:string) {
+	isUrlValid(url: string) {
 		return !!(url && url.match(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/));
 	}
-	isBirthDateValid(birthDate:string) {
+	isBirthDateValid(birthDate: string) {
 		const birthDateObject = new Date(birthDate);
 		birthDateObject?.setUTCHours(this.today.getUTCHours(), this.today.getUTCMinutes(), this.today.getUTCSeconds());
 		const isFutureDate = birthDateObject > this.today;

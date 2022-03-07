@@ -10,23 +10,23 @@ import { AdminApplicationService } from '../application.service';
 	styleUrls: ['./application-search-page.component.scss']
 })
 export class ApplicationSearchPageComponent implements OnInit {
-	@ViewChild('searchTable', {static:true}) searchTable:SearchTableComponent;
+	@ViewChild('searchTable', { static: true }) searchTable: SearchTableComponent;
 
-	constructor(private router:Router, public applicationService:AdminApplicationService) { }
+	constructor(private router: Router, public applicationService: AdminApplicationService) {}
 
 	ngOnInit() {
 		this.searchTable.searchUrl = '/application';
 		this.searchTable.columns = [
 			// {field:'sku',				header:'Application SKU'},
-			{field:'name',				header:'Application Name'},
+			{ field: 'name', header: 'Application Name' }
 			// {field:'type',				header:'Application Type',		hide:'sm',		renderer: application => this.applicationService.applicationTypeRenderer(application.type)},
 		];
-		this.searchTable.onRowClick = p => this.onRowClick(p);
-		this.searchTable.defaultFilter = {type:null};
+		this.searchTable.onRowClick = (p) => this.onRowClick(p);
+		this.searchTable.defaultFilter = { type: null };
 		// this.searchTable.addNewUrl = '/admin/application/new';
 	}
 
-	onRowClick(application:Application) {
+	onRowClick(application: Application) {
 		this.router.navigate(['/admin/application', application._id]);
 	}
 }
