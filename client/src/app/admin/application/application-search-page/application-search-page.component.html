@@ -9,7 +9,7 @@
 				</div> -->
 				<div class="col-md-3">
 					<label class="form-label">Application Name</label>
-					<input type="text" class="form-control" name="name" [(ngModel)]="searchTable.params.filter.name" (ngModelChange)="searchTable.onFilterChange()">
+					<input type="text" class="form-control" name="name" [(ngModel)]="searchTable.params.filter.name" (ngModelChange)="searchTable.onFilterChange()" />
 				</div>
 				<!-- <div class="col-md-3">
 					<label class="form-label">Application Type</label>
@@ -23,11 +23,9 @@
 	</div>
 </form>
 
-
-
 <!-- <div class="card bg-light mt-3">
 	<div class="card-body"> -->
-		<search-table #searchTable></search-table>
-		<search-footer [searchTable]="searchTable"></search-footer>
-	<!-- </div> -->
+<search-table #searchTable></search-table>
+<search-footer [searchTable]="searchTable"></search-footer>
+<!-- </div> -->
 <!-- </div> -->

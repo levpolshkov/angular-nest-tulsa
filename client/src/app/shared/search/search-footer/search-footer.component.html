@@ -1,29 +1,33 @@
 <div *ngIf="searchTable && searchTable.result">
 	<div class="row">
 		<div class="col">
-			<div class="text-muted">{{start}} - {{end}} of {{searchTable.result.total}}</div>
+			<div class="text-muted">{{ start }} - {{ end }} of {{ searchTable.result.total }}</div>
 		</div>
 		<div class="col">
 			<ul class="pagination justify-content-end">
-				<li class="page-item" [ngClass]="{disabled:!canPrev}">
+				<li class="page-item" [ngClass]="{ disabled: !canPrev }">
 					<ng-container *ngIf="!searchTable.noRouting">
-						<a class="page-link" routerLink="." [queryParams]="canPrev ? {page:searchTable.result.page-1} : {}" queryParamsHandling="merge" (click)="prev()"><span>&laquo;</span></a>
+						<a class="page-link" routerLink="." [queryParams]="canPrev ? { page: searchTable.result.page - 1 } : {}" queryParamsHandling="merge" (click)="prev()"
+							><span>&laquo;</span></a
+						>
 					</ng-container>
 					<ng-container *ngIf="searchTable.noRouting">
 						<a class="page-link" (click)="prev()"><span>&laquo;</span></a>
 					</ng-container>
 				</li>
-				<li class="page-item" class="page" *ngFor="let page of pages" [class.active]="page===searchTable.result.page">
+				<li class="page-item" class="page" *ngFor="let page of pages" [class.active]="page === searchTable.result.page">
 					<ng-container *ngIf="!searchTable.noRouting">
-						<a class="page-link" routerLink="." [queryParams]="{page:page}" queryParamsHandling="merge">{{page}}</a>
+						<a class="page-link" routerLink="." [queryParams]="{ page: page }" queryParamsHandling="merge">{{ page }}</a>
 					</ng-container>
 					<ng-container *ngIf="searchTable.noRouting">
-						<a class="page-link" (click)="go(page)">{{page}}</a>
+						<a class="page-link" (click)="go(page)">{{ page }}</a>
 					</ng-container>
 				</li>
-				<li class="page-item" [ngClass]="{disabled:!canNext}">
+				<li class="page-item" [ngClass]="{ disabled: !canNext }">
 					<ng-container *ngIf="!searchTable.noRouting">
-						<a class="page-link" routerLink="." [queryParams]="canNext ? {page:(searchTable.result.page*1)+1} : {}" queryParamsHandling="merge" (click)="next()"><span>&raquo;</span></a>
+						<a class="page-link" routerLink="." [queryParams]="canNext ? { page: searchTable.result.page * 1 + 1 } : {}" queryParamsHandling="merge" (click)="next()"
+							><span>&raquo;</span></a
+						>
 					</ng-container>
 					<ng-container *ngIf="searchTable.noRouting">
 						<a class="page-link" (click)="next()"><span>&raquo;</span></a>

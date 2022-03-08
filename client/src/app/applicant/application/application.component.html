@@ -2,19 +2,18 @@
 	<div class="col side1">
 		<div class="fixed-height">
 			<h3><img src="/assets/raw/TRlogo-white.svg" alt="Tulsa Remote" /></h3>
-			<div class="hero-image" style="background-image: url({{page.heroImage}})" *ngIf="page.heroImage">
+			<div class="hero-image" style="background-image: url({{ page.heroImage }})" *ngIf="page.heroImage">
 				<h3><img src="/assets/raw/TRlogo.svg" alt="Tulsa Remote" /></h3>
 			</div>
 			<div class="page-title">
-				<h3>{{page.title}}</h3>
-				<h4>{{page.subTitle}}</h4>
-				<div *ngIf="applicationService.debugMode && page.name">[{{page.name}}]</div>
+				<h3>{{ page.title }}</h3>
+				<h4>{{ page.subTitle }}</h4>
+				<div *ngIf="applicationService.debugMode && page.name">[{{ page.name }}]</div>
 			</div>
-			<div class="version">{{version}}</div>
+			<div class="version">{{ version }}</div>
 		</div>
 	</div>
 	<div class="col side2" [class.hero-page-content]="page.heroImage">
-		
 		<div class="wayfinder text-center" *ngIf="!page.heroImage">
 			<wayfinder [sections]="application.sections" [sectionIndex]="sectionIndex" [pageIndex]="pageIndex"></wayfinder>
 		</div>
@@ -22,41 +21,81 @@
 		<ng-container *ngIf="page.questions.length">
 			<form>
 				<div class="questions" [class.highlight-empty]="emptyFields">
-					<div class="question mb-3" *ngFor="let question of page.questions; let questionIndex=index">
-						<label class="form-label" [class.heading-label]="page.type == 'single-question' || question.type == 'label' || question.type == 'radio'" [innerHtml]="question.label"></label>
+					<div class="question mb-3" *ngFor="let question of page.questions; let questionIndex = index">
+						<label
+							class="form-label"
+							[class.heading-label]="page.type == 'single-question' || question.type == 'label' || question.type == 'radio'"
+							[innerHtml]="question.label"
+						></label>
 
-						<div class="form-group" *ngIf="question.type==='text' || question.type==='email' || question.type==='phone'">
-							<input maxlength="100" (keyup.enter)="onEnter(question)" [class.empty]="!isQuestionValid(question)" class="form-control" [type]="question.type" [name]="question.key" [attr.name]="question.key" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
+						<div class="form-group" *ngIf="question.type === 'text' || question.type === 'email' || question.type === 'phone'">
+							<input
+								maxlength="100"
+								(keyup.enter)="onEnter(question)"
+								[class.empty]="!isQuestionValid(question)"
+								class="form-control"
+								[type]="question.type"
+								[name]="question.key"
+								[attr.name]="question.key"
+								[(ngModel)]="answers[question.key]"
+								(blur)="onQuestionAnswer(question)"
+							/>
 						</div>
 
-						<div class="input-group" *ngIf="question.type==='url'">
+						<div class="input-group" *ngIf="question.type === 'url'">
 							<span class="input-group-text">https://</span>
-							<input (keyup.enter)="onEnter(question)" [class.empty]="!isQuestionValid(question)" class="form-control" [type]="question.type" name="question{{questionIndex}}" [(ngModel)]="answers[question.key]" (blur)="onQuestionAnswer(question)">
+							<input
+								(keyup.enter)="onEnter(question)"
+								[class.empty]="!isQuestionValid(question)"
+								class="form-control"
+								[type]="question.type"
+								name="question{{ questionIndex }}"
+								[(ngModel)]="answers[question.key]"
+								(blur)="onQuestionAnswer(question)"
+							/>
 						</div>
 
-						<div class="form-group" *ngIf="question.type==='date'">
-							<input class="form-control" (keyup.enter)="onEnter(question)" type="date" [class.empty]="!isQuestionValid(question)" name="question{{questionIndex}}" [(ngModel)]="answers[question.key]"  (blur)="onQuestionAnswer(question)" min="1900-01-01" max="{{today | date: 'yyyy-MM-dd'}}">
+						<div class="form-group" *ngIf="question.type === 'date'">
+							<input
+								class="form-control"
+								(keyup.enter)="onEnter(question)"
+								type="date"
+								[class.empty]="!isQuestionValid(question)"
+								name="question{{ questionIndex }}"
+								[(ngModel)]="answers[question.key]"
+								(blur)="onQuestionAnswer(question)"
+								min="1900-01-01"
+								max="{{ today | date: 'yyyy-MM-dd' }}"
+							/>
 						</div>
 
-						<div class="radio form-group" *ngIf="question.type==='radio'">
+						<div class="radio form-group" *ngIf="question.type === 'radio'">
 							<div class="d-grid gap-2" [class.d-flex]="question.options.length <= 2">
 								<ng-container *ngFor="let option of question.options; let i = index">
-									<label [class.col-sm-6]="question.options.length <= 2" [class.text-center]="question.options.length <= 2" for="control_{{i}}">
-										<input (keyup.enter)="onEnter(question)" type="radio" id="control_{{i}}" name="selectQuestion" value="{{i}}" (click)="selectQuestionOption(question,option)" [class.selected]="isQuestionOptionSelected(question,option)">
+									<label [class.col-sm-6]="question.options.length <= 2" [class.text-center]="question.options.length <= 2" for="control_{{ i }}">
+										<input
+											(keyup.enter)="onEnter(question)"
+											type="radio"
+											id="control_{{ i }}"
+											name="selectQuestion"
+											value="{{ i }}"
+											(click)="selectQuestionOption(question, option)"
+											[class.selected]="isQuestionOptionSelected(question, option)"
+										/>
 										<span class="faux-label">
 											<span class="label">
-												{{option.label}}
-												<span *ngIf="applicationService.debugMode && option.value">[{{option.value}}]</span>
+												{{ option.label }}
+												<span *ngIf="applicationService.debugMode && option.value">[{{ option.value }}]</span>
 											</span>
-											<span class="helper-text" *ngIf="option.helperText">{{option.helperText}}</span>
-											<span *ngIf="applicationService.debugMode && option.nextPageName">[{{option.nextPageName}}]</span>
+											<span class="helper-text" *ngIf="option.helperText">{{ option.helperText }}</span>
+											<span *ngIf="applicationService.debugMode && option.nextPageName">[{{ option.nextPageName }}]</span>
 										</span>
 									</label>
 								</ng-container>
 							</div>
 						</div>
 
-						<div class="form-group" *ngIf="question.type==='textarea'">
+						<div class="form-group" *ngIf="question.type === 'textarea'">
 							<textarea class="form-control" rows="10" [(ngModel)]="answers[question.key]" [name]="question.key" (blur)="onQuestionAnswer(question)"></textarea>
 						</div>
 					</div>
@@ -66,46 +105,47 @@
 
 		<div *ngIf="page.heroHtml" class="questions" [innerHtml]="page.heroHtml"></div>
 
-		<div *ngIf="page.type==='reject'" class="questions">
+		<div *ngIf="page.type === 'reject'" class="questions">
 			<div *ngIf="!bummerSubmitted">
 				<label class="form-label text-light">Verify your email address</label>
 				<div class="d-flex justify-content-between">
-					<input class="form-control" type="email" name="bummerEmail" [(ngModel)]="response.bummerEmail">
+					<input class="form-control" type="email" name="bummerEmail" [(ngModel)]="response.bummerEmail" />
 					<button class="btn --next --reverse" (click)="onBummerSubmit()">Submit</button>
 				</div>
 			</div>
-			<p *ngIf="bummerSubmitted">
-				Thank you!
-			</p>
+			<p *ngIf="bummerSubmitted">Thank you!</p>
 			<div class="clearfix mb-3"></div>
-			<small class="helperText">If you feel we’ve made an error, please contact us at <a class="text-light" href="mailto:info@tulsaremote.com" target="_blank">info@tulsaremote.com</a></small>
+			<small class="helperText"
+				>If you feel we’ve made an error, please contact us at <a class="text-light" href="mailto:info@tulsaremote.com" target="_blank">info@tulsaremote.com</a></small
+			>
 		</div>
 
-		<div *ngIf="page.type==='submit'" class="exit-meta">
+		<div *ngIf="page.type === 'submit'" class="exit-meta">
 			<div class="return-link"><a class="btn --plain-link --reverse" href="https://tulsaremote.com">Return to website</a></div>
 			<ul class="social-media">
-				<li><a class="facebook" href="https://www.facebook.com/tulsaremote"><span class="visually-hidden">Facebook</span></a></li>
-				<li><a class="twitter" href="https://twitter.com/tulsaremote"><span class="visually-hidden">Twitter</span></a></li>
-				<li><a class="linkedin" href="https://www.linkedin.com/company/tulsaremote/"><span class="visually-hidden">LinkedIn</span></a></li>
+				<li>
+					<a class="facebook" href="https://www.facebook.com/tulsaremote"><span class="visually-hidden">Facebook</span></a>
+				</li>
+				<li>
+					<a class="twitter" href="https://twitter.com/tulsaremote"><span class="visually-hidden">Twitter</span></a>
+				</li>
+				<li>
+					<a class="linkedin" href="https://www.linkedin.com/company/tulsaremote/"><span class="visually-hidden">LinkedIn</span></a>
+				</li>
 			</ul>
 		</div>
 
-		<div class="buttons px-4" *ngIf="page.type!=='reject' && page.type!=='submit' && page.name!=='welcome'">
+		<div class="buttons px-4" *ngIf="page.type !== 'reject' && page.type !== 'submit' && page.name !== 'welcome'">
 			<button class="btn --plain-link" (click)="onPrevBtn()">Back</button>
 			<button class="btn --next" (click)="onNextBtn()" [disabled]="!canNext || !inputReady || nextPageLoading">
-				<span *ngIf="page.name=='33a' else next">Submit</span>
-                <ng-template #next>      
-                   Next
-                </ng-template>
-				<span *ngIf="applicationService.debugMode && page.nextPageName">[{{page.nextPageName}}]</span>
+				<span *ngIf="page.name == '33a'; else next">Submit</span>
+				<ng-template #next> Next </ng-template>
+				<span *ngIf="applicationService.debugMode && page.nextPageName">[{{ page.nextPageName }}]</span>
 			</button>
 		</div>
 
-		<div class="buttons --dark px-4 text-right" *ngIf="page.name==='welcome'">
+		<div class="buttons --dark px-4 text-right" *ngIf="page.name === 'welcome'">
 			<button class="btn --next --reverse" (click)="onNextBtn()">Let's Get Started</button>
 		</div>
-
-
 	</div>
-	
 </div>

@@ -2,28 +2,26 @@
 	<div class="row d-flex">
 		<div class="col fs-4">Tulsa Remote</div>
 	</div>
-	<hr>
+	<hr />
 	<ul class="nav nav-pills flex-column mb-auto">
 		<li class="nav-item" *ngFor="let menuItem of menuItems">
-			<a class="nav-link" [routerLink]="menuItem.url" routerLinkActive="active" (click)="onClick()">
-				<i [class]="menuItem.icon"></i> {{menuItem.name}}
-			</a>
+			<a class="nav-link" [routerLink]="menuItem.url" routerLinkActive="active" (click)="onClick()"> <i [class]="menuItem.icon"></i> {{ menuItem.name }} </a>
 		</li>
 	</ul>
-	<hr>
+	<hr />
 	<div class="footer">
 		<div class="row">
 			<div class="col">
 				<div class="float-start">
 					<div ngbDropdown class="d-inline-block" *ngIf="user">
-						<button class="btn btn-link" ngbDropdownToggle><i class="fas fa-user-circle"></i> {{user.fullName}}</button>
+						<button class="btn btn-link" ngbDropdownToggle><i class="fas fa-user-circle"></i> {{ user.fullName }}</button>
 						<div ngbDropdownMenu>
 							<button ngbDropdownItem (click)="navigateToProfile()">Profile</button>
 							<button ngbDropdownItem (click)="logout()">Logout</button>
 						</div>
 					</div>
 				</div>
-				<div class="version float-end text-muted">{{version}}</div>
+				<div class="version float-end text-muted">{{ version }}</div>
 			</div>
 		</div>
 	</div>

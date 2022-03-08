@@ -10,10 +10,10 @@
 }
 
 .row {
-  .side1,
-  .side2 {
-    position: relative;
-  }
+	.side1,
+	.side2 {
+		position: relative;
+	}
 }
 
 form {
@@ -41,29 +41,28 @@ form {
 	color: white;
 	padding: 10px;
 
-    @include media-breakpoint-up(md) {
-        .fixed-height {
-            position: fixed;
-            height: 100vh;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 50%;
-        }
-        .version {
-            font-size: .75rem;
-            position: fixed;
-            bottom: 15px;
-            left: 20px;
-        }
-        
-    }
+	@include media-breakpoint-up(md) {
+		.fixed-height {
+			position: fixed;
+			height: 100vh;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 50%;
+		}
+		.version {
+			font-size: 0.75rem;
+			position: fixed;
+			bottom: 15px;
+			left: 20px;
+		}
+	}
 
 	.page-title {
-    h3 {
-      font-family: $font-family-heading;
-      font-size: 2.75rem;
-    }
+		h3 {
+			font-family: $font-family-heading;
+			font-size: 2.75rem;
+		}
 		@include media-breakpoint-down(md) {
 			margin-top: 3em;
 		}
@@ -74,8 +73,6 @@ form {
 			margin-left: 50px;
 		}
 	}
-
-
 }
 
 .side2 {
@@ -92,7 +89,7 @@ form {
 		color: white;
 
 		@include media-breakpoint-down(md) {
-		flex: 1 0 100%;
+			flex: 1 0 100%;
 		}
 	}
 }
@@ -100,8 +97,9 @@ form {
 .wayfinder {
 	max-width: 100%;
 	overflow: hidden;
-	
-	img, svg {
+
+	img,
+	svg {
 		max-width: 100%;
 		height: auto;
 	}
@@ -114,35 +112,32 @@ form {
 	}
 }
 
-
 :host ::ng-deep {
-  .quote {
-    margin-top: 2em;
-    font-family: $font-family-main;
+	.quote {
+		margin-top: 2em;
+		font-family: $font-family-main;
 
-    &-content {
-      font-weight: 300;
-      padding: 1em 0;
-      font-size: 1em;
-      line-height: 1.5;
-    }
-    &-metadata {
-      display: flex;
-      margin-top: .7em;
-    }
-    &-image {
-      border-radius: 100%;
-      overflow: hidden;
-      height: 80px;
-      width: 80px;
-    }
-    &-name {
-      padding-left: 1em;
-    }
-  }
+		&-content {
+			font-weight: 300;
+			padding: 1em 0;
+			font-size: 1em;
+			line-height: 1.5;
+		}
+		&-metadata {
+			display: flex;
+			margin-top: 0.7em;
+		}
+		&-image {
+			border-radius: 100%;
+			overflow: hidden;
+			height: 80px;
+			width: 80px;
+		}
+		&-name {
+			padding-left: 1em;
+		}
+	}
 }
-
-
 
 // TODO: this still needs some love
 .buttons {
@@ -153,11 +148,11 @@ form {
 	justify-content: space-between;
 	align-items: center;
 
-  &.--dark {
-    background: transparent;
-    justify-content: flex-end;
-    border-top: 0;
-  }
+	&.--dark {
+		background: transparent;
+		justify-content: flex-end;
+		border-top: 0;
+	}
 
 	@include media-breakpoint-down(md) {
 		position: fixed;
@@ -165,11 +160,11 @@ form {
 		left: 0;
 		right: 0;
 
-        &.--dark {
-        padding: 40px;
-        position: static;
-        justify-content: center;
-        }
+		&.--dark {
+			padding: 40px;
+			position: static;
+			justify-content: center;
+		}
 	}
 
 	@include media-breakpoint-up(md) {
@@ -181,57 +176,56 @@ form {
 }
 
 .exit-meta {
-    position: absolute;
+	position: absolute;
 	bottom: 0;
-    left: 0;
+	left: 0;
 	right: 0;
-    display: flex;
-    justify-content: space-between;  
-    padding: 20px 40px 20px 20px;
-    
-    a {
-        color: white;
-    }
+	display: flex;
+	justify-content: space-between;
+	padding: 20px 40px 20px 20px;
+
+	a {
+		color: white;
+	}
 }
 
 .social-media {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 
+	li {
+		padding: 0 7px;
+	}
 
-    li {
-        padding: 0 7px;
-    }
+	a {
+		display: block;
+	}
 
-    a {
-        display: block;
-    }
-
-    .facebook {
-        height: 24px;
-        width: 24px;
-        background: url('/assets/icons/facebook.svg') no-repeat;
-    }
-    .twitter {
-        height: 20px;
-        width: 26px;
-        background: url('/assets/icons/twitter.svg') no-repeat;
-    }
-    .linkedin {
-        height: 24px;
-        width: 24px;
-        background: url('/assets/icons/linkedin.svg') no-repeat;
-    }
+	.facebook {
+		height: 24px;
+		width: 24px;
+		background: url('/assets/icons/facebook.svg') no-repeat;
+	}
+	.twitter {
+		height: 20px;
+		width: 26px;
+		background: url('/assets/icons/twitter.svg') no-repeat;
+	}
+	.linkedin {
+		height: 24px;
+		width: 24px;
+		background: url('/assets/icons/linkedin.svg') no-repeat;
+	}
 }
 
 .questions {
-  @include media-breakpoint-down(sm) {
-    padding-bottom: 100px;
-  }
+	@include media-breakpoint-down(sm) {
+		padding-bottom: 100px;
+	}
 	@include media-breakpoint-up(lg) {
 		// TODO: this is gross and should be fixed
 		width: 80%;
@@ -239,49 +233,49 @@ form {
 
 	.question {
 		.radio {
-      input[type="radio"] { 
-        border-width: 0 !important;
-        clip: rect(1px, 1px, 1px, 1px) !important;
-        height: 1px !important;
-        overflow: hidden !important;
-        padding: 0 !important;
-        position: absolute !important;
-        white-space: nowrap !important;
-        width: 1px !important;
+			input[type='radio'] {
+				border-width: 0 !important;
+				clip: rect(1px, 1px, 1px, 1px) !important;
+				height: 1px !important;
+				overflow: hidden !important;
+				padding: 0 !important;
+				position: absolute !important;
+				white-space: nowrap !important;
+				width: 1px !important;
 
-        &.selected + .faux-label {
+				&.selected + .faux-label {
 					border: 2px solid $color-medium-gray;
-          padding: 14px 22px 18px 22px;
+					padding: 14px 22px 18px 22px;
 					background-color: $color-xtra-lt-gray;
 				}
 
-        &:hover,
-        &:focus {
-          + .faux-label {
-            border-color: $color-brand-purple;
-            cursor: pointer;
-          }
+				&:hover,
+				&:focus {
+					+ .faux-label {
+						border-color: $color-brand-purple;
+						cursor: pointer;
+					}
 				}
-      }
+			}
 
 			.faux-label {
-        display: block;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 16px 24px 20px 24px;
+				display: block;
+				border: 1px solid #ddd;
+				border-radius: 8px;
+				padding: 16px 24px 20px 24px;
 
-        span.label {
-          display: block;
-          font-size: 1.5rem;
-          font-weight: 400;
-        }
+				span.label {
+					display: block;
+					font-size: 1.5rem;
+					font-weight: 400;
+				}
 
-        .helper-text {
-          display: block;
-          font-size: 1rem;
-          margin-top: 10px;
-          font-weight: 300;
-        }
+				.helper-text {
+					display: block;
+					font-size: 1rem;
+					margin-top: 10px;
+					font-weight: 300;
+				}
 			}
 		}
 	}
