@@ -1,89 +1,89 @@
 //bootstrap overrides
 
 .btn {
-  background: $color-brand-purple;
-  color: white;
-  text-transform: uppercase;
-  border-radius: 2px;
-  font-family: $font-family-main;
-  letter-spacing: .1em;
-  font-weight: 600;
-  font-size: .9em;
-  border: 2px solid transparent;
-  position: relative;
-  padding: 0.72rem 1.25rem;
+	background: $color-brand-purple;
+	color: white;
+	text-transform: uppercase;
+	border-radius: 2px;
+	font-family: $font-family-main;
+	letter-spacing: 0.1em;
+	font-weight: 600;
+	font-size: 0.9em;
+	border: 2px solid transparent;
+	position: relative;
+	padding: 0.72rem 1.25rem;
 
-  &:hover {
-    background: $color-brand-purple-light;
-    color: white;
-  }
+	&:hover {
+		background: $color-brand-purple-light;
+		color: white;
+	}
 
-  &:focus {
-    background: $color-brand-purple-light;
-    border-color: white;
-    color: white;
-    box-shadow: 0 0 0 0.15rem $color-brand-purple;
-  }
+	&:focus {
+		background: $color-brand-purple-light;
+		border-color: white;
+		color: white;
+		box-shadow: 0 0 0 0.15rem $color-brand-purple;
+	}
 
-  &.--next {
-    position: relative;
-    padding-right: 2.25em;
+	&.--next {
+		position: relative;
+		padding-right: 2.25em;
 
-    &:after {
-      color: white;
-      content: '';
-      display: block;
-      height: 8px;
-      width: 4px;
-      fill: white;
-      background-size: contain;
-      background-image: url('/assets/raw/arrow-right-white@2x.svg');
-      background-repeat: no-repeat;
-      position: absolute;
-      right: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  }
+		&:after {
+			color: white;
+			content: '';
+			display: block;
+			height: 8px;
+			width: 4px;
+			fill: white;
+			background-size: contain;
+			background-image: url('/assets/raw/arrow-right-white@2x.svg');
+			background-repeat: no-repeat;
+			position: absolute;
+			right: 18px;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	}
 
-  &.--plain-link {
-    background: transparent;
-    color: $color-brand-purple;
-    text-decoration: underline;
-    border: 1px solid transparent;
-    letter-spacing: 0;
+	&.--plain-link {
+		background: transparent;
+		color: $color-brand-purple;
+		text-decoration: underline;
+		border: 1px solid transparent;
+		letter-spacing: 0;
 
-    &:hover {
-      background: $color-xtra-lt-gray;
-    }
+		&:hover {
+			background: $color-xtra-lt-gray;
+		}
 
-    &:focus {
-      border-color: $color-brand-purple;
-    }
-  }
+		&:focus {
+			border-color: $color-brand-purple;
+		}
+	}
 
-  &.--reverse {
-    background: white;
-    color: $color-brand-purple;
-    border-color: $color-brand-purple;
+	&.--reverse {
+		background: white;
+		color: $color-brand-purple;
+		border-color: $color-brand-purple;
 
-    &:focus {
-      box-shadow: 0 0 0 0.15rem $color-white;
-    }
-  }
+		&:focus {
+			box-shadow: 0 0 0 0.15rem $color-white;
+		}
+	}
 
-  &.--reverse.--plain-link {
-    color: white;
-    background: transparent;
+	&.--reverse.--plain-link {
+		color: white;
+		background: transparent;
 
-    &:hover {
-      background: $color-brand-purple-light;
-    }
-  }
+		&:hover {
+			background: $color-brand-purple-light;
+		}
+	}
 
-  &.--reverse.--next {
-    &:after {
-      background-image: url('/assets/raw/arrow-right-dark@2x.svg');
-    }
-  }
+	&.--reverse.--next {
+		&:after {
+			background-image: url('/assets/raw/arrow-right-dark@2x.svg');
+		}
+	}
 }

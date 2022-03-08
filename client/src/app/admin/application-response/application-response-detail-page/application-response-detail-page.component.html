@@ -5,25 +5,27 @@
 			<div class="row mb-3">
 				<div class="col-md-3">
 					<label class="form-label">Applicant Name</label>
-					<input class="form-control" name="fullName" [value]="fullName" disabled>
+					<input class="form-control" name="fullName" [value]="fullName" disabled />
 				</div>
 				<div class="col-md-3">
 					<label class="form-label">Status</label>
 					<select class="form-select" name="status" [(ngModel)]="response.status" disabled>
-						<option [value]="applicationResponseStatus.id" *ngFor="let applicationResponseStatus of responseService.applicationResponseStatuses">{{applicationResponseStatus.name}}</option>
+						<option [value]="applicationResponseStatus.id" *ngFor="let applicationResponseStatus of responseService.applicationResponseStatuses">
+							{{ applicationResponseStatus.name }}
+						</option>
 					</select>
 				</div>
 				<div class="col-md-2">
 					<label class="form-label">Create Date</label>
-					<input class="form-control" name="createDate" [value]="response.createDate | date:'short'" disabled>
+					<input class="form-control" name="createDate" [value]="response.createDate | date: 'short'" disabled />
 				</div>
 				<div class="col-md-2">
 					<label class="form-label">BH Candidate ID</label>
-					<input class="form-control" name="bullhornCandidateId" [value]="response.bullhornCandidateId || ''" disabled>
+					<input class="form-control" name="bullhornCandidateId" [value]="response.bullhornCandidateId || ''" disabled />
 				</div>
 				<div class="col-md-2">
 					<label class="form-label">IP Address</label>
-					<input class="form-control" name="ipAddress" [value]="response.ipAddress || ''" disabled>
+					<input class="form-control" name="ipAddress" [value]="response.ipAddress || ''" disabled />
 				</div>
 			</div>
 
@@ -36,8 +38,8 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let questionAnswer of response.questionAnswers">
-						<td>{{questionAnswer.questionKey}}</td>
-						<td>{{questionAnswer.answer}}</td>
+						<td>{{ questionAnswer.questionKey }}</td>
+						<td>{{ questionAnswer.answer }}</td>
 					</tr>
 				</tbody>
 			</table>

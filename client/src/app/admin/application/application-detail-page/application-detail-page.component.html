@@ -5,7 +5,7 @@
 			<div class="row mb-3">
 				<div class="col-md-6">
 					<label class="form-label">Application Name</label>
-					<input class="form-control" name="applicationName" [(ngModel)]="application.name" [disabled]="readonly" required>
+					<input class="form-control" name="applicationName" [(ngModel)]="application.name" [disabled]="readonly" required />
 				</div>
 			</div>
 
@@ -22,10 +22,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="cursor-pointer" *ngFor="let section of application.sections; let sectionIndex=index" (click)="onSectionClick(section)">
-						<td>{{section.title}}</td>
-						<td>{{section.pages.length}}</td>
-						<td>{{section.order}}</td>
+					<tr class="cursor-pointer" *ngFor="let section of application.sections; let sectionIndex = index" (click)="onSectionClick(section)">
+						<td>{{ section.title }}</td>
+						<td>{{ section.pages.length }}</td>
+						<td>{{ section.order }}</td>
 					</tr>
 				</tbody>
 			</table>

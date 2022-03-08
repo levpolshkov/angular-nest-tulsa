@@ -1,29 +1,29 @@
 <h1 class="mt-2">ApplicationResponse Search</h1>
-<hr>
+<hr />
 
 <div>
 	<form>
 		<div class="row">
 			<div class="col-md-3">
 				<label class="form-label">Applicant Name</label>
-				<input type="text" class="form-control" name="name" [(ngModel)]="searchTable.params.filter.name" (ngModelChange)="searchTable.onFilterChange()">
+				<input type="text" class="form-control" name="name" [(ngModel)]="searchTable.params.filter.name" (ngModelChange)="searchTable.onFilterChange()" />
 			</div>
 			<div class="col-md-3">
 				<label class="form-label">Status</label>
 				<select class="form-select" name="status" [(ngModel)]="searchTable.params.filter.status" (ngModelChange)="searchTable.onFilterChange(true)">
 					<option [ngValue]="null">ALL</option>
-					<option [value]="applicationResponseStatus.id" *ngFor="let applicationResponseStatus of responseService.applicationResponseStatuses">{{applicationResponseStatus.name}}</option>
+					<option [value]="applicationResponseStatus.id" *ngFor="let applicationResponseStatus of responseService.applicationResponseStatuses">
+						{{ applicationResponseStatus.name }}
+					</option>
 				</select>
 			</div>
 		</div>
 	</form>
 </div>
 
-
-
 <!-- <div class="card bg-light mt-3">
 	<div class="card-body"> -->
-		<search-table #searchTable></search-table>
-		<search-footer [searchTable]="searchTable"></search-footer>
-	<!-- </div> -->
+<search-table #searchTable></search-table>
+<search-footer [searchTable]="searchTable"></search-footer>
+<!-- </div> -->
 <!-- </div> -->

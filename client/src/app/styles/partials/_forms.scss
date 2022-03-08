@@ -1,7 +1,7 @@
 label {
 	font-size: 1em;
 	font-weight: 600;
-	font-size: .9em;
+	font-size: 0.9em;
 }
 
 :host ::ng-deep .hero-page-content p,
@@ -12,22 +12,25 @@ label {
 }
 
 :host ::ng-deep .heading-label {
-  font-size: 1.5rem;
+	font-size: 1.5rem;
 	font-weight: 300;
 	margin-bottom: 2em;
 
-  ul {
-    margin-top: 1em;
-  }
+	ul {
+		margin-top: 1em;
+	}
 }
 
-input[type="text"], input[type="email"], input[type="phone"], input[type="date"] {
+input[type='text'],
+input[type='email'],
+input[type='phone'],
+input[type='date'] {
 	border: 1px solid $color-brand-dark-gray;
 	box-sizing: border-box;
 	border-radius: 2px;
-  padding: 0.7rem 0.75rem;
-  font-family: $font-family-main;
-  font-weight: 300;
+	padding: 0.7rem 0.75rem;
+	font-family: $font-family-main;
+	font-weight: 300;
 
 	&:focus {
 		border-color: $color-brand-purple;
@@ -36,9 +39,8 @@ input[type="text"], input[type="email"], input[type="phone"], input[type="date"]
 	}
 }
 
-
 .highlight-empty {
-   input.empty {
-	border: 1px solid red;
-   }
+	input.empty {
+		border: 1px solid red;
+	}
 }

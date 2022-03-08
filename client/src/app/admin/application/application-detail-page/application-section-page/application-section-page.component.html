@@ -2,18 +2,18 @@
 	<div class="card bg-light mt-3 mb-3">
 		<div class="card-body">
 			<h2 class="card-title">
-				<a routerLink="/admin/application/{{application._id}}">{{application.name}}</a>
+				<a routerLink="/admin/application/{{ application._id }}">{{ application.name }}</a>
 				&gt;
-				{{section.title}}
+				{{ section.title }}
 			</h2>
 			<div class="row mb-3">
 				<div class="col-md-9">
 					<label class="form-label">Section Name</label>
-					<input class="form-control" name="sectionTitle" [(ngModel)]="section.title" [disabled]="readonly" required>
+					<input class="form-control" name="sectionTitle" [(ngModel)]="section.title" [disabled]="readonly" required />
 				</div>
 				<div class="col-md-3">
 					<label class="form-label">Section Order</label>
-					<input type="number" class="form-control" name="sectionOrder" min="0" max="999" [(ngModel)]="section.order" [disabled]="readonly" required>
+					<input type="number" class="form-control" name="sectionOrder" min="0" max="999" [(ngModel)]="section.order" [disabled]="readonly" required />
 				</div>
 			</div>
 
@@ -32,12 +32,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="cursor-pointer" *ngFor="let page of section.pages; let pageIndex=index" (click)="onPageClick(page)">
-						<td>{{page.name}}</td>
-						<td>{{page.title}}</td>
+					<tr class="cursor-pointer" *ngFor="let page of section.pages; let pageIndex = index" (click)="onPageClick(page)">
+						<td>{{ page.name }}</td>
+						<td>{{ page.title }}</td>
 						<td><span [innerHtml]="applicationService.pageTypeRenderer(page.type)"></span></td>
-						<td>{{page.questions.length}}</td>
-						<td>{{page.order}}</td>
+						<td>{{ page.questions.length }}</td>
+						<td>{{ page.order }}</td>
 					</tr>
 				</tbody>
 			</table>

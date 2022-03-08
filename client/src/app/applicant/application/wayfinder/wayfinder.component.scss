@@ -1,8 +1,5 @@
-
 @import '~bootstrap/scss/bootstrap';
 @import '../../../styles/partials/variables';
-
-
 
 :host {
 	display: inline-block;
@@ -22,10 +19,10 @@
 	svg {
 		// border: 1px solid gray;
 		text.title {
-            // color: $color-dark-gray;
-            font-family: $font-family-main;
-            font-weight: 400;
-			font-size: .75rem;
+			// color: $color-dark-gray;
+			font-family: $font-family-main;
+			font-weight: 400;
+			font-size: 0.75rem;
 		}
 	}
 }

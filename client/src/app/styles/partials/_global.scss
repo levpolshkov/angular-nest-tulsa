@@ -1,24 +1,23 @@
-
 body {
-  font-family: $font-family-main;
-  font-weight: 400;
-  color: $color-brand-dark-gray;
+	font-family: $font-family-main;
+	font-weight: 400;
+	color: $color-brand-dark-gray;
 }
 
 img {
-  max-width: 100%;
-  height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
 :host ::ng-deep {
-  body {
-    font-family: $font-family-main;
-    font-weight: 400;
-    color: $color-brand-dark-gray;
-  }
+	body {
+		font-family: $font-family-main;
+		font-weight: 400;
+		color: $color-brand-dark-gray;
+	}
 
-  img {
-    max-width: 100%;
-    height: auto;
-  }
+	img {
+		max-width: 100%;
+		height: auto;
+	}
 }
