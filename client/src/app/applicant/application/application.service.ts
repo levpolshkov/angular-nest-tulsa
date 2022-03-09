@@ -5,6 +5,7 @@ import { HttpService } from 'src/app/shared/http.service';
 import { SearchService } from 'src/app/shared/search/search.service';
 import { StorageService } from 'src/app/shared/storage.service';
 import { environment } from 'src/environments/environment';
+
 export { Application, ApplicationSection, ApplicationPage, ApplicationQuestion };
 
 @Injectable({
@@ -12,7 +13,7 @@ export { Application, ApplicationSection, ApplicationPage, ApplicationQuestion }
 })
 export class ApplicationService {
 	debugMode = !environment.production;
-	utm_codes = {};
+	utm_codes? = {};
 
 	constructor(private http: HttpService, private searchService: SearchService, private storageService: StorageService) {}
 

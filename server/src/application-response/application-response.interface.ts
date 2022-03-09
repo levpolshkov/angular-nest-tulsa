@@ -21,6 +21,7 @@ export interface ApplicationResponse {
 	questionAnswers: ApplicationResponseQuestionAnswer[];
 
 	bullhornCandidateId?: number;
+	bullhornJobSubId?: number;
 
 	bummerEmail?: string; // If the user bummered out and left an email
 

@@ -31,7 +31,10 @@ export class ApplicationResponseService {
 
 	@Cron('0 3 * * * *')
 	async resubmitResponses() {
-		const responses = await this.responseModel.find({ status: 'submitted', bullhornCandidateId: { $exists: false } });
+		const responses = await this.responseModel.find({
+			status: 'submitted',
+			$or: [{ bullhornCandidateId: { $exists: false } }, { bullhornJobSubId: { $exists: false } }]
+		});
 		this.logger.log('resubmitResponses: responses=%o', responses.length);
 		return serialPromise(responses, (response: ApplicationResponseDocument) => {
 			return this.submitResponseToBullhorn(response).catch((err) => {
@@ -162,43 +165,50 @@ export class ApplicationResponseService {
 			}
 		});
 
-		const utmNote = JSON.stringify(response.utmCodes);
-
 		const appNote = appNoteLines.join('<br><br>');
 		const partnerNote = partnerNoteLines.join('<br><br>');
 		const responseNote = responseNoteLines.join('<br><br>');
-		console.log('utm note', utmNote);
+
 		// console.log('submitResponseToBullhorn: candidate=%o', candidate);
 		// console.log('submitResponseToBullhorn: appNote=%s', appNote);
 		// console.log('submitResponseToBullhorn: partnerNote=%s', partnerNote);
 		// console.log('submitResponseToBullhorn: responseNote=%s', responseNote);
 
 		try {
-			const candidateId = await this.bullhornService.addCandidate(candidate);
-			this.logger.log('submitResponseToBullhorn: candidateId=%o', candidateId);
+			if (!response.bullhornCandidateId) {
+				const candidateId = await this.bullhornService.addCandidate(candidate);
+				this.logger.log('submitResponseToBullhorn: candidateId=%o', candidateId);
 
-			if (candidateId) {
-				const appNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Application Note', appNote);
-				this.logger.log('submitResponseToBullhorn: appNoteId=%o', appNoteId);
+				if (candidateId) {
+					const appNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Application Note', appNote);
+					this.logger.log('submitResponseToBullhorn: appNoteId=%o', appNoteId);
 
-				if (partnerNote) {
-					const partnerNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Partner Note', partnerNote);
-					this.logger.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
+					if (partnerNote) {
+						const partnerNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Partner Note', partnerNote);
+						this.logger.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
+					}
+
+					if (Object.keys(response.utmCodes).length) {
+						const utmNoteId = await this.bullhornService.addCandidateNote(candidateId, 'UTM Note', JSON.stringify(response.utmCodes));
+						this.logger.log('submitResponseToBullhorn: utmCodes=%o, utmNoteId=%o', response.utmCodes, utmNoteId);
+					}
+
+					const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Entire Application', responseNote);
+					this.logger.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
+
+					response.bullhornCandidateId = candidateId;
 				}
+			}
 
-				if (utmNote) {
-					const utmNoteId = await this.bullhornService.addCandidateNote(candidateId, 'UTM Note', utmNote);
-					this.logger.log('submitResponseToBullhorn: utmNoteId=%o', utmNoteId);
-				}
+			const jobId = +this.configService.get('BULLHORN_JOBID') || 66;
+			this.logger.debug('submitResponseToBullhorn: jobId=%o', jobId);
 
-				const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Entire Application', responseNote);
-				this.logger.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
+			if (jobId && response.bullhornCandidateId && !response.bullhornJobSubId) {
+				response.bullhornJobSubId = await this.bullhornService.addJobSubmission(response.bullhornCandidateId, jobId);
+				this.logger.log('submitResponseToBullhorn: bullhornJobSubId=%o', response.bullhornJobSubId);
+			}
 
-				const jobId = +this.configService.get('BULLHORN_JOBID') || 66;
-				const jobSubId = await this.bullhornService.addJobSubmission(candidateId, jobId);
-				this.logger.log('submitResponseToBullhorn: jobSubId=%o', jobSubId);
-
-				response.bullhornCandidateId = candidateId;
+			if (response.bullhornCandidateId || response.bullhornJobSubId) {
 				await response.save();
 			}
 		} catch (err) {

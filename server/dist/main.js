@@ -149,10 +149,10 @@ DatabaseModule = __decorate([
                         useFindAndModify: false
                     };
                 }
-            }),
+            })
         ],
         providers: [database_service_1.DatabaseService, document_service_1.DocumentService],
-        exports: [database_service_1.DatabaseService, document_service_1.DocumentService],
+        exports: [database_service_1.DatabaseService, document_service_1.DocumentService]
     })
 ], DatabaseModule);
 exports.DatabaseModule = DatabaseModule;
@@ -232,9 +232,11 @@ exports.UtilityService = exports.serialPromise = void 0;
 const common_1 = __webpack_require__(4);
 function serialPromise(items, func) {
     let results = [], i = 0;
-    return items.reduce((promise, item) => {
-        return promise.then(() => func(item, i++)).then(r => results.push(r));
-    }, Promise.resolve()).then(() => results);
+    return items
+        .reduce((promise, item) => {
+        return promise.then(() => func(item, i++)).then((r) => results.push(r));
+    }, Promise.resolve())
+        .then(() => results);
 }
 exports.serialPromise = serialPromise;
 let UtilityService = class UtilityService {
@@ -376,16 +378,18 @@ let FileService = class FileService {
         const parts = path.split('/');
         parts.shift();
         let current = '/';
-        return this.serialPromise(parts, part => {
+        return this.serialPromise(parts, (part) => {
             current += `${part}/`;
             return this.createDir(current);
         });
     }
     serialPromise(items, func) {
         let results = [], i = 0;
-        return items.reduce((promise, item) => {
-            return promise.then(() => func(item, i++)).then(r => results.push(r));
-        }, Promise.resolve()).then(() => results);
+        return items
+            .reduce((promise, item) => {
+            return promise.then(() => func(item, i++)).then((r) => results.push(r));
+        }, Promise.resolve())
+            .then(() => results);
     }
     fileStats(file) {
         return new Promise((resolve, reject) => {
@@ -400,10 +404,10 @@ let FileService = class FileService {
         });
     }
     async isFile(path) {
-        return this.fileStats(path).then(stats => stats.isFile);
+        return this.fileStats(path).then((stats) => stats.isFile);
     }
     async isDir(path) {
-        return this.fileStats(path).then(stats => stats.isDir);
+        return this.fileStats(path).then((stats) => stats.isDir);
     }
     relativePath(path) {
         return pathModule.join(this.rootPath, path);
@@ -452,8 +456,6 @@ const postmarkTransport = __webpack_require__(21);
 const EmailTemplate = __webpack_require__(22);
 const file_service_1 = __webpack_require__(16);
 const logger_service_1 = __webpack_require__(14);
-;
-;
 let PostmarkService = class PostmarkService {
     constructor(configService, fileService) {
         this.configService = configService;
@@ -462,7 +464,7 @@ let PostmarkService = class PostmarkService {
         const apiKey = this.configService.get('POSTMARK_APIKEY');
         if (apiKey) {
             this.transport = nodemailer.createTransport(postmarkTransport({
-                auth: { apiKey },
+                auth: { apiKey }
             }));
         }
         else {
@@ -472,7 +474,7 @@ let PostmarkService = class PostmarkService {
             message: {},
             views: {
                 root: this.fileService.relativePath('templates/emails'),
-                options: { extension: 'handlebars' },
+                options: { extension: 'handlebars' }
             }
         });
     }
@@ -499,7 +501,7 @@ let PostmarkService = class PostmarkService {
         let html = await this.emailTemplate.render(tplName, data);
         html = await this.emailTemplate.render('template', {
             html,
-            backendUrl: data.backendUrl,
+            backendUrl: data.backendUrl
         });
         params.html = html;
         return this.sendEmail(params);
@@ -516,7 +518,7 @@ let PostmarkService = class PostmarkService {
             from: options.from,
             subject: options.subject,
             html: html
-        }).catch(err => {
+        }).catch((err) => {
             this.logger.error('sendEmail: err=%o', err);
             return Promise.reject(err);
         });
@@ -584,9 +586,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DocumentService = void 0;
 const common_1 = __webpack_require__(4);
 const mongoose_1 = __webpack_require__(8);
-;
-;
-;
 let DocumentService = class DocumentService {
     async saveDocument(model, doc, options = {}) {
         if (doc.toObject)
@@ -600,7 +599,10 @@ let DocumentService = class DocumentService {
             doc.createDate = new Date();
         else
             doc.updateDate = new Date();
-        return model.findOneAndUpdate(options.query, doc, { new: true, upsert: true }).exec().then(async (newDoc) => {
+        return model
+            .findOneAndUpdate(options.query, doc, { new: true, upsert: true })
+            .exec()
+            .then(async (newDoc) => {
             if (options.afterSave)
                 await options.afterSave(newDoc, oldDoc);
             return newDoc;
@@ -662,7 +664,7 @@ let SearchModule = class SearchModule {
 SearchModule = __decorate([
     common_1.Module({
         providers: [search_service_1.SearchService],
-        exports: [search_service_1.SearchService],
+        exports: [search_service_1.SearchService]
     })
 ], SearchModule);
 exports.SearchModule = SearchModule;
@@ -701,11 +703,11 @@ let SearchService = class SearchService {
         let filterQuery = {};
         let filterQueryPromise = Promise.resolve({});
         if (options.filterFunction) {
-            filterQueryPromise = options.filterFunction(searchParams).then(fq => filterQuery = fq);
+            filterQueryPromise = options.filterFunction(searchParams).then((fq) => (filterQuery = fq));
         }
         else {
             if (searchParams.filter) {
-                Object.keys(searchParams.filter).forEach(key => {
+                Object.keys(searchParams.filter).forEach((key) => {
                     const value = searchParams.filter[key];
                     if (value && value !== 'null') {
                         filterQuery[key] = this.regexMatch(value);
@@ -719,13 +721,10 @@ let SearchService = class SearchService {
             if (options.select)
                 query.select(options.select);
             if (options.populates)
-                options.populates.forEach(p => query.populate(p));
+                options.populates.forEach((p) => query.populate(p));
             if (options.lean)
                 query.lean();
-            return Promise.all([
-                model.countDocuments(filterQuery).exec(),
-                query.exec()
-            ]).then(([total, data]) => this.createSearchResult(searchParams, total, data));
+            return Promise.all([model.countDocuments(filterQuery).exec(), query.exec()]).then(([total, data]) => this.createSearchResult(searchParams, total, data));
         });
     }
     searchParamsFromQueryParams(queryParams) {
@@ -734,7 +733,7 @@ let SearchService = class SearchService {
             page: +queryParams.page || 1,
             filter: {}
         };
-        Object.keys(queryParams).forEach(key => {
+        Object.keys(queryParams).forEach((key) => {
             let filterMatch = key.match(/^filter\.(.*)/);
             let value = queryParams[key];
             if (value === 'null')
@@ -788,12 +787,6 @@ exports.SearchService = SearchService;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-;
-;
-;
-;
-;
-;
 
 
 /***/ }),
@@ -972,7 +965,10 @@ let AuthService = class AuthService {
         return str;
     }
     sha256(str, digest = 'hex') {
-        return crypto.createHash('sha256').update(str).digest(digest);
+        return crypto
+            .createHash('sha256')
+            .update(str)
+            .digest(digest);
     }
 };
 AuthService = __decorate([
@@ -1073,7 +1069,7 @@ let UserService = class UserService {
             user.password = this.authService.hashPassword(user.password);
         }
         if (user.firstName)
-            user.fullName = [user.firstName, user.lastName].map(p => p.trim()).join(' ');
+            user.fullName = [user.firstName, user.lastName].map((p) => p.trim()).join(' ');
         return this.documentService.saveDocument(this.userModel, user, {
             afterSave: (a, b) => this.afterUserSave(a, b)
         });
@@ -1436,10 +1432,12 @@ let UserModule = class UserModule {
 UserModule = __decorate([
     common_2.Module({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{
+            mongoose_1.MongooseModule.forFeature([
+                {
                     name: 'User',
                     schema: user_schema_1.userSchema
-                }]),
+                }
+            ]),
             utility_1.UtilityModule,
             search_1.SearchModule,
             database_1.DatabaseModule,
@@ -1600,7 +1598,6 @@ exports.userSchema = new mongoose.Schema({
     deleteDate: Date,
     deleteUser: { type: ObjectId, ref: 'User' }
 });
-;
 
 
 /***/ }),
@@ -1609,7 +1606,6 @@ exports.userSchema = new mongoose.Schema({
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-;
 
 
 /***/ }),
@@ -1658,13 +1654,7 @@ let ProductModule = class ProductModule {
 };
 ProductModule = __decorate([
     common_1.Module({
-        imports: [
-            database_1.DatabaseModule,
-            mongoose_1.MongooseModule.forFeature([
-                { name: 'Product', schema: product_schema_1.productSchema }
-            ]),
-            search_1.SearchModule
-        ],
+        imports: [database_1.DatabaseModule, mongoose_1.MongooseModule.forFeature([{ name: 'Product', schema: product_schema_1.productSchema }]), search_1.SearchModule],
         controllers: [product_controller_1.ProductController],
         providers: [product_service_1.ProductService],
         exports: [product_service_1.ProductService]
@@ -1723,9 +1713,7 @@ let ProductService = class ProductService {
                 return query;
             },
             lean: true,
-            populates: [
-                { path: 'company' }
-            ]
+            populates: [{ path: 'company' }]
         });
     }
     getProductById(productId) {
@@ -1790,7 +1778,6 @@ exports.productSchema = new mongoose.Schema({
     deleteDate: Date,
     deleteUser: { type: ObjectId, ref: 'User' }
 });
-;
 
 
 /***/ }),
@@ -1799,7 +1786,6 @@ exports.productSchema = new mongoose.Schema({
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-;
 
 
 /***/ }),
@@ -1906,13 +1892,7 @@ let ApplicationModule = class ApplicationModule {
 };
 ApplicationModule = __decorate([
     common_1.Module({
-        imports: [
-            database_1.DatabaseModule,
-            mongoose_1.MongooseModule.forFeature([
-                { name: 'Application', schema: application_schema_1.applicationSchema }
-            ]),
-            search_1.SearchModule
-        ],
+        imports: [database_1.DatabaseModule, mongoose_1.MongooseModule.forFeature([{ name: 'Application', schema: application_schema_1.applicationSchema }]), search_1.SearchModule],
         controllers: [application_controller_1.ApplicationController],
         providers: [application_service_1.ApplicationService],
         exports: [application_service_1.ApplicationService]
@@ -1997,7 +1977,7 @@ let ApplicationService = class ApplicationService {
         const application = await this.getApplicationById(applicationId);
         if (!application)
             throw new common_1.HttpException({ message: 'Application not found.', applicationId }, 404);
-        const section = application.sections.find(s => s.pages.find(p => p._id.equals(pageId)));
+        const section = application.sections.find((s) => s.pages.find((p) => p._id.equals(pageId)));
         if (!section)
             throw new common_1.HttpException({ message: 'Page not found.', applicationId, pageId }, 404);
         (_a = section.pages.id(pageId)) === null || _a === void 0 ? void 0 : _a.remove();
@@ -2033,37 +2013,45 @@ Object.defineProperty(exports, "Application", ({ enumerable: true, get: function
 const ObjectId = mongoose.Schema.Types.ObjectId;
 exports.applicationSchema = new mongoose.Schema({
     name: String,
-    sections: [{
+    sections: [
+        {
             order: Number,
             title: String,
-            pages: [{
+            pages: [
+                {
                     type: { type: String },
                     order: Number,
                     name: String,
                     title: String,
                     subTitle: String,
-                    questions: [{
+                    questions: [
+                        {
                             order: Number,
                             type: { type: String },
                             label: String,
                             key: String,
                             bullhornKey: String,
                             optional: Boolean,
-                            options: [{
+                            options: [
+                                {
                                     order: Number,
                                     value: mongoose.Schema.Types.Mixed,
                                     label: String,
                                     helperText: String,
                                     nextPageName: String,
                                     nextPageId: ObjectId
-                                }]
-                        }],
+                                }
+                            ]
+                        }
+                    ],
                     heroImage: String,
                     heroHtml: String,
                     nextPageName: String,
                     nextPageId: ObjectId
-                }]
-        }],
+                }
+            ]
+        }
+    ],
     __v: { type: Number, select: false },
     createDate: Date,
     updateDate: Date,
@@ -2075,7 +2063,6 @@ exports.applicationSchema = new mongoose.Schema({
 }, {
     minimize: false
 });
-;
 
 
 /***/ }),
@@ -2084,11 +2071,6 @@ exports.applicationSchema = new mongoose.Schema({
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-;
-;
-;
-;
-;
 
 
 /***/ }),
@@ -2244,7 +2226,6 @@ const utility_1 = __webpack_require__(11);
 const common_1 = __webpack_require__(4);
 const config_1 = __webpack_require__(5);
 const bullhorn_api_1 = __webpack_require__(61);
-;
 let BullhornService = class BullhornService {
     constructor(configService) {
         this.configService = configService;
@@ -2258,7 +2239,7 @@ let BullhornService = class BullhornService {
         this.login();
     }
     async login() {
-        const result = await this.bullhorn.login().catch(err => {
+        const result = await this.bullhorn.login().catch((err) => {
             this.logger.error('BullhornService.login: err=%o', err);
         });
         this.logger.debug('BullhornService.login: result=%o', result);
@@ -2271,7 +2252,10 @@ let BullhornService = class BullhornService {
     }
     async addCandidate(candidate) {
         await this.login();
-        candidate.name = [candidate.firstName, candidate.lastName].map(p => String(p).trim()).filter(p => p).join(' ');
+        candidate.name = [candidate.firstName, candidate.lastName]
+            .map((p) => String(p).trim())
+            .filter((p) => p)
+            .join(' ');
         const result = await this.bullhorn.fetch(`entity/Candidate`, {
             method: 'PUT',
             body: JSON.stringify(candidate)
@@ -2348,15 +2332,7 @@ let ApplicationResponseModule = class ApplicationResponseModule {
 };
 ApplicationResponseModule = __decorate([
     common_1.Module({
-        imports: [
-            database_1.DatabaseModule,
-            mongoose_1.MongooseModule.forFeature([
-                { name: 'ApplicationResponse', schema: application_response_schema_1.applicationResponseSchema }
-            ]),
-            search_1.SearchModule,
-            bullhorn_module_1.BullhornModule,
-            utility_1.UtilityModule
-        ],
+        imports: [database_1.DatabaseModule, mongoose_1.MongooseModule.forFeature([{ name: 'ApplicationResponse', schema: application_response_schema_1.applicationResponseSchema }]), search_1.SearchModule, bullhorn_module_1.BullhornModule, utility_1.UtilityModule],
         controllers: [application_response_controller_1.ApplicationResponseController],
         providers: [application_response_service_1.ApplicationResponseService],
         exports: [application_response_service_1.ApplicationResponseService]
@@ -2409,10 +2385,13 @@ let ApplicationResponseService = class ApplicationResponseService {
         setTimeout(() => this.resubmitResponses(), 5000);
     }
     async resubmitResponses() {
-        const responses = await this.responseModel.find({ status: 'submitted', bullhornCandidateId: { $exists: false } });
+        const responses = await this.responseModel.find({
+            status: 'submitted',
+            $or: [{ bullhornCandidateId: { $exists: false } }, { bullhornJobSubId: { $exists: false } }]
+        });
         this.logger.log('resubmitResponses: responses=%o', responses.length);
         return utility_1.serialPromise(responses, (response) => {
-            return this.submitResponseToBullhorn(response).catch(err => {
+            return this.submitResponseToBullhorn(response).catch((err) => {
                 this.logger.error('resubmitResponses: submitResponseToBullhorn err=%o', err);
                 return null;
             });
@@ -2425,17 +2404,24 @@ let ApplicationResponseService = class ApplicationResponseService {
                 if (!params.filter)
                     return query;
                 if (params.filter.name) {
-                    query['$or'] = [{
-                            'questionAnswers': { $elemMatch: {
+                    query['$or'] = [
+                        {
+                            questionAnswers: {
+                                $elemMatch: {
                                     questionKey: 'firstName',
                                     answer: this.searchService.regexMatch(params.filter.name)
-                                } }
-                        }, {
-                            'questionAnswers': { $elemMatch: {
+                                }
+                            }
+                        },
+                        {
+                            questionAnswers: {
+                                $elemMatch: {
                                     questionKey: 'lastName',
                                     answer: this.searchService.regexMatch(params.filter.name)
-                                } }
-                        }];
+                                }
+                            }
+                        }
+                    ];
                 }
                 return query;
             },
@@ -2449,10 +2435,10 @@ let ApplicationResponseService = class ApplicationResponseService {
         const to = this.configService.get('FAILED_BULLHORN_EMAIL');
         if (!to)
             return;
-        const html = `<p>Bullhorn Failed with Error: <pre>${JSON.stringify(error)}</pre></p>`
-            + `<hr><p>applicationResponseId: ${response._id}</p><hr>`
-            + responseNote
-            + `<hr><pre>${JSON.stringify(response.questionAnswers)}</pre>`;
+        const html = `<p>Bullhorn Failed with Error: <pre>${JSON.stringify(error)}</pre></p>` +
+            `<hr><p>applicationResponseId: ${response._id}</p><hr>` +
+            responseNote +
+            `<hr><pre>${JSON.stringify(response.questionAnswers)}</pre>`;
         this.postmarkService.sendEmail({
             to,
             subject: 'Tulsa Remote - Failed Submission',
@@ -2465,19 +2451,19 @@ let ApplicationResponseService = class ApplicationResponseService {
         });
     }
     async afterSave(newDoc, oldDoc) {
-        this.logger.log('saveResponse: %o', Object.assign(Object.assign({}, newDoc.toObject()), { application: undefined, questionAnswers: newDoc.questionAnswers.map(qa => `${qa.questionKey}: ${qa.answer}`) }));
+        this.logger.log('saveResponse: %o', Object.assign(Object.assign({}, newDoc.toObject()), { application: undefined, questionAnswers: newDoc.questionAnswers.map((qa) => `${qa.questionKey}: ${qa.answer}`) }));
         if (newDoc.status === 'submitted' && (oldDoc === null || oldDoc === void 0 ? void 0 : oldDoc.status) !== 'submitted')
             this.submitResponseToBullhorn(newDoc);
     }
     async submitResponseToBullhorn(response) {
-        this.logger.log('submitResponseToBullhorn: %o', Object.assign(Object.assign({}, response.toObject()), { application: undefined, questionAnswers: response.questionAnswers.map(qa => `${qa.questionKey}: ${qa.answer}`) }));
+        this.logger.log('submitResponseToBullhorn: %o', Object.assign(Object.assign({}, response.toObject()), { application: undefined, questionAnswers: response.questionAnswers.map((qa) => `${qa.questionKey}: ${qa.answer}`) }));
         const candidate = {
             status: 'New Applicant'
         };
         const appNoteLines = [];
         const partnerNoteLines = [];
         const responseNoteLines = [];
-        response.questionAnswers.map(qa => {
+        response.questionAnswers.map((qa) => {
             var _a, _b, _c, _d, _e;
             const question = this.findQuestionByQuestionKey(response.application, qa.questionKey);
             if (!question)
@@ -2505,42 +2491,47 @@ let ApplicationResponseService = class ApplicationResponseService {
                     break;
                 case 'secondaryAddress':
                     candidate['secondaryAddress'] = {
-                        address1: (_a = response.questionAnswers.find(qa => qa.questionKey === 'address.street1')) === null || _a === void 0 ? void 0 : _a.answer,
-                        address2: (_b = response.questionAnswers.find(qa => qa.questionKey === 'address.street2')) === null || _b === void 0 ? void 0 : _b.answer,
-                        city: (_c = response.questionAnswers.find(qa => qa.questionKey === 'address.city')) === null || _c === void 0 ? void 0 : _c.answer,
-                        state: (_d = response.questionAnswers.find(qa => qa.questionKey === 'address.state')) === null || _d === void 0 ? void 0 : _d.answer,
-                        zip: (_e = response.questionAnswers.find(qa => qa.questionKey === 'address.zipcode')) === null || _e === void 0 ? void 0 : _e.answer
+                        address1: (_a = response.questionAnswers.find((qa) => qa.questionKey === 'address.street1')) === null || _a === void 0 ? void 0 : _a.answer,
+                        address2: (_b = response.questionAnswers.find((qa) => qa.questionKey === 'address.street2')) === null || _b === void 0 ? void 0 : _b.answer,
+                        city: (_c = response.questionAnswers.find((qa) => qa.questionKey === 'address.city')) === null || _c === void 0 ? void 0 : _c.answer,
+                        state: (_d = response.questionAnswers.find((qa) => qa.questionKey === 'address.state')) === null || _d === void 0 ? void 0 : _d.answer,
+                        zip: (_e = response.questionAnswers.find((qa) => qa.questionKey === 'address.zipcode')) === null || _e === void 0 ? void 0 : _e.answer
                     };
                     break;
                 default:
                     candidate[bullhornKey] = qa.answer;
             }
         });
-        const utmNote = JSON.stringify(response.utmCodes);
         const appNote = appNoteLines.join('<br><br>');
         const partnerNote = partnerNoteLines.join('<br><br>');
         const responseNote = responseNoteLines.join('<br><br>');
-        console.log("utm note", utmNote);
         try {
-            const candidateId = await this.bullhornService.addCandidate(candidate);
-            this.logger.log('submitResponseToBullhorn: candidateId=%o', candidateId);
-            if (candidateId) {
-                const appNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Application Note', appNote);
-                this.logger.log('submitResponseToBullhorn: appNoteId=%o', appNoteId);
-                if (partnerNote) {
-                    const partnerNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Partner Note', partnerNote);
-                    this.logger.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
+            if (!response.bullhornCandidateId) {
+                const candidateId = await this.bullhornService.addCandidate(candidate);
+                this.logger.log('submitResponseToBullhorn: candidateId=%o', candidateId);
+                if (candidateId) {
+                    const appNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Application Note', appNote);
+                    this.logger.log('submitResponseToBullhorn: appNoteId=%o', appNoteId);
+                    if (partnerNote) {
+                        const partnerNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Partner Note', partnerNote);
+                        this.logger.log('submitResponseToBullhorn: partnerNoteId=%o', partnerNoteId);
+                    }
+                    if (Object.keys(response.utmCodes).length) {
+                        const utmNoteId = await this.bullhornService.addCandidateNote(candidateId, 'UTM Note', JSON.stringify(response.utmCodes));
+                        this.logger.log('submitResponseToBullhorn: utmCodes=%o, utmNoteId=%o', response.utmCodes, utmNoteId);
+                    }
+                    const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Entire Application', responseNote);
+                    this.logger.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
+                    response.bullhornCandidateId = candidateId;
                 }
-                if (utmNote) {
-                    const utmNoteId = await this.bullhornService.addCandidateNote(candidateId, 'UTM Note', utmNote);
-                    this.logger.log('submitResponseToBullhorn: utmNoteId=%o', utmNoteId);
-                }
-                const responseNoteId = await this.bullhornService.addCandidateNote(candidateId, 'Entire Application', responseNote);
-                this.logger.log('submitResponseToBullhorn: responseNoteId=%o', responseNoteId);
-                const jobId = +this.configService.get('BULLHORN_JOBID') || 66;
-                const jobSubId = await this.bullhornService.addJobSubmission(candidateId, jobId);
-                this.logger.log('submitResponseToBullhorn: jobSubId=%o', jobSubId);
-                response.bullhornCandidateId = candidateId;
+            }
+            const jobId = +this.configService.get('BULLHORN_JOBID') || 66;
+            this.logger.debug('submitResponseToBullhorn: jobId=%o', jobId);
+            if (jobId && response.bullhornCandidateId && !response.bullhornJobSubId) {
+                response.bullhornJobSubId = await this.bullhornService.addJobSubmission(response.bullhornCandidateId, jobId);
+                this.logger.log('submitResponseToBullhorn: bullhornJobSubId=%o', response.bullhornJobSubId);
+            }
+            if (response.bullhornCandidateId || response.bullhornJobSubId) {
                 await response.save();
             }
         }
@@ -2549,13 +2540,13 @@ let ApplicationResponseService = class ApplicationResponseService {
         }
     }
     findQuestionByQuestionKey(application, questionKey) {
-        const section = application.sections.find(s => s.pages.find(p => p.questions.find(q => q.key === questionKey)));
+        const section = application.sections.find((s) => s.pages.find((p) => p.questions.find((q) => q.key === questionKey)));
         if (!section)
             return null;
-        const page = section.pages.find(p => p.questions.find(q => q.key === questionKey));
+        const page = section.pages.find((p) => p.questions.find((q) => q.key === questionKey));
         if (!page)
             return null;
-        return page.questions.find(q => q.key === questionKey);
+        return page.questions.find((q) => q.key === questionKey);
     }
 };
 __decorate([
@@ -2597,12 +2588,15 @@ exports.applicationResponseSchema = new mongoose.Schema({
     lastPage: String,
     ipAddress: String,
     application: application_1.applicationSchema,
-    questionAnswers: [{
+    questionAnswers: [
+        {
             questionKey: String,
             answer: mongoose.Schema.Types.Mixed,
             answerLabel: String
-        }],
+        }
+    ],
     bullhornCandidateId: Number,
+    bullhornJobSubId: Number,
     bummerEmail: String,
     __v: { type: Number, select: false },
     createDate: Date,
@@ -2613,7 +2607,6 @@ exports.applicationResponseSchema = new mongoose.Schema({
 }, {
     collection: 'applicationResponses'
 });
-;
 
 
 /***/ }),
@@ -2644,8 +2637,6 @@ __exportStar(__webpack_require__(56), exports);
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-;
-;
 
 
 /***/ }),

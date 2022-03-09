@@ -48,18 +48,6 @@ export class ApplicationComponent implements OnInit {
 	async ngOnInit() {
 		this.application = await this.applicationService.searchApplications({ filter: {} }).then((r) => r.records[0]);
 		await this.loadResponse();
-		console.log('get utm codes from service', this.applicationService.utm_codes);
-
-		// const sectionIndex = +this.route.snapshot.queryParams['section'] || 0;
-		// const pageIndex = +this.route.snapshot.queryParams['page'] || 0;
-		// this.loadPage(sectionIndex, pageIndex);
-
-		// this.route.queryParams.subscribe(queryParams => {
-		// 	const sectionIndex = +queryParams['section'] || 0;
-		// 	const pageIndex = +queryParams['page'] || 0;
-		// 	console.log('ApplicationComponent: queryParams subscribe: sectionIndex=%o, pageIndex=%o', sectionIndex,pageIndex);
-		// 	this.loadPage(sectionIndex, pageIndex);
-		// });
 	}
 
 	async loadResponse() {
@@ -117,6 +105,7 @@ export class ApplicationComponent implements OnInit {
 			(err) => console.error('Failed to get ipAddress: %o', err)
 		);
 	}
+
 	async saveResponse() {
 		this.response.questionAnswers = Object.keys(this.answers).map((questionKey) => {
 			return {
@@ -217,6 +206,7 @@ export class ApplicationComponent implements OnInit {
 		if (!this.section || !this.section.pages?.length) return 0;
 		return this.section.pages.length - 1;
 	}
+
 	get lastSectionIndex() {
 		if (!this.application || !this.application.sections?.length) return 0;
 		return this.application.sections.length - 1;
@@ -240,6 +230,7 @@ export class ApplicationComponent implements OnInit {
 		console.log('onNextBtn: nextPageName=%o', this.page.nextPageName);
 		this.loadPageByName(this.page.nextPageName);
 	}
+
 	onPrevBtn() {
 		const currentPageName = this.page.name;
 		if (!currentPageName) return;
@@ -272,6 +263,7 @@ export class ApplicationComponent implements OnInit {
 	findSectionIndexByPageName(pageName: string) {
 		return this.application.sections.findIndex((s) => s.pages.find((p) => p.name === pageName));
 	}
+
 	findSectionIndexByPageId(pageId: string) {
 		return this.application.sections.findIndex((s) => s.pages.find((p) => p._id === pageId));
 	}
@@ -282,12 +274,14 @@ export class ApplicationComponent implements OnInit {
 		const pageIndex = this.application.sections[sectionIndex].pages.findIndex((p) => p.name === pageName);
 		return pageIndex;
 	}
+
 	findPageIndexByPageId(pageId: string) {
 		const sectionIndex = this.findSectionIndexByPageId(pageId);
 		if (sectionIndex === -1) return -1;
 		const pageIndex = this.application.sections[sectionIndex].pages.findIndex((p) => p._id === pageId);
 		return pageIndex;
 	}
+
 	findPageByPageId(pageId: string) {
 		const sectionIndex = this.findSectionIndexByPageId(pageId);
 		if (sectionIndex === -1) return null;
@@ -470,15 +464,18 @@ export class ApplicationComponent implements OnInit {
 	isPhoneValid(phone: string) {
 		return !!(phone && phone.match(/^[\d-\(\)\+\s]+$/g) && phone.replace(/[^\d]/g, '').match(/^[0-9]{10,12}$/));
 	}
+
 	isEmailValid(email: string) {
 		return !!(
 			email &&
 			email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
 		);
 	}
+
 	isUrlValid(url: string) {
 		return !!(url && url.match(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/));
 	}
+
 	isBirthDateValid(birthDate: string) {
 		const birthDateObject = new Date(birthDate);
 		birthDateObject?.setUTCHours(this.today.getUTCHours(), this.today.getUTCMinutes(), this.today.getUTCSeconds());
