@@ -209,7 +209,8 @@ export class ApplicationResponseService {
 			}
 
 			if (response.bullhornCandidateId || response.bullhornJobSubId) {
-				await response.save();
+				response.updateDate = new Date();
+				return response.save();
 			}
 		} catch (err) {
 			this.onFailedBullhornSubmission(response, responseNote, err?.stack || err);
