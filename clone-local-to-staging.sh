@@ -1,4 +1,7 @@
 #!/bin/sh
+
+# TODO: Refactor from clone-prod-to-local.sh
+
 mongodump --gzip -d tulsa-remote
 
 mongorestore -uri "mongodb+srv://tulsa-remote.o9u9i.mongodb.net" \
