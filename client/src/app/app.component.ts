@@ -41,7 +41,6 @@ export class AppComponent {
 		if (queryParams.utm_source) {
 			this.applicationService.utm_codes['utm_source'] = queryParams.utm_source;
 		}
-		console.log('AppComponent: utm_codes=%o', this.applicationService.utm_codes);
 	}
 
 	ngOnInit() {}
