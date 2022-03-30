@@ -13,29 +13,29 @@
     "target": "es2015",
     "module": "es2020",
     "lib": [
-      "es2018",
+      "es2019",
       "dom"
     ],
-	"resolveJsonModule": true,
-	"allowSyntheticDefaultImports": true,
-	"paths": {
-		"@server": [
-			"../server/src"
-		],
-		"@server/*": [
-			"../server/src/*"
-		],
-		"@server/search": [
-			"../server/libs/search/src"
-		],
-		"@server/search/*": [
-			"../server/libs/search/src/*"
-		]
-	}
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@server": [
+        "../server/src"
+      ],
+      "@server/*": [
+        "../server/src/*"
+      ],
+      "@server/search": [
+        "../server/libs/search/src"
+      ],
+      "@server/search/*": [
+        "../server/libs/search/src/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
-	"strictTemplates": true
+    "strictTemplates": true
   },
   "resolveJsonModule": true
 }

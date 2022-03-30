@@ -87,7 +87,7 @@ export class ApplicationComponent implements OnInit {
 			this.answers[qa.questionKey] = qa.answer;
 		});
 		this.response.utmCodes = this.applicationService.utm_codes;
-		console.log('ApplicationComponent.loadResponse: response=%o', this.response);
+		console.log('ApplicationComponent.loadResponse: response=%o, utm_codes=%o', this.response, this.applicationService.utm_codes);
 
 		if (this.response.lastPage) {
 			// const sectionIndex = this.findSectionIndexByPageName(this.response.lastPage);
